@@ -58,26 +58,6 @@ public class Hangman implements Game
         }
     }
 
-    /**
-     * Checks if the letter has been guessed or not
-     *
-     * @param letter the letter that was guessed
-     * @return true if the letter was already guessed; otherwise, false.
-     */
-//    protected boolean hasGuessedLetter(char letter)
-//    {
-//        boolean retVal = false;
-//        for (Character character : this.guessedLetters)
-//        {
-//            if (character.get() == letter)
-//            {
-//                retVal = true;
-//                break;
-//            }
-//        }
-//        return retVal;
-//    }
-
     public void setWordToGuess(String word)
     {
 //        this.wordToGuess = word;
