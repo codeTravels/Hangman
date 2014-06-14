@@ -61,7 +61,6 @@ public class Word
                 retVal = true;
                 letter.setDisplayChar(true);
                 lettersLeftToGuess--;
-                break;
             }
         }
         return retVal;

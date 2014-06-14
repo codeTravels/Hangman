@@ -6,6 +6,8 @@ package com.mycompany.hangman;
 
 import com.mycompany.hangman.gui.PrintArea;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,7 +24,7 @@ public class HangmanGame implements Game, InputListener
     private WordGenerator wordGenerator = new WordGenerator();
     private Word wordToGuess;
     private PrintArea printArea;
-    private final Object lock = new Object();
+    private final Object inputWait = new Object();
 
     public void start()
     {
@@ -30,9 +32,10 @@ public class HangmanGame implements Game, InputListener
         //Stops when the word is guessed or ran out of chances
         while (!wordToGuess.hasGuessedWord() && chancesLeftToGuess > 0)
         {
-            guessedLetter = getNextGuess();
+
+            waitForNextGuess();
             checkGuessedLetter(guessedLetter);
-            
+
             if (wordToGuess.hasGuessedWord())
             {
                 //Prints out if the word is figured out
@@ -72,6 +75,7 @@ public class HangmanGame implements Game, InputListener
     {
         this.printArea = area;
     }
+
     public void stop()
     {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -108,34 +112,51 @@ public class HangmanGame implements Game, InputListener
         guessedLetters.add(new Character(letter));
     }
 
-    /**
-     * Gets a char that is from 'a' to 'z' from user input
-     *
-     * @return
-     */
-    protected char getNextGuess()
-    {
-        char retVal;
-        do
-        {
-            printArea.println("Please make a valid guess.");
-            retVal = scan.nextLine().charAt(0);
-        }
-        while (!isALetter(retVal));
-        return retVal;
-    }
-
     protected boolean isALetter(char character)
     {
         //return ((character - 'a' ) < 26) || ((character - 'A') < 26);
         return ('a' <= character) && (character <= 'z');
     }
 
+    /**
+     * Called when there is an input from the user. Notifies if the input is a
+     * letter.
+     *
+     * @param inputChar
+     */
     public void inputEvent(char inputChar)
     {
         if (isALetter(inputChar))
         {
             guessedLetter = inputChar;
+            synchronized (this.inputWait)
+            {
+                inputWait.notify();
+            }
+        }
+        else
+        {
+            printArea.println("Please make a valid guess.");
+        }
+    }
+
+    protected char getGuessedLetter()
+    {
+        return guessedLetter;
+    }
+
+    protected void waitForNextGuess()
+    {
+        synchronized (this.inputWait)
+        {
+            try
+            {
+                inputWait.wait();
+            }
+            catch (InterruptedException ex)
+            {
+                Logger.getLogger(HangmanGame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }
