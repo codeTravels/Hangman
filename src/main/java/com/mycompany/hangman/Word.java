@@ -4,6 +4,7 @@
  */
 package com.mycompany.hangman;
 
+import com.mycompany.hangman.gui.PrintArea;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Word
 
     private List<Character> letters = new ArrayList();
     private int lettersLeftToGuess;
+    private PrintArea printArea;
 
     public Word(String word)
     {
@@ -108,14 +110,14 @@ public class Word
 
             if (!character.isSpace())
             {
-                System.out.print(charToDisplay + " ");
+                printArea.print(charToDisplay + " ");
             }
             else
             {
-                System.out.print(charToDisplay);
+                printArea.print(charToDisplay + "");
             }
         }
-        System.out.println();
+        printArea.println();
     }
 
     public int getLettersLeftToGuess()
@@ -134,8 +136,13 @@ public class Word
         StringBuilder retVal = new StringBuilder();
         for (Character letter : letters)
         {
-            retVal.append(letter.get());
+            retVal.append(letter);
         }
         return retVal.toString();
+    }
+
+    public void setPrintArea(PrintArea area)
+    {
+        this.printArea = area;
     }
 }
