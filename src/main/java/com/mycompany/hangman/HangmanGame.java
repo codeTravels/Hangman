@@ -87,6 +87,7 @@ public class HangmanGame implements Game, InputListener
         wordToGuess.setPrintArea(printArea);
         chancesLeftToGuess = CHANCES_TO_GUESS;
         guessedLetters = new ArrayList();
+        wordToGuess.print();
     }
 
     /**
