@@ -4,10 +4,10 @@
  */
 package com.mycompany.hangman.gui;
 
+import com.mycompany.hangman.Character;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
-import com.mycompany.hangman.Character;
 
 /**
  *
