@@ -16,7 +16,7 @@ public class HangmanApp
         HangmanGame hangman = new HangmanGame();
         gui.setInputListener(hangman);
         hangman.setPrintArea(gui);
-       hangman.setGuessedLetterObserver(gui.getFrame());
+        hangman.setGuessedLetterObserver(gui.getFrame());
         do
         {
             hangman.start();
