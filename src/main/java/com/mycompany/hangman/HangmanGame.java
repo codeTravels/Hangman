@@ -4,6 +4,7 @@
  */
 package com.mycompany.hangman;
 
+import com.mycompany.hangman.gui.GuessedLetterObserver;
 import com.mycompany.hangman.gui.PrintArea;
 import java.util.*;
 import java.util.logging.Level;
@@ -25,6 +26,7 @@ public class HangmanGame implements Game, InputListener
     private Word wordToGuess;
     private PrintArea printArea;
     private final Object inputWait = new Object();
+    private GuessedLetterObserver guessedLetterObserver;
 
     public void start()
     {
@@ -63,9 +65,15 @@ public class HangmanGame implements Game, InputListener
                 }
             }
             addGuessedLetterToList(guessedLetter);
+
+            guessedLetterObserver.updateGuessedLetters(guessedLetters);
         }
     }
 
+    public void setGuessedLetterObserver(GuessedLetterObserver guessedLetterObserver)
+    {
+        this.guessedLetterObserver = guessedLetterObserver;
+    }
     public void setWordToGuess(String word)
     {
 //        this.wordToGuess = word;
@@ -137,7 +145,7 @@ public class HangmanGame implements Game, InputListener
         }
         else
         {
-            printArea.println("Please make a valid guess.");
+            printArea.println("Please make a valid guess. Choose between a-z.");
         }
     }
 
