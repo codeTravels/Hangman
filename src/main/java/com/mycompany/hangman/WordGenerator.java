@@ -4,6 +4,7 @@
  */
 package com.mycompany.hangman;
 
+import com.mycompany.hangman.Word;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -19,12 +20,18 @@ public class WordGenerator
 
     private static final String WORD_FILE = "wordLib.txt";
 
-    public String generateWord()
+    public Word generateWord()
+    {
+        String retVal = findStringToUse();
+
+        return new Word(retVal.toLowerCase());
+    }
+
+    private String findStringToUse()
     {
         File inputFile;
         String retVal = null;
         BufferedReader buffer;
-
         try
         {
             inputFile = new File(WORD_FILE);
@@ -42,11 +49,10 @@ public class WordGenerator
         {
             System.err.println("Unable to read from file");
         }
-
-        return retVal.toLowerCase();
+        return retVal;
     }
 
-    public int wordCount()
+    private int wordCount()
     {
         File inputFile;
         //String word = null;
