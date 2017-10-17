@@ -51,6 +51,13 @@ public class HangmanFrame extends JFrame implements GuessedLetterObserver
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTextField1.setText("Enter guess here ");
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                jTextField1FocusGained(evt);
+            }
+        });
         jTextField1.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -128,6 +135,12 @@ public class HangmanFrame extends JFrame implements GuessedLetterObserver
     {//GEN-HEADEREND:event_jTextField1ActionPerformed
         actionObserver.textEntered();
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_jTextField1FocusGained
+    {//GEN-HEADEREND:event_jTextField1FocusGained
+        // TODO add your handling code here:
+        getTextField().selectAll();
+    }//GEN-LAST:event_jTextField1FocusGained
 
     /**
      * @param args the command line arguments
