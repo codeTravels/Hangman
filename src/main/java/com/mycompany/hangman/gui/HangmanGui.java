@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author Cory
  */
-public class HangmanGui implements ActionObserver, PrintArea
+public class HangmanGui implements ActionObserver
 {
 
     HangmanFrame hangmanFrame = new HangmanFrame();
@@ -65,23 +65,8 @@ public class HangmanGui implements ActionObserver, PrintArea
         return retVal;
     }
 
-    public void println()
-    {
-        getFrame().getTextArea().append("\n");
-    }
-
-    public void println(String stringToPrint)
-    {
-        getFrame().getTextArea().append(stringToPrint + "\n");
-    }
-
-    public void print(String stringToPrint)
-    {
-        getFrame().getTextArea().append(stringToPrint);
-    }
-
     public void gameEnded()
     {
-        println("Thanks for playing! Come back soon.");
+        this.hangmanFrame.println("Thanks for playing! Come back soon.");
     }
 }

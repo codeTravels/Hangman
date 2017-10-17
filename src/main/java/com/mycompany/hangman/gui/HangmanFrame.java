@@ -7,13 +7,14 @@ package com.mycompany.hangman.gui;
 import com.mycompany.hangman.Character;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.text.AbstractDocument;
 import javax.swing.text.DefaultCaret;
 
 /**
  *
  * @author Cory
  */
-public class HangmanFrame extends JFrame implements GuessedLetterObserver
+public class HangmanFrame extends JFrame implements GuessedLetterObserver, PrintArea
 {
     private ActionObserver actionObserver;
     /**
@@ -29,6 +30,8 @@ public class HangmanFrame extends JFrame implements GuessedLetterObserver
         setVisible(true);
         setTitle("Hangman");
         this.guessedLetters.setVisible(false);
+//        TextComponentLimit.addTo(jTextField1, 1);
+        ((AbstractDocument)this.jTextField1.getDocument()).setDocumentFilter(new MyDocumentFilter());
     }
 
     /**
@@ -190,15 +193,23 @@ public class HangmanFrame extends JFrame implements GuessedLetterObserver
             }
         });
     }
-    public HangmanFrame getFrame()
-    {
-        return this;
-    }
-    public JTextArea getTextArea()
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel guessedLetters;
+    private javax.swing.JLabel guessedLettersLabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    // End of variables declaration//GEN-END:variables
+
+  public JTextArea getTextArea()
     {
         return jTextArea1;
     }
-     public JTextField getTextField()
+
+    public JTextField getTextField()
     {
         return jTextField1;
     }
@@ -221,14 +232,19 @@ public class HangmanFrame extends JFrame implements GuessedLetterObserver
             this.guessedLetters.setVisible(true);
         }
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel guessedLetters;
-    private javax.swing.JLabel guessedLettersLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    // End of variables declaration//GEN-END:variables
+    public void print(String stringToPrint)
+    {
+        getTextArea().append(stringToPrint);
+    }
+    public void println()
+    {
+        getTextArea().append("\n");
+    }
 
+    public void println(String stringToPrint)
+    {
+        print(stringToPrint);
+        println();
+    }
 
 }
