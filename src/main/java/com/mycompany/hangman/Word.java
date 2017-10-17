@@ -4,7 +4,6 @@
  */
 package com.mycompany.hangman;
 
-import com.mycompany.hangman.gui.PrintArea;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,6 @@ public class Word
 
     private List<Character> letters = new ArrayList();
     private int lettersLeftToGuess;
-    private PrintArea printArea;
 
     public Word(String word)
     {
@@ -50,8 +48,9 @@ public class Word
      * @return true if the guessed letter is not currently displayed and is part
      * of the word. false if the letter is already displaying or is not part of
      * the word
+     *
      */
-    protected boolean guessedCorrectLetter(char guessedLetter)
+    public boolean guessedCorrectLetter(char guessedLetter)
     {
         boolean retVal = false;
         for (Character letter : letters)
@@ -98,25 +97,23 @@ public class Word
         return retVal;
     }
 
-    /**
-     * Prints out the word
-     */
-    public void print()
+    public String displayString()
     {
+        StringBuilder builder = new StringBuilder();
         for (Character character : letters)
         {
             char charToDisplay = character.getCharToDisplay();
-
+            builder.append(charToDisplay);
             if (!character.isSpace())
             {
-                printArea.print(charToDisplay + " ");
+                builder.append(" ");
             }
             else
             {
-                printArea.print(charToDisplay + "");
+                builder.append("");
             }
         }
-        printArea.println();
+         return builder.toString();
     }
 
     public int getLettersLeftToGuess()
@@ -140,8 +137,4 @@ public class Word
         return retVal.toString();
     }
 
-    public void setPrintArea(PrintArea area)
-    {
-        this.printArea = area;
-    }
 }
