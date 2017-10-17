@@ -6,24 +6,34 @@ import com.mycompany.hangman.gui.HangmanGui;
  * Hello world!
  *
  */
-public class HangmanApp
+public class HangmanApp implements GameObserver
 {
 
     private final HangmanGui gui = new HangmanGui();
+    private final HangmanGame hangman = new HangmanGame();
 
     public void start()
     {
-        HangmanGame hangman = new HangmanGame();
         gui.setInputListener(hangman);
-        hangman.setPrintArea(gui);
+        hangman.setPrintArea(gui.getFrame());
         hangman.setGuessedLetterObserver(gui.getFrame());
-        do
+        hangman.setGameObserver(this);
+        hangman.start();
+    }
+
+
+    @Override
+    public void onGameEnded()
+    {
+         if (gui.playAgain())
         {
-            hangman.start();
+            hangman.reset();
         }
-        while (gui.playAgain());
-        gui.gameEnded();
-        System.exit(0);
+        else
+        {
+            gui.gameEnded();
+            System.exit(0);
+        }
     }
 
 

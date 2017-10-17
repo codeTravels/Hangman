@@ -7,8 +7,6 @@ package com.mycompany.hangman;
 import com.mycompany.hangman.gui.GuessedLetterObserver;
 import com.mycompany.hangman.gui.PrintArea;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -17,85 +15,87 @@ import java.util.logging.Logger;
 public class HangmanGame implements Game, InputListener
 {
 
-    private static int CHANCES_TO_GUESS = 5;
+    private static final int CHANCES_TO_GUESS = 5;
     private int chancesLeftToGuess;
-    private Scanner scan = new Scanner(System.in);
     private List<Character> guessedLetters = new ArrayList();
-    private char guessedLetter;
-    private WordGenerator wordGenerator = new WordGenerator();
     private Word wordToGuess;
     private PrintArea printArea;
-    private final Object inputWait = new Object();
     private GuessedLetterObserver guessedLetterObserver;
+    private GameObserver gameObserver;
+
+    public void setGameObserver(GameObserver observer)
+    {
+        this.gameObserver = observer;
+    }
 
     public void start()
     {
         reset();
         //Stops when the word is guessed or ran out of chances
-        while (!wordToGuess.hasGuessedWord() && chancesLeftToGuess > 0)
-        {
-
-            waitForNextGuess();
-            checkGuessedLetter(guessedLetter);
-
-            if (wordToGuess.hasGuessedWord())
-            {
-                //Prints out if the word is figured out
-                printArea.println("Great, you have figured out the word! It is " + wordToGuess + ".");
-            }
-            else if (Word.hasLetter(guessedLetter, guessedLetters))
-            {
-                printArea.println("You already guessed the letter '" + guessedLetter + "'. So far you have ");
-                wordToGuess.print();
-            }
-            else if (wordToGuess.hasLetter(guessedLetter))
-            {
-                printArea.println("Great guess you got one!");
-                wordToGuess.print();
-            }
-            else
-            {
-                chancesLeftToGuess--;
-                printArea.println("Sorry, wrong guess. You have " + (chancesLeftToGuess) + " chances left. So far, you have ");
-                wordToGuess.print();
-
-                if (chancesLeftToGuess == 0)
-                {
-                    printArea.println("You Lose. The word was " + wordToGuess);
-                }
-            }
-            addGuessedLetterToList(guessedLetter);
-
-            guessedLetterObserver.updateGuessedLetters(guessedLetters);
-        }
     }
-
-    public void setGuessedLetterObserver(GuessedLetterObserver guessedLetterObserver)
-    {
-        this.guessedLetterObserver = guessedLetterObserver;
-    }
-    public void setWordToGuess(String word)
-    {
-//        this.wordToGuess = word;
-    }
-
-    public void setPrintArea(PrintArea area)
-    {
-        this.printArea = area;
-    }
-
-    public void stop()
+     public void stop()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void reset()
     {
-        wordToGuess = new Word(wordGenerator.generateWord());
-        wordToGuess.setPrintArea(printArea);
+        wordToGuess = new WordGenerator().generateWord();
         chancesLeftToGuess = CHANCES_TO_GUESS;
         guessedLetters = new ArrayList();
-        wordToGuess.print();
+        guessedLetterObserver.updateGuessedLetters(guessedLetters);
+
+        printArea.println(wordToGuess.displayString());
+    }
+
+    public boolean hasEnded()
+    {
+        return wordToGuess.hasGuessedWord() || chancesLeftToGuess <= 0;
+    }
+
+    private void processLetter(char guessedLetter)
+    {
+        checkGuessedLetter(guessedLetter);
+
+        if (wordToGuess.hasGuessedWord())
+        {
+            //Prints out if the word is figured out
+            printArea.println("Great, you have figured out the word! It is " + wordToGuess + ".");
+        }
+        else if (Word.hasLetter(guessedLetter, guessedLetters))
+        {
+            printArea.println("You already guessed the letter '" + guessedLetter + "'. So far you have");
+            printArea.println( wordToGuess.displayString());
+        }
+        else if (wordToGuess.hasLetter(guessedLetter))
+        {
+            printArea.println("Great guess you got one!");
+            printArea.println( wordToGuess.displayString());
+        }
+        else
+        {
+            chancesLeftToGuess--;
+            printArea.println("Sorry, wrong guess. You have " + (chancesLeftToGuess) + " chances left. So far, you have");
+            printArea.println( wordToGuess.displayString());
+
+            if (chancesLeftToGuess == 0)
+            {
+                printArea.println("You Lose. The word was " + wordToGuess);
+            }
+        }
+        addGuessedLetterToList(guessedLetter);
+
+        guessedLetterObserver.updateGuessedLetters(guessedLetters);
+    }
+
+    public void setGuessedLetterObserver(GuessedLetterObserver guessedLetterObserver)
+    {
+        this.guessedLetterObserver = guessedLetterObserver;
+    }
+
+    public void setPrintArea(PrintArea area)
+    {
+        this.printArea = area;
     }
 
     /**
@@ -137,35 +137,15 @@ public class HangmanGame implements Game, InputListener
     {
         if (isALetter(inputChar))
         {
-            guessedLetter = inputChar;
-            synchronized (this.inputWait)
+            processLetter(inputChar);
+            if (hasEnded())
             {
-                inputWait.notify();
+                this.gameObserver.onGameEnded();
             }
         }
         else
         {
             printArea.println("Please make a valid guess. Choose between a-z.");
-        }
-    }
-
-    protected char getGuessedLetter()
-    {
-        return guessedLetter;
-    }
-
-    protected void waitForNextGuess()
-    {
-        synchronized (this.inputWait)
-        {
-            try
-            {
-                inputWait.wait();
-            }
-            catch (InterruptedException ex)
-            {
-                Logger.getLogger(HangmanGame.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }
 }
