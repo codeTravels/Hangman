@@ -52,14 +52,17 @@ public class WordController implements ActionListener
                 }
                 view.updateGuessedLetters(model.getGuessedLetters());
 
-                    if (model.hasEnded() && playAgain())
+                    if (model.hasEnded())
                     {
+                        if (playAgain())
+                        {
                             reset();
-                    }
-                    else
-                    {
-                         this.view.println("Thanks for playing! Come back soon.");
-                        System.exit(0);
+                        }
+                        else
+                        {
+                             this.view.println("Thanks for playing! Come back soon.");
+                            System.exit(0);
+                        }
                     }
             }
             else
