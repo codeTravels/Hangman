@@ -12,8 +12,8 @@ public class Character
 {
 
     protected static char PLACE_HOLDER = '_';
-    char character;
-    boolean displayChar = false;
+    private char character;
+    private boolean displayChar = false;
 
     public Character(char character)
     {

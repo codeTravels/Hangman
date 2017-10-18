@@ -13,7 +13,7 @@ import java.util.*;
 public class HangmanGame
 {
 
-    private static final int CHANCES_TO_GUESS = 5;
+    protected static final int CHANCES_TO_GUESS = 5;
     private int chancesLeftToGuess;
     private final List<Character> guessedLetters = new ArrayList();
     private Word wordToGuess;
@@ -21,24 +21,19 @@ public class HangmanGame
 
     public HangmanGame()
     {
-        reset();
+        reset(new WordGenerator().generateWord());
     }
 
-    public final void reset()
+    public final void reset(Word word)
     {
-        wordToGuess = new WordGenerator().generateWord();
+        wordToGuess = word;
         chancesLeftToGuess = CHANCES_TO_GUESS;
         guessedLetters.clear();
-
+        outputText.clear();
         outputText.add(wordToGuess.displayString());
     }
 
-    public boolean hasEnded()
-    {
-        return wordToGuess.hasGuessedWord() || chancesLeftToGuess <= 0;
-    }
-
-     public void processLetter(char guessedLetter)
+    public void processLetter(char guessedLetter)
     {
         checkGuessedLetter(guessedLetter);
 
@@ -65,7 +60,7 @@ public class HangmanGame
 
             if (chancesLeftToGuess == 0)
             {
-                outputText.add("You Lose. The word was " + wordToGuess);
+                outputText.add("You Lose. The word was " + wordToGuess+".");
             }
         }
         addGuessedLetterToList(guessedLetter);
@@ -77,7 +72,7 @@ public class HangmanGame
      *
      * @param guessedLetter letter that was guessed
      */
-    protected void checkGuessedLetter(char guessedLetter)
+    private void checkGuessedLetter(char guessedLetter)
     {
         if (!Word.hasLetter(guessedLetter, guessedLetters))
         {
@@ -90,7 +85,7 @@ public class HangmanGame
      *
      * @param letter letter that was guessed
      */
-    protected void addGuessedLetterToList(char letter)
+    private void addGuessedLetterToList(char letter)
     {
         guessedLetters.add(new Character(letter));
     }
@@ -105,6 +100,11 @@ public class HangmanGame
     public List<Character> getGuessedLetters()
     {
         return new ArrayList<Character>(guessedLetters);
+    }
+
+    public boolean hasEnded()
+    {
+        return wordToGuess.hasGuessedWord() || chancesLeftToGuess <= 0;
     }
 
 }

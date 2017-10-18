@@ -5,6 +5,7 @@
 package com.mycompany.hangman.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -100,11 +101,12 @@ public class Word
     public String displayString()
     {
         StringBuilder builder = new StringBuilder();
-        for (Character character : letters)
+        for (Iterator<Character> it = letters.iterator(); it.hasNext();)
         {
+            Character character = it.next();
             char charToDisplay = character.getCharToDisplay();
             builder.append(charToDisplay);
-            if (!character.isSpace())
+            if (!character.isSpace() && it.hasNext())
             {
                 builder.append(" ");
             }

@@ -7,6 +7,7 @@ package com.mycompany.hangman.controller;
 
 import com.mycompany.hangman.model.HangmanGame;
 import com.mycompany.hangman.gui.HangmanFrame;
+import com.mycompany.hangman.model.WordGenerator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -103,7 +104,7 @@ public class WordController implements ActionListener
 
     public void reset()
     {
-         this.model.reset();
+        this.model.reset(new WordGenerator().generateWord());
 
         this.view.updateGuessedLetters(model.getGuessedLetters());
         for (String string : model.getOutputText())
