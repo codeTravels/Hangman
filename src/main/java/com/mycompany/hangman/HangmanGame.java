@@ -4,48 +4,33 @@
  */
 package com.mycompany.hangman;
 
-import com.mycompany.hangman.gui.GuessedLetterObserver;
-import com.mycompany.hangman.gui.PrintArea;
 import java.util.*;
 
 /**
  *
  * @author Cory
  */
-public class HangmanGame implements Game, InputListener
+public class HangmanGame
 {
 
     private static final int CHANCES_TO_GUESS = 5;
     private int chancesLeftToGuess;
-    private List<Character> guessedLetters = new ArrayList();
+    private final List<Character> guessedLetters = new ArrayList();
     private Word wordToGuess;
-    private PrintArea printArea;
-    private GuessedLetterObserver guessedLetterObserver;
-    private GameObserver gameObserver;
+    private final Queue<String> outputText= new LinkedList<String>();
 
-    public void setGameObserver(GameObserver observer)
-    {
-        this.gameObserver = observer;
-    }
-
-    public void start()
+    public HangmanGame()
     {
         reset();
-        //Stops when the word is guessed or ran out of chances
-    }
-     public void stop()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void reset()
+    public final void reset()
     {
         wordToGuess = new WordGenerator().generateWord();
         chancesLeftToGuess = CHANCES_TO_GUESS;
-        guessedLetters = new ArrayList();
-        guessedLetterObserver.updateGuessedLetters(guessedLetters);
+        guessedLetters.clear();
 
-        printArea.println(wordToGuess.displayString());
+        outputText.add(wordToGuess.displayString());
     }
 
     public boolean hasEnded()
@@ -53,52 +38,41 @@ public class HangmanGame implements Game, InputListener
         return wordToGuess.hasGuessedWord() || chancesLeftToGuess <= 0;
     }
 
-    private void processLetter(char guessedLetter)
+     public void processLetter(char guessedLetter)
     {
         checkGuessedLetter(guessedLetter);
 
         if (wordToGuess.hasGuessedWord())
         {
             //Prints out if the word is figured out
-            printArea.println("Great, you have figured out the word! It is " + wordToGuess + ".");
+            outputText.add("Great, you have figured out the word! It is " + wordToGuess + ".");
         }
         else if (Word.hasLetter(guessedLetter, guessedLetters))
         {
-            printArea.println("You already guessed the letter '" + guessedLetter + "'. So far you have");
-            printArea.println( wordToGuess.displayString());
+            outputText.add("You already guessed the letter '" + guessedLetter + "'. So far you have");
+            outputText.add( wordToGuess.displayString());
         }
         else if (wordToGuess.hasLetter(guessedLetter))
         {
-            printArea.println("Great guess you got one!");
-            printArea.println( wordToGuess.displayString());
+            outputText.add("Great guess you got one!");
+            outputText.add( wordToGuess.displayString());
         }
         else
         {
             chancesLeftToGuess--;
-            printArea.println("Sorry, wrong guess. You have " + (chancesLeftToGuess) + " chances left. So far, you have");
-            printArea.println( wordToGuess.displayString());
+            outputText.add("Sorry, wrong guess. You have " + (chancesLeftToGuess) + " chances left. So far, you have");
+            outputText.add( wordToGuess.displayString());
 
             if (chancesLeftToGuess == 0)
             {
-                printArea.println("You Lose. The word was " + wordToGuess);
+                outputText.add("You Lose. The word was " + wordToGuess);
             }
         }
         addGuessedLetterToList(guessedLetter);
 
-        guessedLetterObserver.updateGuessedLetters(guessedLetters);
     }
 
-    public void setGuessedLetterObserver(GuessedLetterObserver guessedLetterObserver)
-    {
-        this.guessedLetterObserver = guessedLetterObserver;
-    }
-
-    public void setPrintArea(PrintArea area)
-    {
-        this.printArea = area;
-    }
-
-    /**
+      /**
      * Check if new letter is correct
      *
      * @param guessedLetter letter that was guessed
@@ -121,31 +95,16 @@ public class HangmanGame implements Game, InputListener
         guessedLetters.add(new Character(letter));
     }
 
-    protected boolean isALetter(char character)
+    public List<String> getOutputText()
     {
-        //return ((character - 'a' ) < 26) || ((character - 'A') < 26);
-        return ('a' <= character) && (character <= 'z');
+        List<String> retVal = new ArrayList<String>(outputText);
+        outputText.clear();
+        return retVal;
     }
 
-    /**
-     * Called when there is an input from the user. Notifies if the input is a
-     * letter.
-     *
-     * @param inputChar
-     */
-    public void inputEvent(char inputChar)
+    public List<Character> getGuessedLetters()
     {
-        if (isALetter(inputChar))
-        {
-            processLetter(inputChar);
-            if (hasEnded())
-            {
-                this.gameObserver.onGameEnded();
-            }
-        }
-        else
-        {
-            printArea.println("Please make a valid guess. Choose between a-z.");
-        }
+        return new ArrayList<Character>(guessedLetters);
     }
+
 }

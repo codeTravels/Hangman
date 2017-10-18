@@ -5,6 +5,7 @@
 package com.mycompany.hangman.gui;
 
 import com.mycompany.hangman.Character;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;
@@ -14,9 +15,8 @@ import javax.swing.text.DefaultCaret;
  *
  * @author Cory
  */
-public class HangmanFrame extends JFrame implements GuessedLetterObserver, PrintArea
+public class HangmanFrame extends JFrame
 {
-    private ActionObserver actionObserver;
     /**
      * Creates new form NewJFrame
      */
@@ -29,7 +29,6 @@ public class HangmanFrame extends JFrame implements GuessedLetterObserver, Print
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         setVisible(true);
         setTitle("Hangman");
-        this.guessedLetters.setVisible(false);
 //        TextComponentLimit.addTo(jTextField1, 1);
         ((AbstractDocument)this.jTextField1.getDocument()).setDocumentFilter(new MyDocumentFilter());
     }
@@ -61,13 +60,6 @@ public class HangmanFrame extends JFrame implements GuessedLetterObserver, Print
                 jTextField1FocusGained(evt);
             }
         });
-        jTextField1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         jScrollPane1.setAutoscrolls(true);
 
@@ -76,13 +68,6 @@ public class HangmanFrame extends JFrame implements GuessedLetterObserver, Print
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setLabel("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         guessedLettersLabel.setText("Guessed Letters:");
 
@@ -129,19 +114,8 @@ public class HangmanFrame extends JFrame implements GuessedLetterObserver, Print
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
-        actionObserver.textEntered();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextField1ActionPerformed
-    {//GEN-HEADEREND:event_jTextField1ActionPerformed
-        actionObserver.textEntered();
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_jTextField1FocusGained
     {//GEN-HEADEREND:event_jTextField1FocusGained
-        // TODO add your handling code here:
         getTextField().selectAll();
     }//GEN-LAST:event_jTextField1FocusGained
 
@@ -213,10 +187,6 @@ public class HangmanFrame extends JFrame implements GuessedLetterObserver, Print
     {
         return jTextField1;
     }
-    public void setActionObserver(ActionObserver observer)
-    {
-        this.actionObserver = observer;
-    }
 
     public void updateGuessedLetters(List<Character> guessedLetters)
     {
@@ -227,24 +197,17 @@ public class HangmanFrame extends JFrame implements GuessedLetterObserver, Print
         }
         this.guessedLetters.setText(builder.toString());
 
-        if(!this.guessedLetters.isVisible())
-        {
-            this.guessedLetters.setVisible(true);
-        }
-    }
-    public void print(String stringToPrint)
-    {
-        getTextArea().append(stringToPrint);
-    }
-    public void println()
-    {
-        getTextArea().append("\n");
     }
 
     public void println(String stringToPrint)
     {
-        print(stringToPrint);
-        println();
+        getTextArea().append(stringToPrint+"\n");
+    }
+
+    public void addController(ActionListener listener)
+    {
+        jTextField1.addActionListener(listener);
+        jButton1.addActionListener(listener);
     }
 
 }

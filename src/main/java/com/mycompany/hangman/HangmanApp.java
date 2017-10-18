@@ -1,39 +1,22 @@
 package com.mycompany.hangman;
 
-import com.mycompany.hangman.gui.HangmanGui;
+import com.mycompany.hangman.controller.WordController;
+import com.mycompany.hangman.gui.HangmanFrame;
 
 /**
  * Hello world!
  *
  */
-public class HangmanApp implements GameObserver
+public class HangmanApp
 {
-
-    private final HangmanGui gui = new HangmanGui();
-    private final HangmanGame hangman = new HangmanGame();
 
     public void start()
     {
-        gui.setInputListener(hangman);
-        hangman.setPrintArea(gui.getFrame());
-        hangman.setGuessedLetterObserver(gui.getFrame());
-        hangman.setGameObserver(this);
-        hangman.start();
-    }
 
+        HangmanFrame view = new HangmanFrame();
+        WordController controller = new WordController(view, new HangmanGame());
 
-    @Override
-    public void onGameEnded()
-    {
-         if (gui.playAgain())
-        {
-            hangman.reset();
-        }
-        else
-        {
-            gui.gameEnded();
-            System.exit(0);
-        }
+        view.addController(controller);
     }
 
 
