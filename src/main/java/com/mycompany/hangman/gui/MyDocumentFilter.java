@@ -20,27 +20,34 @@ public class MyDocumentFilter extends DocumentFilter
    public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException
    {
        System.out.println("MyDocumentFilter insertString");
-           super.insertString(fb, offset, string, attr);
+        if (isAllowed(offset, 0, string))
+        {
+            super.insertString(fb, offset, string, attr);
+        }
+        else
+        {
+            Toolkit.getDefaultToolkit().beep();
+        }
     }
 
     @Override
     public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
     {
         System.out.println("MyDocumentFilter replace");
-       if (isAllowed(fb.getDocument().getLength(), text))
-       {
-           super.replace(fb, offset, length, text, attrs);
-       }
-       else
-       {
-           Toolkit.getDefaultToolkit().beep();
-           System.out.println("Need to choose a lowercase letter a-z");
-       }
+        if (isAllowed(offset, length, text))
+        {
+            super.replace(fb, offset, length, text, attrs);
+        }
+        else
+        {
+            Toolkit.getDefaultToolkit().beep();
+            System.out.println("Need to choose a lowercase letter a-z");
+        }
     }
 
-   private boolean isAllowed(int docLength, String string)
+   private boolean isAllowed(int offset, int length, String string)
     {
-         boolean allowInsert = true;
+       boolean allowInsert = true;
        for (int i = 0; i < string.length(); i++)
        {
            if (!Character.isLetter(string.charAt(i)) || !Character.isLowerCase(string.charAt(i)))
@@ -50,8 +57,8 @@ public class MyDocumentFilter extends DocumentFilter
            }
 
        }
-       int charactersLimit =1 ;
-//        return (docLength + string.length()) <= charactersLimit && allowInsert;
+        int charactersLimit =1 ;
+        allowInsert &= (offset - length + string.length()) <= charactersLimit;
         return allowInsert;
     }
 }
