@@ -4,7 +4,7 @@
  */
 package com.mycompany.hangman.gui;
 
-import com.mycompany.hangman.Character;
+import com.mycompany.hangman.model.Character;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.*;

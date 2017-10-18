@@ -5,7 +5,7 @@
  */
 package com.mycompany.hangman.controller;
 
-import com.mycompany.hangman.HangmanGame;
+import com.mycompany.hangman.model.HangmanGame;
 import com.mycompany.hangman.gui.HangmanFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

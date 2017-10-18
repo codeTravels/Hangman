@@ -2,6 +2,7 @@ package com.mycompany.hangman;
 
 import com.mycompany.hangman.controller.WordController;
 import com.mycompany.hangman.gui.HangmanFrame;
+import com.mycompany.hangman.model.HangmanGame;
 
 /**
  * Hello world!

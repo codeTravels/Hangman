@@ -2,9 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.hangman;
+package com.mycompany.hangman.model;
 
-import com.mycompany.hangman.Word;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

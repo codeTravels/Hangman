@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.hangman;
+package com.mycompany.hangman.model;
 
 /**
  *
@@ -59,13 +59,13 @@ public class Character
     }
     /**
      * Returns true if it is a space character
-     * @return 
+     * @return
      */
     public boolean isSpace()
     {
         return get() == ' ';
     }
-    
+
     @Override
     public String toString()
     {
