@@ -14,7 +14,7 @@ import javax.swing.text.DocumentFilter;
  *
  * @author Cory
  */
-public class MyDocumentFilter extends DocumentFilter
+public class ValidGuessDocFilter extends DocumentFilter
 {
    @Override
    public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException
@@ -41,7 +41,6 @@ public class MyDocumentFilter extends DocumentFilter
         else
         {
             Toolkit.getDefaultToolkit().beep();
-            System.out.println("Need to choose a lowercase letter a-z");
         }
     }
 
@@ -60,5 +59,10 @@ public class MyDocumentFilter extends DocumentFilter
         int charactersLimit =1 ;
         allowInsert &= (offset - length + string.length()) <= charactersLimit;
         return allowInsert;
+    }
+
+   protected boolean isLowerCaseLetter(char character)
+    {
+        return ('a' <= character) && (character <= 'z');
     }
 }

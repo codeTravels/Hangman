@@ -12,7 +12,7 @@ public class Character
 {
 
     protected static char PLACE_HOLDER = '_';
-    private char character;
+    private final char character;
     private boolean displayChar = false;
 
     public Character(char character)
@@ -28,19 +28,12 @@ public class Character
 
     public char getCharToDisplay()
     {
-        if (ableToDisplay())
-        {
-            return get();
-        }
-        else
-        {
-            return PLACE_HOLDER;
-        }
+        return ableToDisplay() ? get() : PLACE_HOLDER;
     }
 
-    public void setDisplayChar(boolean display)
+    public void displayChar()
     {
-        this.displayChar = display;
+        this.displayChar = true;
     }
 
     public boolean ableToDisplay()
@@ -54,7 +47,7 @@ public class Character
     {
         if (get() == ' ')
         {
-            setDisplayChar(true);
+            displayChar();
         }
     }
     /**

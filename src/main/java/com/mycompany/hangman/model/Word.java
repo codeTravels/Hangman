@@ -16,12 +16,10 @@ public class Word
 {
 
     private List<Character> letters = new ArrayList();
-    private int lettersLeftToGuess;
 
     public Word(String word)
     {
         letters = initialize(word);
-        lettersLeftToGuess = word.length();
     }
 
     /**
@@ -33,10 +31,9 @@ public class Word
     protected final List<Character> initialize(String wordToGuess)
     {
         List<Character> retVal = new ArrayList();
-        char[] wordArray = wordToGuess.toCharArray();
-        for (int i = 0; i < wordArray.length; i++)
+        for (int i = 0; i < wordToGuess.length(); i++)
         {
-            retVal.add(new Character(wordArray[i]));
+            retVal.add(new Character(wordToGuess.charAt(i)));
         }
         return retVal;
     }
@@ -59,8 +56,7 @@ public class Word
             if (guessedLetter == letter.get() && (!letter.ableToDisplay()))
             {
                 retVal = true;
-                letter.setDisplayChar(true);
-                lettersLeftToGuess--;
+                letter.displayChar();
             }
         }
         return retVal;
@@ -110,22 +106,23 @@ public class Word
             {
                 builder.append(" ");
             }
-            else
-            {
-                builder.append("");
-            }
         }
          return builder.toString();
     }
 
-    public int getLettersLeftToGuess()
-    {
-        return lettersLeftToGuess;
-    }
 
     public boolean hasGuessedWord()
     {
-        return !(lettersLeftToGuess > 0);
+        boolean retVal = true;
+        for (Character letter : letters)
+        {
+            if (!letter.ableToDisplay())
+            {
+                retVal = false;
+                break;
+            }
+        }
+        return retVal;
     }
 
     @Override

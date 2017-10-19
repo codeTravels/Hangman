@@ -23,14 +23,13 @@ public class HangmanFrame extends JFrame
     public HangmanFrame()
     {
         initComponents();
-        this.jTextArea1.setEditable(false);
+        this.outputConsole.setEditable(false);
         this.jScrollPane1.setWheelScrollingEnabled(true);
-        DefaultCaret caret = (DefaultCaret)this.jTextArea1.getCaret();
+        DefaultCaret caret = (DefaultCaret)this.outputConsole.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         setVisible(true);
         setTitle("Hangman");
-//        TextComponentLimit.addTo(jTextField1, 1);
-        ((AbstractDocument)this.jTextField1.getDocument()).setDocumentFilter(new MyDocumentFilter());
+        ((AbstractDocument)this.guess.getDocument()).setDocumentFilter(new ValidGuessDocFilter());
     }
 
     /**
@@ -43,29 +42,29 @@ public class HangmanFrame extends JFrame
     private void initComponents()
     {
 
-        jTextField1 = new javax.swing.JTextField();
+        guess = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        outputConsole = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         guessedLettersLabel = new javax.swing.JLabel();
         guessedLetters = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.setText("Enter guess here ");
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter()
+        guess.setText("Enter guess here ");
+        guess.addFocusListener(new java.awt.event.FocusAdapter()
         {
             public void focusGained(java.awt.event.FocusEvent evt)
             {
-                jTextField1FocusGained(evt);
+                guessFocusGained(evt);
             }
         });
 
         jScrollPane1.setAutoscrolls(true);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        outputConsole.setColumns(20);
+        outputConsole.setRows(5);
+        jScrollPane1.setViewportView(outputConsole);
 
         jButton1.setLabel("OK");
 
@@ -89,7 +88,7 @@ public class HangmanFrame extends JFrame
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(guess, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton1)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -106,7 +105,7 @@ public class HangmanFrame extends JFrame
                     .addComponent(guessedLetters))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(guess, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addContainerGap())
         );
@@ -114,10 +113,10 @@ public class HangmanFrame extends JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_jTextField1FocusGained
-    {//GEN-HEADEREND:event_jTextField1FocusGained
-        getTextField().selectAll();
-    }//GEN-LAST:event_jTextField1FocusGained
+    private void guessFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_guessFocusGained
+    {//GEN-HEADEREND:event_guessFocusGained
+        guess.selectAll();
+    }//GEN-LAST:event_guessFocusGained
 
     /**
      * @param args the command line arguments
@@ -170,25 +169,15 @@ public class HangmanFrame extends JFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField guess;
     private javax.swing.JLabel guessedLetters;
     private javax.swing.JLabel guessedLettersLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextArea outputConsole;
     // End of variables declaration//GEN-END:variables
 
-  public JTextArea getTextArea()
-    {
-        return jTextArea1;
-    }
-
-    public JTextField getTextField()
-    {
-        return jTextField1;
-    }
-
-    public void updateGuessedLetters(List<Character> guessedLetters)
+    public void setGuessedLetters(List<Character> guessedLetters)
     {
         StringBuilder builder = new StringBuilder();
         for (Character guessedLetter : guessedLetters)
@@ -201,12 +190,27 @@ public class HangmanFrame extends JFrame
 
     public void println(String stringToPrint)
     {
-        getTextArea().append(stringToPrint+"\n");
+        outputConsole.append(stringToPrint+"\n");
+    }
+
+    public void clearOutputConsole()
+    {
+        outputConsole.setText("");
+    }
+
+    public String getGuess()
+    {
+        return guess.getText();
+    }
+
+    public void clearGuess()
+    {
+        guess.setText("");
     }
 
     public void addController(ActionListener listener)
     {
-        jTextField1.addActionListener(listener);
+        guess.addActionListener(listener);
         jButton1.addActionListener(listener);
     }
 

@@ -37,7 +37,6 @@ public class WordGenerator
             buffer = new BufferedReader(new FileReader(inputFile));
             int randomLine = new Random().nextInt(wordCount());
 
-            // String a = br.readLine();
             for (int i = 0; i <= randomLine; i++)
             {
                 retVal = buffer.readLine();
@@ -54,21 +53,15 @@ public class WordGenerator
     private int wordCount()
     {
         File inputFile;
-        //String word = null;
         BufferedReader buffer;
-        int retVal = 1;
+        int retVal = 0;
         try
         {
             inputFile = new File(WORD_FILE);
             buffer = new BufferedReader(new FileReader(inputFile));
-            //word=br.readLine();
             while (buffer.readLine() != null)
             {
-                // word = br.readLine();
                 retVal++;
-                //error Checking
-                //System.out.println("count is "+cnt+" word is "+word);
-                //
             }
             buffer.close();
         }

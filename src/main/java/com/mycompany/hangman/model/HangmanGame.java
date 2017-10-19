@@ -35,11 +35,11 @@ public class HangmanGame
 
     public void processLetter(char guessedLetter)
     {
-        checkGuessedLetter(guessedLetter);
+
+        wordToGuess.guessedCorrectLetter(guessedLetter);
 
         if (wordToGuess.hasGuessedWord())
         {
-            //Prints out if the word is figured out
             outputText.add("Great, you have figured out the word! It is " + wordToGuess + ".");
         }
         else if (Word.hasLetter(guessedLetter, guessedLetters))
@@ -65,19 +65,6 @@ public class HangmanGame
         }
         addGuessedLetterToList(guessedLetter);
 
-    }
-
-      /**
-     * Check if new letter is correct
-     *
-     * @param guessedLetter letter that was guessed
-     */
-    private void checkGuessedLetter(char guessedLetter)
-    {
-        if (!Word.hasLetter(guessedLetter, guessedLetters))
-        {
-            wordToGuess.guessedCorrectLetter(guessedLetter);
-        }
     }
 
     /**

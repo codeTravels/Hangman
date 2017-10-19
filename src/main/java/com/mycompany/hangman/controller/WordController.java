@@ -27,7 +27,12 @@ public class WordController implements ActionListener
         this.view = view;
         this.model = model;
 
-        this.view.updateGuessedLetters(model.getGuessedLetters());
+        updateViewFromModel();
+    }
+
+    private void updateViewFromModel()
+    {
+        view.setGuessedLetters(model.getGuessedLetters());
         for (String string : model.getOutputText())
         {
             view.println(string);
@@ -38,44 +43,28 @@ public class WordController implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         System.out.println("WordController actionPerformed");
-        String text = view.getTextField().getText();
-        view.getTextField().setText("");
-        if (!text.isEmpty())
+
+        String guess = view.getGuess();
+        view.clearGuess();
+        if (!guess.isEmpty())
         {
+            model.processLetter(guess.charAt(0));
+        }
 
-            if (isALetter(text.charAt(0)))
+        updateViewFromModel();
+
+        if (model.hasEnded())
+        {
+            if (playAgain())
             {
-                model.processLetter(text.charAt(0));
-
-                for (String string : model.getOutputText())
-                {
-                    view.println(string);
-                }
-                view.updateGuessedLetters(model.getGuessedLetters());
-
-                    if (model.hasEnded())
-                    {
-                        if (playAgain())
-                        {
-                            reset();
-                        }
-                        else
-                        {
-                             this.view.println("Thanks for playing! Come back soon.");
-                            System.exit(0);
-                        }
-                    }
+                reset();
             }
             else
             {
-                view.println("Please make a valid guess. Choose between a-z.");
+                 this.view.println("Thanks for playing! Come back soon.");
+                System.exit(0);
             }
         }
-    }
-    protected boolean isALetter(char character)
-    {
-        //return ((character - 'a' ) < 26) || ((character - 'A') < 26);
-        return ('a' <= character) && (character <= 'z');
     }
 
     public boolean playAgain()
@@ -101,16 +90,11 @@ public class WordController implements ActionListener
         return retVal;
     }
 
-
-    public void reset()
+    private void reset()
     {
+        view.clearOutputConsole();
         this.model.reset(new WordGenerator().generateWord());
-
-        this.view.updateGuessedLetters(model.getGuessedLetters());
-        for (String string : model.getOutputText())
-        {
-            view.println(string);
-        }
+        updateViewFromModel();
     }
 
 }
