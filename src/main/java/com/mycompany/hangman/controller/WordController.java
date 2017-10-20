@@ -37,6 +37,7 @@ public class WordController implements ActionListener
         {
             view.println(string);
         }
+        view.getDrawPanel().repaint();
     }
 
     @Override
@@ -53,7 +54,7 @@ public class WordController implements ActionListener
 
         updateViewFromModel();
 
-        if (model.hasEnded())
+        if (model.gameOver())
         {
             if (playAgain())
             {

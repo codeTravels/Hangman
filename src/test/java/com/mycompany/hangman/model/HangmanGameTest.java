@@ -6,12 +6,11 @@
 package com.mycompany.hangman.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 /**
  *
@@ -46,7 +45,8 @@ public class HangmanGameTest
     @Test
     public void testProcessLetter_wins()
     {
-        HangmanGame game = new HangmanGame();
+        DisplayedDrawing mock = mock(DisplayedDrawing.class);
+        HangmanGame game = new HangmanGame(mock);
         game.reset(new Word("bat"));
 
         List<String> expected = new ArrayList<String>();
@@ -70,16 +70,15 @@ public class HangmanGameTest
         expected.add("Great, you have figured out the word! It is bat.");
         assertThat(game.getOutputText(), is(expected));
 
-        assertTrue(game.hasEnded());
+        assertTrue(game.gameOver());
 
     }
 
     @Test
     public void testProcessLetter_Loses()
     {
-        HangmanGame game = new HangmanGame();
+        HangmanGame game = new HangmanGame(new TempInterfaceImpl(5));
         game.reset(new Word("bat"));
-        int expectedChances = HangmanGame.CHANCES_TO_GUESS;
 
         List<String> expected = new ArrayList<String>();
         expected.add("_ _ _");
@@ -87,44 +86,43 @@ public class HangmanGameTest
 
         game.processLetter('z');
         expected.clear();
-        expected.add("Sorry, wrong guess. You have "+(--expectedChances)+" chances left. So far, you have");
+        expected.add("Sorry, wrong guess. So far, you have");
         expected.add("_ _ _");
         assertThat(game.getOutputText(), is(expected));
 
         game.processLetter('y');
         expected.clear();
-        expected.add("Sorry, wrong guess. You have "+(--expectedChances)+" chances left. So far, you have");
+        expected.add("Sorry, wrong guess. So far, you have");
         expected.add("_ _ _");
         assertThat(game.getOutputText(), is(expected));
 
         game.processLetter('x');
         expected.clear();
-        expected.add("Sorry, wrong guess. You have "+(--expectedChances)+" chances left. So far, you have");
+        expected.add("Sorry, wrong guess. So far, you have");
         expected.add("_ _ _");
         assertThat(game.getOutputText(), is(expected));
 
         game.processLetter('w');
         expected.clear();
-        expected.add("Sorry, wrong guess. You have "+(--expectedChances)+" chances left. So far, you have");
+        expected.add("Sorry, wrong guess. So far, you have");
         expected.add("_ _ _");
         assertThat(game.getOutputText(), is(expected));
 
         game.processLetter('v');
         expected.clear();
-        expected.add("Sorry, wrong guess. You have "+(--expectedChances)+" chances left. So far, you have");
+        expected.add("Sorry, wrong guess. So far, you have");
         expected.add("_ _ _");
         expected.add("You Lose. The word was bat.");
         assertThat(game.getOutputText(), is(expected));
 
-        assertTrue(game.hasEnded());
+        assertTrue(game.gameOver());
 
     }
     @Test
     public void testProcessLetter_repeatGuess()
     {
-        HangmanGame game = new HangmanGame();
+        HangmanGame game = new HangmanGame(new TempInterfaceImpl(5));
         game.reset(new Word("bat"));
-        int expectedChances = HangmanGame.CHANCES_TO_GUESS;
 
         List<String> expected = new ArrayList<String>();
         expected.add("_ _ _");
@@ -144,7 +142,7 @@ public class HangmanGameTest
 
         game.processLetter('z');
         expected.clear();
-        expected.add("Sorry, wrong guess. You have "+(--expectedChances)+" chances left. So far, you have");
+        expected.add("Sorry, wrong guess. So far, you have");
         expected.add("_ a _");
         assertThat(game.getOutputText(), is(expected));
 
@@ -156,11 +154,11 @@ public class HangmanGameTest
 
         game.processLetter('y');
         expected.clear();
-        expected.add("Sorry, wrong guess. You have "+(--expectedChances)+" chances left. So far, you have");
+        expected.add("Sorry, wrong guess. So far, you have");
         expected.add("_ a _");
         assertThat(game.getOutputText(), is(expected));
 
-        assertFalse(game.hasEnded());
+        assertFalse(game.gameOver());
 
     }
 
@@ -171,7 +169,7 @@ public class HangmanGameTest
     @Test
     public void testGetGuessedLetters()
     {
-        HangmanGame game = new HangmanGame();
+        HangmanGame game = new HangmanGame(new TempInterfaceImpl(5));
         game.reset(new Word("bat"));
         String input = "zxtza";
         for (int i = 0; i < input.length(); i++)
@@ -187,7 +185,30 @@ public class HangmanGameTest
                 assertEquals(substring.charAt(j),guessedLetters.get(j).get()); // verify all the letters of input are accounted for in order
             }
         }
-        assertFalse(game.hasEnded());
+        assertFalse(game.gameOver());
     }
+protected static class TempInterfaceImpl implements DisplayedDrawing
+{
+    private int limit;
+    private int numTrys;
+    protected TempInterfaceImpl(int numTrys)
+    {
+        this.limit = numTrys;
+    }
+        public void showEnableNext()
+        {
+            numTrys++;
+        }
 
+        public boolean doneDrawing()
+        {
+            return numTrys >= limit;
+        }
+
+        public void reset()
+        {
+
+        }
+    }
 }
+

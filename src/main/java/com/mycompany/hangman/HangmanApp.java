@@ -1,6 +1,8 @@
 package com.mycompany.hangman;
 
 import com.mycompany.hangman.controller.WordController;
+import com.mycompany.hangman.drawing.Picture;
+import com.mycompany.hangman.drawing.DefaultPictureController;
 import com.mycompany.hangman.gui.HangmanFrame;
 import com.mycompany.hangman.model.HangmanGame;
 
@@ -15,7 +17,8 @@ public class HangmanApp
     {
 
         HangmanFrame view = new HangmanFrame();
-        WordController controller = new WordController(view, new HangmanGame());
+        HangmanGame game = new HangmanGame(view.getDrawPanel().getPicture());
+        WordController controller = new WordController(view, game);
 
         view.addController(controller);
     }

@@ -13,21 +13,21 @@ import java.util.*;
 public class HangmanGame
 {
 
-    protected static final int CHANCES_TO_GUESS = 5;
-    private int chancesLeftToGuess;
     private final List<Character> guessedLetters = new ArrayList();
     private Word wordToGuess;
-    private final Queue<String> outputText= new LinkedList<String>();
+    private final Queue<String> outputText= new LinkedList<>();
+    private final DisplayedDrawing picture;
 
-    public HangmanGame()
+    public HangmanGame(DisplayedDrawing picture)
     {
+        this.picture = picture;
         reset(new WordGenerator().generateWord());
     }
 
     public final void reset(Word word)
     {
         wordToGuess = word;
-        chancesLeftToGuess = CHANCES_TO_GUESS;
+        picture.reset();
         guessedLetters.clear();
         outputText.clear();
         outputText.add(wordToGuess.displayString());
@@ -54,11 +54,11 @@ public class HangmanGame
         }
         else
         {
-            chancesLeftToGuess--;
-            outputText.add("Sorry, wrong guess. You have " + (chancesLeftToGuess) + " chances left. So far, you have");
+            picture.showEnableNext();
+            outputText.add("Sorry, wrong guess. So far, you have");
             outputText.add( wordToGuess.displayString());
 
-            if (chancesLeftToGuess == 0)
+            if (picture.doneDrawing())
             {
                 outputText.add("You Lose. The word was " + wordToGuess+".");
             }
@@ -79,19 +79,19 @@ public class HangmanGame
 
     public List<String> getOutputText()
     {
-        List<String> retVal = new ArrayList<String>(outputText);
+        List<String> retVal = new ArrayList<>(outputText);
         outputText.clear();
         return retVal;
     }
 
     public List<Character> getGuessedLetters()
     {
-        return new ArrayList<Character>(guessedLetters);
+        return new ArrayList<>(guessedLetters);
     }
 
-    public boolean hasEnded()
+    public boolean gameOver()
     {
-        return wordToGuess.hasGuessedWord() || chancesLeftToGuess <= 0;
+        return wordToGuess.hasGuessedWord() || picture.doneDrawing();
     }
 
 }

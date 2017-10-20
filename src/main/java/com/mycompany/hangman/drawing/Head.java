@@ -1,0 +1,38 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.hangman.drawing;
+
+import java.awt.Color;
+import java.awt.Graphics;
+
+/**
+ *
+ * @author Cory
+ */
+public class Head extends DrawablePiece
+{
+    protected static int WIDTH = 5;
+    protected static int HEIGHT = 20;
+    protected static  int DIAMETER = 30;
+
+    public Head(int x, int y)
+    {
+        super(x, y);
+    }
+
+    @Override
+    public void draw(Graphics g)
+    {
+        super.draw(g);
+        g.setColor(Color.BLACK);
+        g.fillRect(getX(),getY(),WIDTH,HEIGHT);
+        g.drawRect(getX(),getY(),WIDTH,HEIGHT);
+
+        g.drawOval(getX()-((DIAMETER-WIDTH)/2), getY()+HEIGHT, DIAMETER, DIAMETER);
+
+    }
+
+}
