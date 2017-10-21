@@ -49,21 +49,20 @@ public class HangmanGameTest
         HangmanGame game = new HangmanGame(mock);
         game.reset(new Word("bat"));
 
-        List<String> expected = new ArrayList<String>();
-        expected.add("_ _ _");
-        assertThat(game.getOutputText(), is(expected));
+        assertTrue(game.getOutputText().isEmpty());
+        assertEquals("_ _ _", game.getDisplayString());
 
         game.processLetter('a');
-        expected.clear();
+        List<String> expected = new ArrayList<String>();
         expected.add("Great guess you got one!");
-        expected.add("_ a _");
         assertThat(game.getOutputText(), is(expected));
+        assertEquals("_ a _", game.getDisplayString());
 
         game.processLetter('t');
         expected.clear();
         expected.add("Great guess you got one!");
-        expected.add("_ a t");
         assertThat(game.getOutputText(), is(expected));
+        assertEquals("_ a t", game.getDisplayString());
 
         game.processLetter('b');
         expected.clear();
@@ -80,40 +79,39 @@ public class HangmanGameTest
         HangmanGame game = new HangmanGame(new TempInterfaceImpl(5));
         game.reset(new Word("bat"));
 
-        List<String> expected = new ArrayList<String>();
-        expected.add("_ _ _");
-        assertThat(game.getOutputText(), is(expected));
+        assertTrue(game.getOutputText().isEmpty());
+        assertEquals("_ _ _", game.getDisplayString());
 
         game.processLetter('z');
-        expected.clear();
-        expected.add("Sorry, wrong guess. So far, you have");
-        expected.add("_ _ _");
+        List<String> expected = new ArrayList<String>();
+        expected.add("Sorry, wrong guess.");
         assertThat(game.getOutputText(), is(expected));
+        assertEquals("_ _ _", game.getDisplayString());
 
         game.processLetter('y');
         expected.clear();
-        expected.add("Sorry, wrong guess. So far, you have");
-        expected.add("_ _ _");
+        expected.add("Sorry, wrong guess.");
         assertThat(game.getOutputText(), is(expected));
+        assertEquals("_ _ _", game.getDisplayString());
 
         game.processLetter('x');
         expected.clear();
-        expected.add("Sorry, wrong guess. So far, you have");
-        expected.add("_ _ _");
+        expected.add("Sorry, wrong guess.");
         assertThat(game.getOutputText(), is(expected));
+        assertEquals("_ _ _", game.getDisplayString());
 
         game.processLetter('w');
         expected.clear();
-        expected.add("Sorry, wrong guess. So far, you have");
-        expected.add("_ _ _");
+        expected.add("Sorry, wrong guess.");
         assertThat(game.getOutputText(), is(expected));
+        assertEquals("_ _ _", game.getDisplayString());
 
         game.processLetter('v');
         expected.clear();
-        expected.add("Sorry, wrong guess. So far, you have");
-        expected.add("_ _ _");
+        expected.add("Sorry, wrong guess.");
         expected.add("You Lose. The word was bat.");
         assertThat(game.getOutputText(), is(expected));
+        assertEquals("_ _ _", game.getDisplayString());
 
         assertTrue(game.gameOver());
 
@@ -124,39 +122,38 @@ public class HangmanGameTest
         HangmanGame game = new HangmanGame(new TempInterfaceImpl(5));
         game.reset(new Word("bat"));
 
+        assertTrue(game.getOutputText().isEmpty());
+        assertEquals("_ _ _", game.getDisplayString());
+
+        game.processLetter('a');
         List<String> expected = new ArrayList<String>();
-        expected.add("_ _ _");
-        assertThat(game.getOutputText(), is(expected));
-
-        game.processLetter('a');
-        expected.clear();
         expected.add("Great guess you got one!");
-        expected.add("_ a _");
         assertThat(game.getOutputText(), is(expected));
+        assertEquals("_ a _", game.getDisplayString());
 
         game.processLetter('a');
         expected.clear();
-        expected.add("You already guessed the letter 'a'. So far you have");
-        expected.add("_ a _");
+        expected.add("You already guessed the letter 'a'.");
         assertThat(game.getOutputText(), is(expected));
+        assertEquals("_ a _", game.getDisplayString());
 
         game.processLetter('z');
         expected.clear();
-        expected.add("Sorry, wrong guess. So far, you have");
-        expected.add("_ a _");
+        expected.add("Sorry, wrong guess.");
         assertThat(game.getOutputText(), is(expected));
+        assertEquals("_ a _", game.getDisplayString());
 
         game.processLetter('z');
         expected.clear();
-        expected.add("You already guessed the letter 'z'. So far you have");
-        expected.add("_ a _");
+        expected.add("You already guessed the letter 'z'.");
         assertThat(game.getOutputText(), is(expected));
+        assertEquals("_ a _", game.getDisplayString());
 
         game.processLetter('y');
         expected.clear();
-        expected.add("Sorry, wrong guess. So far, you have");
-        expected.add("_ a _");
+        expected.add("Sorry, wrong guess.");
         assertThat(game.getOutputText(), is(expected));
+        assertEquals("_ a _", game.getDisplayString());
 
         assertFalse(game.gameOver());
 

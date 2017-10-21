@@ -30,7 +30,6 @@ public class HangmanGame
         picture.reset();
         guessedLetters.clear();
         outputText.clear();
-        outputText.add(wordToGuess.displayString());
     }
 
     public void processLetter(char guessedLetter)
@@ -44,19 +43,16 @@ public class HangmanGame
         }
         else if (Word.hasLetter(guessedLetter, guessedLetters))
         {
-            outputText.add("You already guessed the letter '" + guessedLetter + "'. So far you have");
-            outputText.add( wordToGuess.displayString());
+            outputText.add("You already guessed the letter '" + guessedLetter + "'.");
         }
         else if (wordToGuess.hasLetter(guessedLetter))
         {
             outputText.add("Great guess you got one!");
-            outputText.add( wordToGuess.displayString());
         }
         else
         {
             picture.showEnableNext();
-            outputText.add("Sorry, wrong guess. So far, you have");
-            outputText.add( wordToGuess.displayString());
+            outputText.add("Sorry, wrong guess.");
 
             if (picture.doneDrawing())
             {
@@ -87,6 +83,11 @@ public class HangmanGame
     public List<Character> getGuessedLetters()
     {
         return new ArrayList<>(guessedLetters);
+    }
+
+    public String getDisplayString()
+    {
+        return wordToGuess.displayString();
     }
 
     public boolean gameOver()

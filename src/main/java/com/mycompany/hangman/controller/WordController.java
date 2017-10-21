@@ -33,11 +33,12 @@ public class WordController implements ActionListener
     private void updateViewFromModel()
     {
         view.setGuessedLetters(model.getGuessedLetters());
+        view.setWordToGuess(model.getDisplayString());
         for (String string : model.getOutputText())
         {
             view.println(string);
         }
-        view.getDrawPanel().repaint();
+        view.getDrawPanel().repaint(); // TODO move to another class?
     }
 
     @Override
