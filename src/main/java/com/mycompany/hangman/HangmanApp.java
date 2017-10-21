@@ -21,6 +21,11 @@ public class HangmanApp
         WordController controller = new WordController(view, game);
 
         view.addController(controller);
+
+//        DefaultPictureController pictureController = new DefaultPictureController(view.getDrawPanel(),
+//                new Picture(view.getDrawPanel().getWidth(), view.getDrawPanel().getHeight(), 10));
+//
+//        view.getDrawPanel().setPictureController(pictureController);
     }
 
 
