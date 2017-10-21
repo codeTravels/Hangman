@@ -40,10 +40,13 @@ public class Picture implements Drawable, DisplayedDrawing
          gallowPost.getY() - GallowTop.HEIGHT);
          drawables.add(gallowTop);
 
-         Head head = new Head(gallowTop.getX(), gallowTop.getY() + GallowTop.HEIGHT);
+         GallowHead gallowHead = new GallowHead(gallowTop.getX(), gallowTop.getY() + GallowTop.HEIGHT);
+         drawables.add(gallowHead);
+
+         Head head = new Head(gallowHead.getX(), gallowHead.getY() + GallowHead.HEIGHT);
          drawables.add(head);
 
-         Torso torso = new Torso(head.getX(), head.getY() + Head.HEIGHT + Head.DIAMETER);
+         Torso torso = new Torso(head.getX(), head.getY() + Head.DIAMETER);
          drawables.add(torso);
 
          LeftArm leftArm = new LeftArm(torso.getX(), torso.getY() + Torso.HEIGHT/2);

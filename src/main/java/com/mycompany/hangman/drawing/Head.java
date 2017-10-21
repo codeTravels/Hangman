@@ -14,8 +14,7 @@ import java.awt.Graphics;
  */
 public class Head extends DrawablePiece
 {
-    protected static int WIDTH = 5;
-    protected static int HEIGHT = 20;
+    private static final int WIDTH = GallowHead.WIDTH;
     protected static  int DIAMETER = 30;
 
     public Head(int x, int y)
@@ -28,10 +27,7 @@ public class Head extends DrawablePiece
     {
         super.draw(g);
         g.setColor(Color.BLACK);
-        g.fillRect(getX(),getY(),WIDTH,HEIGHT);
-        g.drawRect(getX(),getY(),WIDTH,HEIGHT);
-
-        g.drawOval(getX()-((DIAMETER-WIDTH)/2), getY()+HEIGHT, DIAMETER, DIAMETER);
+        g.drawOval(getX() - ((DIAMETER - WIDTH)/2), getY(), DIAMETER, DIAMETER);
 
     }
 
