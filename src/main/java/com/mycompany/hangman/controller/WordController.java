@@ -8,7 +8,6 @@ package com.mycompany.hangman.controller;
 import com.mycompany.hangman.gui.HangmanFrame;
 import com.mycompany.hangman.model.HangmanGame;
 import com.mycompany.hangman.model.Resetable;
-import com.mycompany.hangman.model.WordGenerator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -48,7 +47,7 @@ public class WordController extends AbstractController implements ActionListener
     @Override
     public void reset()
     {
-        this.model.reset(new WordGenerator().generateWord());
+        this.model.reset();
 
 //        view.getDrawPanel().repaint(); // TODO move to another class?
     }

@@ -14,11 +14,16 @@ import java.util.Random;
  *
  * @author Cory
  */
-public class WordGenerator
+public class WordGenerator implements WordGeneratorService
 {
 
     private static final String WORD_FILE = "wordLib.txt";
 
+    public WordGenerator()
+    {
+    }
+
+    @Override
     public Word generateWord()
     {
         String retVal = findStringToUse();

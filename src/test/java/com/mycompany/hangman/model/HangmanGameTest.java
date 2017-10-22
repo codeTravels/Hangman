@@ -14,6 +14,7 @@ import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -49,10 +50,11 @@ public class HangmanGameTest
     public void testProcessLetter_wins()
     {
         DisplayedDrawing mock = mock(DisplayedDrawing.class);
-        HangmanGame game = new HangmanGame(mock);
+        WordGeneratorService wordGenSvc = mock(WordGeneratorService.class);
+        when(wordGenSvc.generateWord()).thenReturn(new Word("bat"));
+        HangmanGame game = new HangmanGame(wordGenSvc, mock);
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
-        game.reset(new Word("bat"));
 
         assertTrue(outputCatcher.getOutput().isEmpty());
         assertEquals("_ _ _", game.getDisplayString());
@@ -81,10 +83,11 @@ public class HangmanGameTest
     @Test
     public void testProcessLetter_Loses()
     {
-        HangmanGame game = new HangmanGame(new TempInterfaceImpl(5));
+        WordGeneratorService wordGenSvc = mock(WordGeneratorService.class);
+        when(wordGenSvc.generateWord()).thenReturn(new Word("bat"));
+        HangmanGame game = new HangmanGame(wordGenSvc,  new TempInterfaceImpl(5));
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
-        game.reset(new Word("bat"));
 
         assertTrue(outputCatcher.getOutput().isEmpty());
         assertEquals("_ _ _", game.getDisplayString());
@@ -126,10 +129,11 @@ public class HangmanGameTest
     @Test
     public void testProcessLetter_repeatGuess()
     {
-        HangmanGame game = new HangmanGame(new TempInterfaceImpl(5));
+        WordGeneratorService wordGenSvc = mock(WordGeneratorService.class);
+        when(wordGenSvc.generateWord()).thenReturn(new Word("bat"));
+        HangmanGame game = new HangmanGame(wordGenSvc,  new TempInterfaceImpl(5));
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
-        game.reset(new Word("bat"));
 
         assertTrue(outputCatcher.getOutput().isEmpty());
         assertEquals("_ _ _", game.getDisplayString());
@@ -175,8 +179,9 @@ public class HangmanGameTest
     @Test
     public void testGetGuessedLetters()
     {
-        HangmanGame game = new HangmanGame(new TempInterfaceImpl(5));
-        game.reset(new Word("bat"));
+        WordGeneratorService wordGenSvc = mock(WordGeneratorService.class);
+        when(wordGenSvc.generateWord()).thenReturn(new Word("bat"));
+        HangmanGame game = new HangmanGame(wordGenSvc,  new TempInterfaceImpl(5));
         String input = "zxtza";
         for (int i = 0; i < input.length(); i++)
         {

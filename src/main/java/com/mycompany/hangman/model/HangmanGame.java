@@ -21,16 +21,18 @@ public class HangmanGame extends AbstractModel
     private final List<Character> guessedLetters = new ArrayList();
     private Word wordToGuess;
     private final DisplayedDrawing picture;
+    private final WordGeneratorService wordGenerator;
 
-    public HangmanGame(DisplayedDrawing picture)
+    public HangmanGame(WordGeneratorService wordGenerator, DisplayedDrawing picture)
     {
         this.picture = picture;
-        reset(new WordGenerator().generateWord());
+        this.wordGenerator = wordGenerator;
+        reset();
     }
 
-    public final void reset(Word word)
+    public final void reset()
     {
-        wordToGuess = word;
+        wordToGuess = wordGenerator.generateWord();
         firePropertyChange(WORD, null, wordToGuess.displayString() );
         picture.reset();
         guessedLetters.clear();
