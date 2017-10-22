@@ -6,7 +6,9 @@ package com.mycompany.hangman.gui;
 
 import com.mycompany.hangman.drawing.DrawPanel;
 import com.mycompany.hangman.model.Character;
+import com.mycompany.hangman.model.HangmanGame;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;
@@ -16,7 +18,7 @@ import javax.swing.text.DefaultCaret;
  *
  * @author Cory
  */
-public class HangmanFrame extends JFrame
+public class HangmanFrame extends JFrame implements View
 {
     /**
      * Creates new form NewJFrame
@@ -73,6 +75,7 @@ public class HangmanFrame extends JFrame
 
         guessedLettersLabel.setText("Guessed Letters:");
 
+        guessedLetters.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         guessedLetters.setText("jLabel2");
 
         javax.swing.GroupLayout drawPanelLayout = new javax.swing.GroupLayout(drawPanel);
@@ -86,6 +89,7 @@ public class HangmanFrame extends JFrame
             .addGap(0, 198, Short.MAX_VALUE)
         );
 
+        wordToGuess.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         wordToGuess.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -98,7 +102,7 @@ public class HangmanFrame extends JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(guessedLettersLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(guessedLetters))
+                        .addComponent(guessedLetters, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -106,7 +110,7 @@ public class HangmanFrame extends JFrame
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton1))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(wordToGuess))
+                            .addComponent(wordToGuess, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -129,7 +133,7 @@ public class HangmanFrame extends JFrame
                         .addComponent(wordToGuess)
                         .addGap(17, 17, 17)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -201,6 +205,31 @@ public class HangmanFrame extends JFrame
     private javax.swing.JLabel wordToGuess;
     // End of variables declaration//GEN-END:variables
 
+
+    public void modelPropertyChange(PropertyChangeEvent evt)
+    {
+            if (evt.getPropertyName().equals(HangmanGame.OUT_TEXT))
+            {
+                for (Object object : ((Iterable)evt.getNewValue()))
+                {
+                    println(object.toString());
+                }
+            }
+            else if (evt.getPropertyName().equals(HangmanGame.CLEAR_OUT_TEXT))
+            {
+                clearOutputConsole();
+            }
+            else if (evt.getPropertyName().equals(HangmanGame.GUESSED_LETTER))
+            {
+                    setGuessedLetters((List<Character>)evt.getNewValue());
+                    getDrawPanel().repaint();
+            }
+            else if (evt.getPropertyName().equals(HangmanGame.WORD))
+            {
+                    setWordToGuess(evt.getNewValue().toString());
+            }
+    }
+
     public void setGuessedLetters(List<Character> guessedLetters)
     {
         StringBuilder builder = new StringBuilder();
@@ -211,18 +240,18 @@ public class HangmanFrame extends JFrame
         this.guessedLetters.setText(builder.toString());
 
     }
-    
+
     public void setWordToGuess(String string)
     {
         this.wordToGuess.setText(string);
     }
 
-    public void println(String stringToPrint)
+    private void println(String stringToPrint)
     {
         outputConsole.append(stringToPrint+"\n");
     }
 
-    public void clearOutputConsole()
+    private void clearOutputConsole()
     {
         outputConsole.setText("");
     }

@@ -12,7 +12,7 @@ import java.beans.PropertyChangeSupport;
  *
  * @author Cory
  */
-public abstract class AbstractModel
+public abstract class AbstractModel implements Model
 {
 
     protected PropertyChangeSupport propertyChangeSupport;
@@ -22,10 +22,12 @@ public abstract class AbstractModel
         propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
+    @Override
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
@@ -33,6 +35,5 @@ public abstract class AbstractModel
     protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
         propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
     }
-
 
 }

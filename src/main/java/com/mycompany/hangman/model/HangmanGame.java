@@ -10,12 +10,16 @@ import java.util.*;
  *
  * @author Cory
  */
-public class HangmanGame
+public class HangmanGame extends AbstractModel
 {
+    public final static String GUESSED_LETTER = "GUESSED_LETTER";
+    public final static String WORD = "WORD";
+    public final static String OUT_TEXT = "OUT_TEXT";
+    public final static String CLEAR_OUT_TEXT = "CLEAR_OUT_TEXT";
+    public final static String GAME_OVER = "GAME_OVER";
 
     private final List<Character> guessedLetters = new ArrayList();
     private Word wordToGuess;
-    private final Queue<String> outputText= new LinkedList<>();
     private final DisplayedDrawing picture;
 
     public HangmanGame(DisplayedDrawing picture)
@@ -27,15 +31,18 @@ public class HangmanGame
     public final void reset(Word word)
     {
         wordToGuess = word;
+        firePropertyChange(WORD, null, wordToGuess.displayString() );
         picture.reset();
         guessedLetters.clear();
-        outputText.clear();
+        firePropertyChange(GUESSED_LETTER, null, getGuessedLetters());
+        firePropertyChange(CLEAR_OUT_TEXT, false, true);
     }
 
     public void processLetter(char guessedLetter)
     {
-
+        Collection<String> outputText= new LinkedList<>();
         wordToGuess.guessedCorrectLetter(guessedLetter);
+        firePropertyChange(WORD, null, wordToGuess.displayString() );
 
         if (wordToGuess.hasGuessedWord())
         {
@@ -60,6 +67,8 @@ public class HangmanGame
             }
         }
         addGuessedLetterToList(guessedLetter);
+        firePropertyChange(OUT_TEXT, null , outputText);
+        firePropertyChange(GAME_OVER, false, gameOver());
 
     }
 
@@ -71,14 +80,9 @@ public class HangmanGame
     private void addGuessedLetterToList(char letter)
     {
         guessedLetters.add(new Character(letter));
+        firePropertyChange(GUESSED_LETTER, null, getGuessedLetters() );
     }
 
-    public List<String> getOutputText()
-    {
-        List<String> retVal = new ArrayList<>(outputText);
-        outputText.clear();
-        return retVal;
-    }
 
     public List<Character> getGuessedLetters()
     {

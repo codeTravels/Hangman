@@ -13,8 +13,8 @@ import java.awt.Graphics;
  */
 public abstract class DrawablePiece implements Drawable
 {
-    final private int x;
-    final private int y;
+    private final int x;
+    private final int y;
     private boolean show = false;
 
     public DrawablePiece(int x, int y)
