@@ -17,15 +17,17 @@ public class HangmanGame extends AbstractModel
     public final static String OUT_TEXT = "OUT_TEXT";
     public final static String CLEAR_OUT_TEXT = "CLEAR_OUT_TEXT";
     public final static String GAME_OVER = "GAME_OVER";
+    public final static String CLEAR_IMAGE = "CLEAR_IMAGE";
+    public final static String WRONG_GUESS = "WRONG_GUESS";
 
+    public static final int CHANCES_TO_GUESS = 6;
+    private int chancesLeftToGuess;
     private final List<Character> guessedLetters = new ArrayList();
     private Word wordToGuess;
-    private final DisplayedDrawing picture;
     private final WordGeneratorService wordGenerator;
 
-    public HangmanGame(WordGeneratorService wordGenerator, DisplayedDrawing picture)
+    public HangmanGame(WordGeneratorService wordGenerator)
     {
-        this.picture = picture;
         this.wordGenerator = wordGenerator;
         reset();
     }
@@ -34,7 +36,8 @@ public class HangmanGame extends AbstractModel
     {
         wordToGuess = wordGenerator.generateWord();
         firePropertyChange(WORD, null, wordToGuess.displayString() );
-        picture.reset();
+        chancesLeftToGuess = CHANCES_TO_GUESS;
+        firePropertyChange(CLEAR_IMAGE, false, true);
         guessedLetters.clear();
         firePropertyChange(GUESSED_LETTER, null, getGuessedLetters());
         firePropertyChange(CLEAR_OUT_TEXT, false, true);
@@ -60,10 +63,11 @@ public class HangmanGame extends AbstractModel
         }
         else
         {
-            picture.showEnableNext();
+            chancesLeftToGuess--;
+            firePropertyChange(WRONG_GUESS, false, true);
             outputText.add("Sorry, wrong guess.");
 
-            if (picture.doneDrawing())
+            if (chancesLeftToGuess == 0)
             {
                 outputText.add("You Lose. The word was " + wordToGuess+".");
             }
@@ -98,7 +102,7 @@ public class HangmanGame extends AbstractModel
 
     public boolean gameOver()
     {
-        return wordToGuess.hasGuessedWord() || picture.doneDrawing();
+        return wordToGuess.hasGuessedWord() || chancesLeftToGuess <= 0;
     }
 
 }

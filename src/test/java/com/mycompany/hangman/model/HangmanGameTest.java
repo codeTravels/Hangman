@@ -49,10 +49,9 @@ public class HangmanGameTest
     @Test
     public void testProcessLetter_wins()
     {
-        DisplayedDrawing mock = mock(DisplayedDrawing.class);
         WordGeneratorService wordGenSvc = mock(WordGeneratorService.class);
         when(wordGenSvc.generateWord()).thenReturn(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc, mock);
+        HangmanGame game = new HangmanGame(wordGenSvc);
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -85,38 +84,31 @@ public class HangmanGameTest
     {
         WordGeneratorService wordGenSvc = mock(WordGeneratorService.class);
         when(wordGenSvc.generateWord()).thenReturn(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc,  new TempInterfaceImpl(5));
+        HangmanGame game = new HangmanGame(wordGenSvc);
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
         assertTrue(outputCatcher.getOutput().isEmpty());
         assertEquals("_ _ _", game.getDisplayString());
 
-        game.processLetter('z');
+        List<Character> guessList = new ArrayList<>();
+        guessList.add(new Character('z'));
+        guessList.add(new Character('y'));
+        guessList.add(new Character('x'));
+        guessList.add(new Character('w'));
+        guessList.add(new Character('v'));
+
         List<String> expected = new ArrayList<String>();
-        expected.add("Sorry, wrong guess.");
-        assertThat(outputCatcher.getOutput(), is(expected));
-        assertEquals("_ _ _", game.getDisplayString());
+        for (Character character : guessList)
+        {
+            game.processLetter(character.get());
+            expected.clear();
+            expected.add("Sorry, wrong guess.");
+            assertThat(outputCatcher.getOutput(), is(expected));
+            assertEquals("_ _ _", game.getDisplayString());
+        }
 
-        game.processLetter('y');
-        expected.clear();
-        expected.add("Sorry, wrong guess.");
-        assertThat(outputCatcher.getOutput(), is(expected));
-        assertEquals("_ _ _", game.getDisplayString());
-
-        game.processLetter('x');
-        expected.clear();
-        expected.add("Sorry, wrong guess.");
-        assertThat(outputCatcher.getOutput(), is(expected));
-        assertEquals("_ _ _", game.getDisplayString());
-
-        game.processLetter('w');
-        expected.clear();
-        expected.add("Sorry, wrong guess.");
-        assertThat(outputCatcher.getOutput(), is(expected));
-        assertEquals("_ _ _", game.getDisplayString());
-
-        game.processLetter('v');
+        game.processLetter('u');
         expected.clear();
         expected.add("Sorry, wrong guess.");
         expected.add("You Lose. The word was bat.");
@@ -131,7 +123,7 @@ public class HangmanGameTest
     {
         WordGeneratorService wordGenSvc = mock(WordGeneratorService.class);
         when(wordGenSvc.generateWord()).thenReturn(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc,  new TempInterfaceImpl(5));
+        HangmanGame game = new HangmanGame(wordGenSvc);
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -181,7 +173,7 @@ public class HangmanGameTest
     {
         WordGeneratorService wordGenSvc = mock(WordGeneratorService.class);
         when(wordGenSvc.generateWord()).thenReturn(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc,  new TempInterfaceImpl(5));
+        HangmanGame game = new HangmanGame(wordGenSvc);
         String input = "zxtza";
         for (int i = 0; i < input.length(); i++)
         {
@@ -199,29 +191,6 @@ public class HangmanGameTest
         assertFalse(game.gameOver());
     }
 
-    protected static class TempInterfaceImpl implements DisplayedDrawing
-    {
-        private int limit;
-        private int numTrys;
-        protected TempInterfaceImpl(int numTrys)
-        {
-            this.limit = numTrys;
-        }
-        public void showEnableNext()
-        {
-            numTrys++;
-        }
-
-        public boolean doneDrawing()
-        {
-            return numTrys >= limit;
-        }
-
-        public void reset()
-        {
-
-        }
-    }
     protected static class OutputCatcher implements PropertyChangeListener
     {
         private List<String> output = new ArrayList<>();

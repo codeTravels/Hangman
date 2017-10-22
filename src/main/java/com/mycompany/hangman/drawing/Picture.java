@@ -8,15 +8,15 @@ package com.mycompany.hangman.drawing;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
-import com.mycompany.hangman.model.DisplayedDrawing;
+import com.mycompany.hangman.model.HangmanGame;
 
 /**
  *
  * @author Cory
  */
-public class Picture implements Drawable, DisplayedDrawing
+public class Picture implements Drawable
 {
-    protected static final int CHANCES_TO_GUESS = 6;
+    protected static final int CHANCES_TO_GUESS = HangmanGame.CHANCES_TO_GUESS;
     private final List<Drawable> drawables = new ArrayList<>();
     private int cnt;
 
@@ -68,19 +68,16 @@ public class Picture implements Drawable, DisplayedDrawing
         }
     }
 
-
-    @Override
     public void showEnableNext()
     {
         if (cnt <= drawables.size())
         {
             drawables.get(cnt++).show();
-
         }
     }
 
-  @Override
-  public void draw(Graphics g)
+    @Override
+     public void draw(Graphics g)
      {
          for (Drawable drawable : drawables)
          {
@@ -89,21 +86,6 @@ public class Picture implements Drawable, DisplayedDrawing
                  drawable.draw(g);
              }
          }
-    }
-
-    @Override
-    public boolean doneDrawing()
-    {
-        boolean retVal = true;
-        for (Drawable drawable : drawables)
-        {
-            if (!drawable.isShowEnabled())
-            {
-                retVal = false;
-                break;
-            }
-        }
-        return retVal;
     }
 
     @Override
@@ -123,7 +105,16 @@ public class Picture implements Drawable, DisplayedDrawing
     @Override
     public boolean isShowEnabled()
     {
-        return doneDrawing();
+        boolean retVal = true;
+        for (Drawable drawable : drawables)
+        {
+            if (!drawable.isShowEnabled())
+            {
+                retVal = false;
+                break;
+            }
+        }
+        return retVal;
     }
 
     @Override

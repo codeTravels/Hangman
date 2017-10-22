@@ -48,7 +48,5 @@ public class WordController extends AbstractController implements ActionListener
     public void reset()
     {
         this.model.reset();
-
-//        view.getDrawPanel().repaint(); // TODO move to another class?
     }
 }

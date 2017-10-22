@@ -5,16 +5,19 @@
  */
 package com.mycompany.hangman.drawing;
 
+import com.mycompany.hangman.gui.View;
+import com.mycompany.hangman.model.HangmanGame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.beans.PropertyChangeEvent;
 import javax.swing.BorderFactory;
 
 /**
  *
  * @author Cory
  */
-public class DrawPanel extends javax.swing.JPanel
+public class DrawPanel extends javax.swing.JPanel implements View
 {
     Picture picture = new Picture(getPreferredSize().width, getPreferredSize().height, 10);
 
@@ -65,6 +68,21 @@ public class DrawPanel extends javax.swing.JPanel
     public Picture getPicture()
     {
         return picture;
+    }
+
+    @Override
+    public void modelPropertyChange(PropertyChangeEvent evt)
+    {
+        if (evt.getPropertyName().equals(HangmanGame.CLEAR_IMAGE))
+        {
+            picture.reset();
+            repaint();
+        }
+        else if (evt.getPropertyName().equals(HangmanGame.WRONG_GUESS))
+        {
+            picture.showEnableNext();
+            repaint();
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
