@@ -102,7 +102,7 @@ public class Word
             Character character = it.next();
             char charToDisplay = character.getCharToDisplay();
             builder.append(charToDisplay);
-            if (!character.isSpace() && it.hasNext())
+            if (it.hasNext())
             {
                 builder.append(" ");
             }

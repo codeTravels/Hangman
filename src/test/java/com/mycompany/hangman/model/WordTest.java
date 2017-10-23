@@ -70,7 +70,7 @@ public class WordTest
     public void testDisplayString_TwoWords()
     {
         Word word = new Word("one two");
-        String expected = "_ _ _  _ _ _";
+        String expected = "_ _ _   _ _ _";
         String outputText = word.displayString();
         assertEquals(expected, outputText);
     }
