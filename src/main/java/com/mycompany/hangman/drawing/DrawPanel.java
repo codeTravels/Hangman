@@ -65,11 +65,6 @@ public class DrawPanel extends javax.swing.JPanel implements View
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public Picture getPicture()
-    {
-        return picture;
-    }
-
     @Override
     public void modelPropertyChange(PropertyChangeEvent evt)
     {
