@@ -12,7 +12,7 @@ import javax.swing.Action;
  *
  * @author Cory
  */
-public interface ActionsRepository extends Repository<Action>
+public interface ActionRepository extends Repository<Action>
 {
     @Override
     public Action get(Class<?> actionClass);
