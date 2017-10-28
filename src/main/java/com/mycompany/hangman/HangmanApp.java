@@ -1,7 +1,7 @@
 package com.mycompany.hangman;
 
-import com.mycompany.hangman.actions.ActionsRepository;
-import com.mycompany.hangman.actions.DefaultActionsRepository;
+import com.mycompany.hangman.actions.ActionRepository;
+import com.mycompany.hangman.actions.DefaultActionRepository;
 import com.mycompany.hangman.actions.ExitAction;
 import com.mycompany.hangman.actions.NewGameAction;
 import com.mycompany.hangman.controller.WordController;
@@ -31,15 +31,15 @@ public class HangmanApp
         GameOverView gov = new GameOverView(view, controller);
         controller.addView(gov);
 
-        ActionsRepository repo = new DefaultActionsRepository();
+        ActionRepository actionRepo = new DefaultActionRepository();
         {
-            repo.add(new NewGameAction(controller));
-            repo.add(new ExitAction());
+            actionRepo.add(new NewGameAction(controller));
+            actionRepo.add(new ExitAction());
         }
 
         {
             JMenuBar jMenuBar = new JMenuBar();
-            jMenuBar.add(new GameMenu(repo));
+            jMenuBar.add(new GameMenu(actionRepo));
             view.setJMenuBar(jMenuBar);
             view.pack();
         }

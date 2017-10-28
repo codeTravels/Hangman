@@ -5,13 +5,13 @@
  */
 package com.mycompany.hangman.menu;
 
-import com.mycompany.hangman.actions.ActionsRepository;
 import com.mycompany.hangman.actions.ExitAction;
 import com.mycompany.hangman.actions.NewGameAction;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
+import com.mycompany.hangman.actions.ActionRepository;
 
 /**
  *
@@ -19,21 +19,21 @@ import javax.swing.JSeparator;
  */
 public class GameMenu extends JMenu
 {
-    public GameMenu(ActionsRepository repo)
+    public GameMenu(ActionRepository actionRepo)
     {
         super("Game");
-        create(repo);
+        create(actionRepo);
     }
 
-    private void create(ActionsRepository repo)
+    private void create(ActionRepository actionRepo)
     {
-        Action action = repo.get(NewGameAction.class);
+        Action action = actionRepo.get(NewGameAction.class);
         JMenuItem jMenuItem = new JMenuItem(action);
         add(jMenuItem);
 
         add(new JSeparator());
 
-        action = repo.get(ExitAction.class);
+        action = actionRepo.get(ExitAction.class);
         jMenuItem = new JMenuItem(action);
         add(jMenuItem);
     }

@@ -5,40 +5,14 @@
  */
 package com.mycompany.hangman.actions;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.mycompany.hangman.repo.AbstractRepository;
 import javax.swing.Action;
 
 /**
  *
  * @author Cory
  */
-public class DefaultActionsRepository implements ActionsRepository
+public class DefaultActionRepository extends AbstractRepository<Action> implements ActionRepository
 {
-    private final Map<String, Action> actions = new HashMap<>();
-
-    @Override
-    public Action get(Class<?> controllerClass)
-    {
-        return get(controllerClass.getName());
-    }
-
-    @Override
-    public Action get(String name)
-    {
-        return actions.get(name);
-    }
-
-    @Override
-    public void add(Action action)
-    {
-        put(action.getClass().getName(), action);
-    }
-
-    @Override
-    public void put(String name, Action action)
-    {
-        actions.put(name, action);
-    }
 
 }

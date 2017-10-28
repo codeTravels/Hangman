@@ -11,11 +11,30 @@ package com.mycompany.hangman.repo;
  */
 public interface Repository<T>
 {
+    /**
+     * Gets object T from the repository using the class name
+     * @param classType
+     * @return
+     */
     public T get(Class<?> classType);
 
-    public T get(String name);
+    /**
+     * Gets object T from the repository using name as a key
+     * @param key key to search for
+     * @return object T mapped to key name
+     */
+    public T get(String key);
 
+    /**
+     * Adds object T to the repository
+     * @param value
+     */
     public void add(T value);
 
-    public void put(String name, T value);
+    /**
+     * Puts object T into the repository with the given key
+     * @param key
+     * @param value
+     */
+    public void put(String key, T value);
 }
