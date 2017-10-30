@@ -16,13 +16,13 @@ public class HangmanApp
     public void start()
     {
 
-        HangmanFrame view = new HangmanFrame();
+        HangmanFrame mainFrame = new HangmanFrame();
         HangmanGame game = new HangmanGame(new WordGenerator());
-        WordController controller = new WordController(view, game);
-        controller.addView(view.getDrawPanel());
-        view.addController(controller);
+        WordController controller = new WordController(mainFrame.getGamePanel(), game);
+        controller.addView(mainFrame.getGamePanel().getDrawPanel());
+        mainFrame.getGamePanel().addController(controller);
 
-        GameOverView gov = new GameOverView(view, controller);
+        GameOverView gov = new GameOverView(mainFrame, controller);
         controller.addView(gov);
 
     }
