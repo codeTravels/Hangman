@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.hangman.gui;
 
 import com.mycompany.hangman.model.HangmanGame;
@@ -20,6 +15,7 @@ public class GameOverView implements View
 
     private final Component parent;
     private final Resetable resetable;
+
     public GameOverView(Component parent, Resetable resetable)
     {
         this.parent = parent;

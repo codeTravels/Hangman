@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.hangman.model;
 
 import java.beans.PropertyChangeEvent;
@@ -11,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

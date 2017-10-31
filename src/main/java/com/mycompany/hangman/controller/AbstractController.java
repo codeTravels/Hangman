@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.hangman.controller;
 
 import com.mycompany.hangman.gui.View;
@@ -20,6 +15,7 @@ import java.util.List;
  */
 public abstract class AbstractController implements PropertyChangeListener
 {
+
     private final List<View> registeredViews;
     private final List<Model> registeredModels;
 
@@ -28,7 +24,6 @@ public abstract class AbstractController implements PropertyChangeListener
         registeredViews = new ArrayList<>();
         registeredModels = new ArrayList<>();
     }
-
 
     public void addModel(Model model)
     {
@@ -52,49 +47,44 @@ public abstract class AbstractController implements PropertyChangeListener
         registeredViews.remove(view);
     }
 
-
-    //  Use this to observe property changes from registered models
-    //  and propagate them on to all the views.
-
-
+    /**
+     * Use this to observe property changes from registered models and propagate
+     * them on to all the views.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
 
-        for (View view: registeredViews)
+        for (View view : registeredViews)
         {
             view.modelPropertyChange(evt);
         }
     }
 
-
     /**
-     * This is a convenience method that subclasses can call upon
-     * to fire property changes back to the models. This method
-     * uses reflection to inspect each of the model classes
-     * to determine whether it is the owner of the property
-     * in question. If it isn't, a NoSuchMethodException is thrown,
+     * This is a convenience method that subclasses can call upon to fire
+     * property changes back to the models. This method uses reflection to
+     * inspect each of the model classes to determine whether it is the owner of
+     * the property in question. If it isn't, a NoSuchMethodException is thrown,
      * which the method ignores.
      *
-     * @param propertyName = The name of the property.
-     * @param newValue = An object that represents the new value
-     * of the property.
+     * @param propertyName  The name of the property.
+     * @param newValue      An object that represents the new value of the
+     *                     property.
      */
-    protected void setModelProperty(String propertyName, Object newValue) {
+    protected void setModelProperty(String propertyName, Object newValue)
+    {
 
-        for (Model model: registeredModels) {
-            try {
-
-                Method method = model.getClass().
-                    getMethod("set"+propertyName, new Class[] {
-                                                      newValue.getClass()
-                                                  }
-
-
-                             );
+        for (Model model : registeredModels)
+        {
+            try
+            {
+                Method method = model.getClass().getMethod("set" + propertyName, newValue.getClass());
                 method.invoke(model, newValue);
 
-            } catch (IllegalAccessException ex) {
+            }
+            catch (IllegalAccessException ex)
+            {
                 //  Handle exception.
             }
             catch (IllegalArgumentException ex)

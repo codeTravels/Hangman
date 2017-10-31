@@ -1,10 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.hangman.gui;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 /**
  *
@@ -12,6 +8,7 @@ import javax.swing.*;
  */
 public class HangmanFrame extends JFrame
 {
+
     /**
      * Creates new form NewJFrame
      */
@@ -104,7 +101,6 @@ public class HangmanFrame extends JFrame
             }
         });
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.mycompany.hangman.gui.GamePanel gamePanel;

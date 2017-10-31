@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.hangman.gui;
 
 import java.awt.Toolkit;
@@ -16,10 +11,11 @@ import javax.swing.text.DocumentFilter;
  */
 public class ValidGuessDocFilter extends DocumentFilter
 {
-   @Override
-   public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException
-   {
-       System.out.println("MyDocumentFilter insertString");
+
+    @Override
+    public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException
+    {
+        System.out.println("MyDocumentFilter insertString");
         if (isAllowed(offset, 0, string))
         {
             super.insertString(fb, offset, string, attr);
@@ -33,7 +29,6 @@ public class ValidGuessDocFilter extends DocumentFilter
     @Override
     public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
     {
-        System.out.println("MyDocumentFilter replace");
         if (isAllowed(offset, length, text))
         {
             super.replace(fb, offset, length, text, attrs);
@@ -44,24 +39,24 @@ public class ValidGuessDocFilter extends DocumentFilter
         }
     }
 
-   private boolean isAllowed(int offset, int length, String string)
+    private boolean isAllowed(int offset, int length, String string)
     {
-       boolean allowInsert = true;
-       for (int i = 0; i < string.length(); i++)
-       {
-           if (!Character.isLetter(string.charAt(i)) || !Character.isLowerCase(string.charAt(i)))
-           {
-               allowInsert = false;
-               break;
-           }
+        boolean allowInsert = true;
+        for (int i = 0; i < string.length(); i++)
+        {
+            if (!Character.isLetter(string.charAt(i)) || !Character.isLowerCase(string.charAt(i)))
+            {
+                allowInsert = false;
+                break;
+            }
 
-       }
-        int charactersLimit =1 ;
+        }
+        int charactersLimit = 1;
         allowInsert &= (offset - length + string.length()) <= charactersLimit;
         return allowInsert;
     }
 
-   protected boolean isLowerCaseLetter(char character)
+    protected boolean isLowerCaseLetter(char character)
     {
         return ('a' <= character) && (character <= 'z');
     }

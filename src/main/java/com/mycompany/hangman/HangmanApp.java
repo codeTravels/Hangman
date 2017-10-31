@@ -7,11 +7,17 @@ import com.mycompany.hangman.model.HangmanGame;
 import com.mycompany.hangman.model.WordGenerator;
 
 /**
- * Hello world!
+ * This class wires up all the components to start the game.
  *
+ * @author Cory
  */
 public class HangmanApp
 {
+
+    public HangmanApp()
+    {
+
+    }
 
     public void start()
     {
@@ -26,6 +32,5 @@ public class HangmanApp
         controller.addView(gov);
 
     }
-
 
 }

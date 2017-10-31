@@ -8,9 +8,13 @@ package com.mycompany.hangman;
  *
  * @author Cory
  */
-public interface Game {
+public interface Game
+{
+
     public void start();
+
     public void stop();
+
     public void reset();
-            
+
 }

@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.hangman.gui;
 
 import com.mycompany.hangman.drawing.DrawPanel;
+import com.mycompany.hangman.model.Character;
 import com.mycompany.hangman.model.HangmanGame;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -26,7 +22,7 @@ public class GamePanel extends javax.swing.JPanel implements View
     {
         initComponents();
         this.outputConsole.setEditable(false);
-        ((AbstractDocument)this.guess.getDocument()).setDocumentFilter(new ValidGuessDocFilter());
+        ((AbstractDocument) this.guess.getDocument()).setDocumentFilter(new ValidGuessDocFilter());
     }
 
     /**
@@ -134,7 +130,6 @@ public class GamePanel extends javax.swing.JPanel implements View
         guess.selectAll();
     }//GEN-LAST:event_guessFocusGained
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.mycompany.hangman.drawing.DrawPanel drawPanel;
     private javax.swing.JTextField guess;
@@ -149,32 +144,32 @@ public class GamePanel extends javax.swing.JPanel implements View
     @Override
     public void modelPropertyChange(PropertyChangeEvent evt)
     {
-            if (evt.getPropertyName().equals(HangmanGame.OUT_TEXT))
+        if (evt.getPropertyName().equals(HangmanGame.OUT_TEXT))
+        {
+            for (Object object : ((Iterable) evt.getNewValue()))
             {
-                for (Object object : ((Iterable)evt.getNewValue()))
-                {
-                    println(object.toString());
-                }
+                println(object.toString());
             }
-            else if (evt.getPropertyName().equals(HangmanGame.CLEAR_OUT_TEXT))
-            {
-                clearOutputConsole();
-            }
-            else if (evt.getPropertyName().equals(HangmanGame.GUESSED_LETTER))
-            {
-                    setGuessedLetters((List<com.mycompany.hangman.model.Character>)evt.getNewValue());
-                    getDrawPanel().repaint();
-            }
-            else if (evt.getPropertyName().equals(HangmanGame.WORD))
-            {
-                    setWordToGuess(evt.getNewValue().toString());
-            }
+        }
+        else if (evt.getPropertyName().equals(HangmanGame.CLEAR_OUT_TEXT))
+        {
+            clearOutputConsole();
+        }
+        else if (evt.getPropertyName().equals(HangmanGame.GUESSED_LETTER))
+        {
+            setGuessedLetters((List<Character>) evt.getNewValue());
+            getDrawPanel().repaint();
+        }
+        else if (evt.getPropertyName().equals(HangmanGame.WORD))
+        {
+            setWordToGuess(evt.getNewValue().toString());
+        }
     }
 
-    public void setGuessedLetters(List<com.mycompany.hangman.model.Character> guessedLetters)
+    public void setGuessedLetters(List<Character> guessedLetters)
     {
         StringBuilder builder = new StringBuilder();
-        for (com.mycompany.hangman.model.Character guessedLetter : guessedLetters)
+        for (Character guessedLetter : guessedLetters)
         {
             builder.append(guessedLetter);
         }
@@ -189,7 +184,7 @@ public class GamePanel extends javax.swing.JPanel implements View
 
     private void println(String stringToPrint)
     {
-        outputConsole.append(stringToPrint+"\n");
+        outputConsole.append(stringToPrint + "\n");
     }
 
     private void clearOutputConsole()
