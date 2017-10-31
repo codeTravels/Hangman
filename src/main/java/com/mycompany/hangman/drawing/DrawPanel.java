@@ -1,6 +1,7 @@
 package com.mycompany.hangman.drawing;
 
 import com.mycompany.hangman.gui.View;
+import com.mycompany.hangman.model.GameConfig;
 import com.mycompany.hangman.model.HangmanGame;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -71,6 +72,12 @@ public class DrawPanel extends javax.swing.JPanel implements View
         else if (evt.getPropertyName().equals(HangmanGame.WRONG_GUESS))
         {
             picture.showEnableNext();
+            repaint();
+        }
+        else if (evt.getPropertyName().equals(HangmanGame.GAME_CONFIG))
+        {
+            picture.setChancesToGuess(((GameConfig)evt.getNewValue()).getNumGuessesAllowed());
+            picture.reset();
             repaint();
         }
     }

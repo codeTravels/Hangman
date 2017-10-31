@@ -11,15 +11,16 @@ import java.util.List;
  */
 public class HangmanGame extends AbstractModel
 {
-    public final static String GUESSED_LETTER = "GUESSED_LETTER";
-    public final static String WORD = "WORD";
-    public final static String OUT_TEXT = "OUT_TEXT";
-    public final static String CLEAR_OUT_TEXT = "CLEAR_OUT_TEXT";
-    public final static String GAME_OVER = "GAME_OVER";
     public final static String CLEAR_IMAGE = "CLEAR_IMAGE";
+    public final static String CLEAR_OUT_TEXT = "CLEAR_OUT_TEXT";
+    public final static String GAME_CONFIG = "GAME_CONFIG";
+    public final static String GAME_OVER = "GAME_OVER";
+    public final static String GUESSED_LETTER = "GUESSED_LETTER";
+    public final static String OUT_TEXT = "OUT_TEXT";
+    public final static String WORD = "WORD";
     public final static String WRONG_GUESS = "WRONG_GUESS";
 
-    public static final int CHANCES_TO_GUESS = 6;
+    private GameConfig config = new GameConfig();
     private int chancesLeftToGuess;
     private final List<Character> guessedLetters = new ArrayList();
     private Word wordToGuess;
@@ -35,7 +36,7 @@ public class HangmanGame extends AbstractModel
     {
         wordToGuess = wordGenerator.generateWord();
         firePropertyChange(WORD, null, wordToGuess.displayString() );
-        chancesLeftToGuess = CHANCES_TO_GUESS;
+        chancesLeftToGuess = config.getNumGuessesAllowed();
         firePropertyChange(CLEAR_IMAGE, false, true);
         guessedLetters.clear();
         firePropertyChange(GUESSED_LETTER, null, getGuessedLetters());
@@ -102,6 +103,14 @@ public class HangmanGame extends AbstractModel
     public boolean gameOver()
     {
         return wordToGuess.hasGuessedWord() || chancesLeftToGuess <= 0;
+    }
+
+    public void setConfig(GameConfig config)
+    {
+        GameConfig oldValue = this.config;
+        this.config = config;
+        firePropertyChange(GAME_CONFIG, oldValue, this.config);
+        reset();
     }
 
 }

@@ -1,6 +1,6 @@
 package com.mycompany.hangman.drawing;
 
-import com.mycompany.hangman.model.HangmanGame;
+import com.mycompany.hangman.model.GameConfig;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Picture implements Drawable
 {
-    protected static final int CHANCES_TO_GUESS = HangmanGame.CHANCES_TO_GUESS;
+    private int chancesToGuess = GameConfig.DEFAULT_NUM_GUESSES;
     private final List<Drawable> drawables = new ArrayList<>();
     private int cnt;
 
@@ -56,7 +56,7 @@ public class Picture implements Drawable
          RightLeg rightLeg = new RightLeg(torso.getX(), torso.getY() + Torso.HEIGHT);
          drawables.add(rightLeg);
 
-         cnt = drawables.size() - CHANCES_TO_GUESS ;
+         cnt = drawables.size() - chancesToGuess ;
          for (int i = 0; i < cnt; i++)
         {
             drawables.get(i).show();
@@ -90,7 +90,7 @@ public class Picture implements Drawable
         {
             drawable.reset();
         }
-        cnt = drawables.size() - CHANCES_TO_GUESS;
+        cnt = drawables.size() - chancesToGuess;
          for (int i = 0; i < cnt; i++)
         {
             drawables.get(i).show();
@@ -117,4 +117,10 @@ public class Picture implements Drawable
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public void setChancesToGuess(int chancesToGuess)
+    {
+        this.chancesToGuess = chancesToGuess;
+    }
+
 }
