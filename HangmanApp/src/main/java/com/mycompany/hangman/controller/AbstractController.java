@@ -3,7 +3,6 @@ package com.mycompany.hangman.controller;
 import com.mycompany.hangman.gui.View;
 import com.mycompany.hangman.model.Model;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.List;
  *
  * @author Cory
  */
-public abstract class AbstractController implements PropertyChangeListener
+public abstract class AbstractController implements Controller
 {
 
     private final List<View> registeredViews;
@@ -25,23 +24,27 @@ public abstract class AbstractController implements PropertyChangeListener
         registeredModels = new ArrayList<>();
     }
 
+    @Override
     public void addModel(Model model)
     {
         registeredModels.add(model);
         model.addPropertyChangeListener(this);
     }
 
+    @Override
     public void removeModel(Model model)
     {
         registeredModels.remove(model);
         model.removePropertyChangeListener(this);
     }
 
+    @Override
     public void addView(View view)
     {
         registeredViews.add(view);
     }
 
+    @Override
     public void removeView(View view)
     {
         registeredViews.remove(view);
