@@ -13,7 +13,7 @@ import java.util.Random;
 public class WordGenerator implements WordGeneratorService
 {
 
-    private static final String WORD_FILE = "wordLib.txt";
+    private static final String WORD_FILE = "src/main/resources/wordLib.txt";
 
     public WordGenerator()
     {
