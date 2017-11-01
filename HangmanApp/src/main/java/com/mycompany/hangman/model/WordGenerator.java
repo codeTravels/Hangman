@@ -14,9 +14,16 @@ public class WordGenerator implements WordGeneratorService
 {
 
     private static final String WORD_FILE = "src/main/resources/wordLib.txt";
+    private final File wordFile;
 
     public WordGenerator()
     {
+        this(WORD_FILE);
+    }
+
+    protected WordGenerator(String wordFilePath)
+    {
+        this.wordFile = new File(wordFilePath);
     }
 
     @Override
@@ -29,13 +36,11 @@ public class WordGenerator implements WordGeneratorService
 
     private String findStringToUse()
     {
-        File inputFile;
-        String retVal = null;
+        String retVal = "";
         BufferedReader buffer;
         try
         {
-            inputFile = new File(WORD_FILE);
-            buffer = new BufferedReader(new FileReader(inputFile));
+            buffer = new BufferedReader(new FileReader(wordFile));
             int randomLine = new Random().nextInt(wordCount());
 
             for (int i = 0; i <= randomLine; i++)
@@ -53,13 +58,11 @@ public class WordGenerator implements WordGeneratorService
 
     private int wordCount()
     {
-        File inputFile;
         BufferedReader buffer;
         int retVal = 0;
         try
         {
-            inputFile = new File(WORD_FILE);
-            buffer = new BufferedReader(new FileReader(inputFile));
+            buffer = new BufferedReader(new FileReader(wordFile));
             while (buffer.readLine() != null)
             {
                 retVal++;
