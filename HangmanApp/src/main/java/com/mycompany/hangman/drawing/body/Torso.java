@@ -1,5 +1,6 @@
-package com.mycompany.hangman.drawing;
+package com.mycompany.hangman.drawing.body;
 
+import com.mycompany.hangman.drawing.DrawablePiece;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -10,7 +11,7 @@ import java.awt.Graphics;
 public class Torso extends DrawablePiece
 {
     protected static int WIDTH = 2;
-    protected static int HEIGHT = 60;
+    public static int HEIGHT = 60;
 
     public Torso(int x, int y)
     {

@@ -1,4 +1,4 @@
-package com.mycompany.hangman.drawing;
+package com.mycompany.hangman.drawing.gallow;
 
 /**
  *
@@ -6,8 +6,8 @@ package com.mycompany.hangman.drawing;
  */
 public class GallowPost extends GallowPiece
 {
-    protected static int WIDTH = 5;
-    protected static int HEIGHT = 150;
+    public static int WIDTH = 5;
+    public static int HEIGHT = 150;
 
     public GallowPost(int x, int y)
     {

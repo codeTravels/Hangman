@@ -1,5 +1,6 @@
-package com.mycompany.hangman.drawing;
+package com.mycompany.hangman.drawing.body;
 
+import com.mycompany.hangman.drawing.DrawablePiece;
 import java.awt.Color;
 import java.awt.Graphics;
 

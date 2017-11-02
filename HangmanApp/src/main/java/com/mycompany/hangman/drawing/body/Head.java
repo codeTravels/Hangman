@@ -1,5 +1,7 @@
-package com.mycompany.hangman.drawing;
+package com.mycompany.hangman.drawing.body;
 
+import com.mycompany.hangman.drawing.DrawablePiece;
+import com.mycompany.hangman.drawing.gallow.GallowHead;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -9,8 +11,8 @@ import java.awt.Graphics;
  */
 public class Head extends DrawablePiece
 {
-    private static final int WIDTH = GallowHead.WIDTH;
-    protected static  int DIAMETER = 30;
+    public static final int WIDTH = GallowHead.WIDTH;
+    public static  int DIAMETER = 30;
 
     public Head(int x, int y)
     {

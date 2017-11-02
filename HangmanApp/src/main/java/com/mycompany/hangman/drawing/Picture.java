@@ -1,5 +1,10 @@
 package com.mycompany.hangman.drawing;
 
+import com.mycompany.hangman.drawing.body.*;
+import com.mycompany.hangman.drawing.gallow.GallowBase;
+import com.mycompany.hangman.drawing.gallow.GallowHead;
+import com.mycompany.hangman.drawing.gallow.GallowPost;
+import com.mycompany.hangman.drawing.gallow.GallowTop;
 import com.mycompany.hangman.model.GameConfig;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -86,10 +91,10 @@ public class Picture implements Drawable
     @Override
     public void reset()
     {
-        for (Drawable drawable : drawables)
+        drawables.forEach((drawable) ->
         {
             drawable.reset();
-        }
+        });
         cnt = drawables.size() - chancesToGuess;
          for (int i = 0; i < cnt; i++)
         {
