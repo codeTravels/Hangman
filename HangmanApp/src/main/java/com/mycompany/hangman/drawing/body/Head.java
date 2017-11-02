@@ -26,6 +26,15 @@ public class Head extends DrawablePiece
         g.setColor(Color.BLACK);
         g.drawOval(getX() - ((DIAMETER - WIDTH)/2), getY(), DIAMETER, DIAMETER);
 
+        // Draw eyes
+        char [] data = {'x'};
+        int leftEyeX = getX();
+        int eyeY = getY() + (int)(DIAMETER * 0.33);
+        g.drawChars(data, 0, data.length, leftEyeX - 3, eyeY + 5);
+
+        int rightEyeX = getX() + (int)(DIAMETER * 0.33);
+        g.drawChars(data, 0, 1, rightEyeX - 3, eyeY + 5);
+
     }
 
 }
