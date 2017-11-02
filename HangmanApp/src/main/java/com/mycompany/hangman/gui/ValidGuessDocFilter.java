@@ -44,20 +44,15 @@ public class ValidGuessDocFilter extends DocumentFilter
         boolean allowInsert = true;
         for (int i = 0; i < string.length(); i++)
         {
-            if (!Character.isLetter(string.charAt(i)) || !Character.isLowerCase(string.charAt(i)))
+            if (!Character.isLetter(string.charAt(i)))
             {
                 allowInsert = false;
                 break;
             }
 
         }
-        int charactersLimit = 1;
-        allowInsert &= (offset - length + string.length()) <= charactersLimit;
+        int characterLimit = 1;
+        allowInsert &= (offset - length + string.length()) <= characterLimit;
         return allowInsert;
-    }
-
-    protected boolean isLowerCaseLetter(char character)
-    {
-        return ('a' <= character) && (character <= 'z');
     }
 }

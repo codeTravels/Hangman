@@ -169,10 +169,11 @@ public class GamePanel extends javax.swing.JPanel implements View
     public void setGuessedLetters(List<Character> guessedLetters)
     {
         StringBuilder builder = new StringBuilder();
-        for (Character guessedLetter : guessedLetters)
+        guessedLetters.forEach((guessedLetter) ->
         {
-            builder.append(guessedLetter);
-        }
+            builder.append(guessedLetter)
+                    .append(" ");
+        });
         this.guessedLetters.setText(builder.toString());
 
     }
@@ -196,9 +197,9 @@ public class GamePanel extends javax.swing.JPanel implements View
     {
         String retVal = getGuess();
         clearGuess();
-        return retVal;
+        return retVal.toUpperCase();
     }
-    
+
     private String getGuess()
     {
         return guess.getText();

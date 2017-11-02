@@ -31,7 +31,7 @@ public class WordGenerator implements WordGeneratorService
     {
         String retVal = findStringToUse();
 
-        return new Word(retVal.toLowerCase());
+        return new Word(retVal.toUpperCase());
     }
 
     private String findStringToUse()
