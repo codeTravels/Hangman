@@ -74,7 +74,7 @@ public class HangmanGame extends AbstractModel
         }
         addGuessedLetterToList(guessedLetter);
         firePropertyChange(OUT_TEXT, null , outputText);
-        firePropertyChange(GAME_OVER, false, gameOver());
+        firePropertyChange(GAME_OVER, false, isGameOver());
 
     }
 
@@ -100,7 +100,7 @@ public class HangmanGame extends AbstractModel
         return wordToGuess.displayString();
     }
 
-    public boolean gameOver()
+    public boolean isGameOver()
     {
         return wordToGuess.hasGuessedWord() || chancesLeftToGuess <= 0;
     }
