@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Cory
  */
-public class HangmanGame extends AbstractModel
+public class HangmanGame extends AbstractModel implements Resetable
 {
     public final static String CLEAR_IMAGE = "CLEAR_IMAGE";
     public final static String CLEAR_OUT_TEXT = "CLEAR_OUT_TEXT";
@@ -32,6 +32,7 @@ public class HangmanGame extends AbstractModel
         reset();
     }
 
+    @Override
     public final void reset()
     {
         wordToGuess = wordGenerator.generateWord();
