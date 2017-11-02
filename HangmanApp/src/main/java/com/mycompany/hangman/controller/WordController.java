@@ -31,8 +31,7 @@ public class WordController extends AbstractController implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        String guess = view.getGuess();
-        view.clearGuess();
+        String guess = view.consumeGuess();
         if (!guess.isEmpty())
         {
             model.processLetter(guess.charAt(0));

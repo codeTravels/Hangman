@@ -192,12 +192,19 @@ public class GamePanel extends javax.swing.JPanel implements View
         outputConsole.setText("");
     }
 
-    public String getGuess()
+    public String consumeGuess()
+    {
+        String retVal = getGuess();
+        clearGuess();
+        return retVal;
+    }
+    
+    private String getGuess()
     {
         return guess.getText();
     }
 
-    public void clearGuess()
+    private void clearGuess()
     {
         guess.setText("");
     }
