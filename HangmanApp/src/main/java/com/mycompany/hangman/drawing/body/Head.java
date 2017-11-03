@@ -35,6 +35,9 @@ public class Head extends DrawablePiece
         int rightEyeX = getX() + (int)(DIAMETER * 0.33);
         g.drawChars(data, 0, 1, rightEyeX - 3, eyeY + 5);
 
+        // Draw sad lips
+        g.drawArc(getX() - 2, getY() + 20, 10, 5, 0, 180);
+
     }
 
 }
