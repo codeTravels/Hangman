@@ -35,8 +35,8 @@ public class GamePanel extends javax.swing.JPanel implements View
     private void initComponents()
     {
 
-        guessedLettersLabel = new javax.swing.JLabel();
-        guessedLetters = new javax.swing.JLabel();
+        incorrectLettersLabel = new javax.swing.JLabel();
+        incorrectLetters = new javax.swing.JLabel();
         guess = new javax.swing.JTextField();
         okButton = new javax.swing.JButton();
         outputScrollPane = new javax.swing.JScrollPane();
@@ -44,10 +44,10 @@ public class GamePanel extends javax.swing.JPanel implements View
         wordToGuess = new javax.swing.JLabel();
         drawPanel = new com.mycompany.hangman.drawing.DrawPanel();
 
-        guessedLettersLabel.setText("Guessed Letters:");
+        incorrectLettersLabel.setText("Incorrect:");
 
-        guessedLetters.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        guessedLetters.setText("jLabel2");
+        incorrectLetters.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        incorrectLetters.setText("jLabel2");
 
         guess.setText("Enter guess here ");
         guess.addFocusListener(new java.awt.event.FocusAdapter()
@@ -88,9 +88,9 @@ public class GamePanel extends javax.swing.JPanel implements View
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(guessedLettersLabel)
+                        .addComponent(incorrectLettersLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(guessedLetters, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(incorrectLetters, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -111,8 +111,8 @@ public class GamePanel extends javax.swing.JPanel implements View
                     .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(guessedLettersLabel)
-                            .addComponent(guessedLetters))
+                            .addComponent(incorrectLettersLabel)
+                            .addComponent(incorrectLetters))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(guess, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -133,8 +133,8 @@ public class GamePanel extends javax.swing.JPanel implements View
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.mycompany.hangman.drawing.DrawPanel drawPanel;
     private javax.swing.JTextField guess;
-    private javax.swing.JLabel guessedLetters;
-    private javax.swing.JLabel guessedLettersLabel;
+    private javax.swing.JLabel incorrectLetters;
+    private javax.swing.JLabel incorrectLettersLabel;
     private javax.swing.JButton okButton;
     private javax.swing.JTextArea outputConsole;
     private javax.swing.JScrollPane outputScrollPane;
@@ -148,17 +148,16 @@ public class GamePanel extends javax.swing.JPanel implements View
         {
             for (Object object : ((Iterable) evt.getNewValue()))
             {
-                println(object.toString());
+                printlnToConsole(object.toString());
             }
         }
         else if (evt.getPropertyName().equals(HangmanGame.CLEAR_OUT_TEXT))
         {
             clearOutputConsole();
         }
-        else if (evt.getPropertyName().equals(HangmanGame.GUESSED_LETTER))
+        else if (evt.getPropertyName().equals(HangmanGame.INCORRECT_LETTER))
         {
-            setGuessedLetters((List<Character>) evt.getNewValue());
-            getDrawPanel().repaint();
+            setIncorrectLetters((List<Character>) evt.getNewValue());
         }
         else if (evt.getPropertyName().equals(HangmanGame.WORD))
         {
@@ -166,15 +165,15 @@ public class GamePanel extends javax.swing.JPanel implements View
         }
     }
 
-    public void setGuessedLetters(List<Character> guessedLetters)
+    public void setIncorrectLetters(List<Character> letters)
     {
         StringBuilder builder = new StringBuilder();
-        guessedLetters.forEach((guessedLetter) ->
+        letters.forEach((letter) ->
         {
-            builder.append(guessedLetter)
+            builder.append(letter)
                     .append(" ");
         });
-        this.guessedLetters.setText(builder.toString());
+        this.incorrectLetters.setText(builder.toString());
 
     }
 
@@ -183,9 +182,11 @@ public class GamePanel extends javax.swing.JPanel implements View
         this.wordToGuess.setText(string);
     }
 
-    private void println(String stringToPrint)
+    private void printlnToConsole(String stringToPrint)
     {
-        outputConsole.append(stringToPrint + "\n");
+        outputConsole.append(stringToPrint);
+        outputConsole.append("\n");
+
     }
 
     private void clearOutputConsole()

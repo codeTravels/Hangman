@@ -25,7 +25,7 @@ public class WordController extends AbstractController implements ActionListener
         addView(view);
 
         view.setWordToGuess(model.getDisplayString());
-        view.setGuessedLetters(model.getGuessedLetters());
+        view.setIncorrectLetters(model.getIncorrectLetters());
     }
 
     @Override

@@ -15,14 +15,14 @@ public class HangmanGame extends AbstractModel implements Resetable
     public final static String CLEAR_OUT_TEXT = "CLEAR_OUT_TEXT";
     public final static String GAME_CONFIG = "GAME_CONFIG";
     public final static String GAME_OVER = "GAME_OVER";
-    public final static String GUESSED_LETTER = "GUESSED_LETTER";
+    public final static String INCORRECT_LETTER = "INCORRECT_LETTER";
     public final static String OUT_TEXT = "OUT_TEXT";
     public final static String WORD = "WORD";
     public final static String WRONG_GUESS = "WRONG_GUESS";
 
     private GameConfig config = new GameConfig();
     private int chancesLeftToGuess;
-    private final List<Character> guessedLetters = new ArrayList();
+    private final List<Character> incorrectLetters = new ArrayList();
     private Word wordToGuess;
     private final WordGeneratorService wordGenerator;
 
@@ -39,14 +39,15 @@ public class HangmanGame extends AbstractModel implements Resetable
         firePropertyChange(WORD, null, wordToGuess.displayString() );
         chancesLeftToGuess = config.getNumGuessesAllowed();
         firePropertyChange(CLEAR_IMAGE, false, true);
-        guessedLetters.clear();
-        firePropertyChange(GUESSED_LETTER, null, getGuessedLetters());
+        incorrectLetters.clear();
+        firePropertyChange(INCORRECT_LETTER, null, getIncorrectLetters());
         firePropertyChange(CLEAR_OUT_TEXT, false, true);
     }
 
     public void processLetter(char guessedLetter)
     {
         Collection<String> outputText= new LinkedList<>();
+        boolean alreadyDisplayed = wordToGuess.isDisplaying(guessedLetter);
         wordToGuess.guessedCorrectLetter(guessedLetter);
         firePropertyChange(WORD, null, wordToGuess.displayString() );
 
@@ -54,7 +55,7 @@ public class HangmanGame extends AbstractModel implements Resetable
         {
             outputText.add("Great, you have figured out the word! It is " + wordToGuess + ".");
         }
-        else if (Word.hasLetter(guessedLetter, guessedLetters))
+        else if (Word.hasLetter(guessedLetter, incorrectLetters) || alreadyDisplayed)
         {
             outputText.add("You already guessed the letter '" + guessedLetter + "'.");
         }
@@ -65,6 +66,7 @@ public class HangmanGame extends AbstractModel implements Resetable
         else
         {
             chancesLeftToGuess--;
+            addToIncorrectLetters(guessedLetter);
             firePropertyChange(WRONG_GUESS, false, true);
             outputText.add("Sorry, wrong guess.");
 
@@ -73,7 +75,6 @@ public class HangmanGame extends AbstractModel implements Resetable
                 outputText.add("You Lose. The word was " + wordToGuess+".");
             }
         }
-        addGuessedLetterToList(guessedLetter);
         firePropertyChange(OUT_TEXT, null , outputText);
         firePropertyChange(GAME_OVER, false, isGameOver());
 
@@ -84,16 +85,17 @@ public class HangmanGame extends AbstractModel implements Resetable
      *
      * @param letter letter that was guessed
      */
-    private void addGuessedLetterToList(char letter)
+    private void addToIncorrectLetters(char letter)
     {
-        guessedLetters.add(new Character(letter));
-        firePropertyChange(GUESSED_LETTER, null, getGuessedLetters() );
+        List<Character> oldValue = getIncorrectLetters();
+        incorrectLetters.add(new Character(letter));
+        firePropertyChange(INCORRECT_LETTER, oldValue, getIncorrectLetters() );
     }
 
 
-    public List<Character> getGuessedLetters()
+    public List<Character> getIncorrectLetters()
     {
-        return new ArrayList<>(guessedLetters);
+        return new ArrayList<>(incorrectLetters);
     }
 
     public String getDisplayString()

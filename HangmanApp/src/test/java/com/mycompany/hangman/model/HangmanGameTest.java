@@ -59,7 +59,7 @@ public class HangmanGameTest
         Map<String, Object> expected = new HashMap<>();
         expected.put(HangmanGame.WORD, "_ _ _");
         expected.put(HangmanGame.CLEAR_IMAGE, true);
-        expected.put(HangmanGame.GUESSED_LETTER, new ArrayList<>());
+        expected.put(HangmanGame.INCORRECT_LETTER, new ArrayList<>());
         expected.put(HangmanGame.CLEAR_OUT_TEXT, true);
         assertEquals(expected, actual);
     }
@@ -227,16 +227,10 @@ public class HangmanGameTest
         for (int i = 0; i < input.length(); i++)
         {
             game.processLetter(input.charAt(i));
-
-            String substring = input.substring(0, (i+1)); // grab all the letters used for input up to this time
-            List<Character> guessedLetters = game.getGuessedLetters();
-            assertEquals(substring.length(),guessedLetters.size());
-
-            for (int j = 0; j < substring.length(); j++)
-            {
-                assertEquals(substring.charAt(j),guessedLetters.get(j).get()); // verify all the letters of input are accounted for in order
-            }
         }
+        assertEquals(2, game.getIncorrectLetters().size());
+        assertEquals('z', game.getIncorrectLetters().get(0).get());
+        assertEquals('x', game.getIncorrectLetters().get(1).get());
         assertFalse(game.isGameOver());
     }
 

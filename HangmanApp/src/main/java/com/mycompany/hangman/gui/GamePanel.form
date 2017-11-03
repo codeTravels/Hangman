@@ -20,9 +20,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="guessedLettersLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="incorrectLettersLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="guessedLetters" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="incorrectLetters" min="-2" pref="150" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -50,8 +50,8 @@
                   <Component id="drawPanel" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="guessedLettersLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="guessedLetters" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="incorrectLettersLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="incorrectLetters" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -70,12 +70,12 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="guessedLettersLabel">
+    <Component class="javax.swing.JLabel" name="incorrectLettersLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Guessed Letters:"/>
+        <Property name="text" type="java.lang.String" value="Incorrect:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="guessedLetters">
+    <Component class="javax.swing.JLabel" name="incorrectLetters">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="0"/>

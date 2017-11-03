@@ -121,14 +121,28 @@ public class Word
         return retVal;
     }
 
+    public boolean isDisplaying(char letter)
+    {
+        boolean retVal = false;
+        for (Character letter1 : letters)
+        {
+            if (letter1.getCharToDisplay() == letter)
+            {
+                retVal = true;
+                break;
+            }
+        }
+        return retVal;
+    }
+
     @Override
     public String toString()
     {
         StringBuilder retVal = new StringBuilder();
-        for (Character letter : letters)
+        letters.forEach((letter) ->
         {
             retVal.append(letter);
-        }
+        });
         return retVal.toString();
     }
 
