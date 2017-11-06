@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.hangman.menu;
 
-import com.mycompany.hangman.actions.ExitAction;
-import com.mycompany.hangman.actions.NewGameAction;
+import com.mycompany.hangman.actions.ActionManager;
+import java.util.Map;
 import javax.swing.Action;
 import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import com.mycompany.hangman.actions.ActionRepository;
 
 /**
  *
@@ -18,22 +11,19 @@ import com.mycompany.hangman.actions.ActionRepository;
  */
 public class GameMenu extends JMenu
 {
-    public GameMenu(ActionRepository actionRepo)
+
+    public GameMenu(Map<String, Action> map)
     {
         super("Game");
-        create(actionRepo);
+        create(map);
     }
 
-    private void create(ActionRepository actionRepo)
+    private void create(Map<String, Action> map)
     {
-        Action action = actionRepo.get(NewGameAction.class);
-        JMenuItem jMenuItem = new JMenuItem(action);
-        add(jMenuItem);
+        add(map.get(ActionManager.NEW_GAME_ACTION));
 
         addSeparator();
 
-        action = actionRepo.get(ExitAction.class);
-        jMenuItem = new JMenuItem(action);
-        add(jMenuItem);
+        add(map.get(ActionManager.EXIT_GAME_ACTION));
     }
 }
