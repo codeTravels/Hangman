@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.hangman.repo;
 
 import java.util.HashMap;
@@ -13,11 +8,12 @@ import java.util.Map;
  * @author Cory
  * @param <T>
  */
-public abstract class AbstractRepository<T> implements Repository<T>
+public class InMemoryRepository<T> implements Repository<T>
 {
+
     private final Map<String, T> objectMap = new HashMap<>();
 
-    public AbstractRepository()
+    public InMemoryRepository()
     {
 
     }
