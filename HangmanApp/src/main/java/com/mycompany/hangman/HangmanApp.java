@@ -45,8 +45,8 @@ public class HangmanApp
         {
             JMenuBar jMenuBar = new JMenuBar();
             jMenuBar.add(new GameMenu(actionRepo.getMapping()));
-            view.setJMenuBar(jMenuBar);
-            view.pack();
+            mainFrame.setJMenuBar(jMenuBar);
+            mainFrame.pack();
         }
     }
 
