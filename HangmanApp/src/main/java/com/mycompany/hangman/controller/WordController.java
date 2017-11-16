@@ -1,10 +1,12 @@
 package com.mycompany.hangman.controller;
 
 import com.mycompany.hangman.gui.GamePanel;
+import com.mycompany.hangman.model.GameConfig;
 import com.mycompany.hangman.model.HangmanGame;
 import com.mycompany.hangman.model.Resetable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
 
 /**
  *
@@ -43,4 +45,18 @@ public class WordController extends AbstractController implements ActionListener
     {
         this.model.reset();
     }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt)
+    {
+        if (evt.getPropertyName().equals(HangmanGame.SET_CONFIG))
+        {
+            model.setConfig((GameConfig) evt.getNewValue());
+        }
+        else
+        {
+            super.propertyChange(evt);
+        }
+    }
+
 }
