@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
  */
 public class HangmanGameTest
 {
+
     @Rule
     public final TestRule watcher = new TestWatcher()
     {
@@ -33,7 +34,7 @@ public class HangmanGameTest
     {
     }
 
-        private WordGeneratorService createWordService(Word word)
+    private WordGeneratorService createWordService(Word word)
     {
         WordGeneratorService wordGenSvc = mock(WordGeneratorService.class);
         when(wordGenSvc.generateWord()).thenReturn(word);
@@ -75,10 +76,12 @@ public class HangmanGameTest
         GameConfig config = new GameConfig();
         config.setNumGuessesAllowed(1);
         game.setConfig(config);
+        game.reset();
         assertFalse(game.isGameOver());
         game.processLetter('z');
         assertTrue(game.isGameOver());
     }
+
     /**
      * Test of isGameOver method, of class HangmanGame.
      */
@@ -169,6 +172,7 @@ public class HangmanGameTest
         assertTrue(game.isGameOver());
 
     }
+
     @Test
     public void testProcessLetter_repeatGuess()
     {
@@ -214,7 +218,6 @@ public class HangmanGameTest
 
     }
 
-
     /**
      * Test of getGuessedLetters method, of class HangmanGame.
      */
@@ -236,6 +239,7 @@ public class HangmanGameTest
 
     protected static class OutputCatcher implements PropertyChangeListener
     {
+
         private final List<String> output = new ArrayList<>();
 
         protected OutputCatcher()
@@ -252,15 +256,13 @@ public class HangmanGameTest
         @Override
         public void propertyChange(PropertyChangeEvent evt)
         {
-           if (evt.getPropertyName().equals(HangmanGame.OUT_TEXT))
+            if (evt.getPropertyName().equals(HangmanGame.OUT_TEXT))
             {
-                for (Object object : ((Iterable)evt.getNewValue()))
+                for (Object object : ((Iterable) evt.getNewValue()))
                 {
                     output.add(object.toString());
                 }
             }
         }
-
     }
 }
-

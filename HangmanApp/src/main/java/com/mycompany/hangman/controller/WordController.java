@@ -4,9 +4,11 @@ import com.mycompany.hangman.gui.GamePanel;
 import com.mycompany.hangman.model.GameConfig;
 import com.mycompany.hangman.model.HangmanGame;
 import com.mycompany.hangman.model.Resetable;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,11 +53,24 @@ public class WordController extends AbstractController implements ActionListener
     {
         if (evt.getPropertyName().equals(HangmanGame.SET_CONFIG))
         {
-            model.setConfig((GameConfig) evt.getNewValue());
+            handleSetConfig((GameConfig) evt.getNewValue());
         }
         else
         {
             super.propertyChange(evt);
+        }
+    }
+
+    private void handleSetConfig(GameConfig config) throws HeadlessException
+    {
+        int response = JOptionPane.showConfirmDialog(view,
+                                                     "Game will reset. Do you want to continue with changes?",
+                                                     "Game Reset",
+                                                     JOptionPane.YES_NO_OPTION);
+        if (JOptionPane.OK_OPTION == response)
+        {
+            model.setConfig(config);
+            model.reset();
         }
     }
 

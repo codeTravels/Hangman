@@ -114,7 +114,6 @@ public class HangmanGame extends AbstractModel implements Resetable
         GameConfig oldValue = this.config;
         this.config = config;
         firePropertyChange(GAME_CONFIG, oldValue, this.config);
-        reset();
     }
 
 }
