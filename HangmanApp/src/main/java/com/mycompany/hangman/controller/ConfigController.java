@@ -1,53 +1,50 @@
 package com.mycompany.hangman.controller;
 
-import com.mycompany.hangman.gui.ConfigPanel;
+import com.mycompany.hangman.gui.ConfigView;
 import com.mycompany.hangman.model.GameConfig;
 import com.mycompany.hangman.model.HangmanGame;
-import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author cory.bianchi
  */
-public class ConfigController extends AbstractController
+public class ConfigController extends AbstractController implements ActionListener
 {
 
-    private final Component parent;
-    private final ConfigPanel view;
+    private final ConfigView view;
     private final PropertyChangeListener listener;
 
-    public ConfigController(Component parent, ConfigPanel view, PropertyChangeListener listener)
+    public ConfigController(ConfigView view, PropertyChangeListener listener)
     {
-        this.parent = parent;
         this.view = view;
         this.listener = listener;
-        addView(view);
     }
 
-    public void submit(GameConfig config)
+    @Override
+    public void actionPerformed(ActionEvent e)
     {
-        System.out.println("Submit");
-        listener.propertyChange(new PropertyChangeEvent(view, HangmanGame.SET_CONFIG, null, config));
-    }
-
-    public void configure()
-    {
-        System.out.println("Configure()");
-        int n = JOptionPane.showOptionDialog(parent,
-                                             view,
-                                             "Config",
-                                             JOptionPane.OK_CANCEL_OPTION,
-                                             JOptionPane.PLAIN_MESSAGE,
-                                             null,
-                                             null,
-                                             null);
-
-        if (n == JOptionPane.OK_OPTION)
+        if (e.getActionCommand().equalsIgnoreCase("config"))
         {
-            submit(view.getUserConfig());
+            configure();
         }
+        else if (e.getActionCommand().equalsIgnoreCase("submit"))
+        {
+            submit(((ConfigView) e.getSource()).getUserConfig());
+        }
+
+    }
+
+    private void configure()
+    {
+        view.display();
+    }
+
+    private void submit(GameConfig config)
+    {
+        listener.propertyChange(new PropertyChangeEvent(view, HangmanGame.SET_CONFIG, null, config));
     }
 }

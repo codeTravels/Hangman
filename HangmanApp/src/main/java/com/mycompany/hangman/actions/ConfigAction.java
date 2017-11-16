@@ -1,7 +1,7 @@
 package com.mycompany.hangman.actions;
 
-import com.mycompany.hangman.controller.ConfigController;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.AbstractAction;
 
 /**
@@ -11,9 +11,9 @@ import javax.swing.AbstractAction;
 public class ConfigAction extends AbstractAction
 {
 
-    private final ConfigController controller;
+    private final ActionListener controller;
 
-    public ConfigAction(ConfigController controller)
+    public ConfigAction(ActionListener controller)
     {
         super("Config");
         this.controller = controller;
@@ -22,7 +22,7 @@ public class ConfigAction extends AbstractAction
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        this.controller.configure();
+        this.controller.actionPerformed(e);
     }
 
 }

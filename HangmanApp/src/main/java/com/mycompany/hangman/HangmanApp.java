@@ -33,16 +33,27 @@ public class HangmanApp
 
         HangmanFrame mainFrame = new HangmanFrame();
         HangmanGame game = new HangmanGame(new WordGenerator());
-        WordController controller = new WordController(mainFrame.getGamePanel(), game);
-        controller.addView(mainFrame.getGamePanel().getDrawPanel());
-        mainFrame.getGamePanel().addController(controller);
+        WordController controller;
+        {
+            controller = new WordController(mainFrame.getGamePanel(), game);
+            controller.addView(mainFrame.getGamePanel().getDrawPanel());
+            mainFrame.getGamePanel().addController(controller);
+        }
 
-        GameOverView gov = new GameOverView(mainFrame, controller);
-        controller.addView(gov);
+        {
+            GameOverView gov = new GameOverView(mainFrame, controller);
+            controller.addView(gov);
+        }
 
-        ConfigController configController = new ConfigController(mainFrame, new ConfigPanel(), controller);
-        configController.addModel(game);
-        game.setConfig(new GameConfig());
+        ConfigController configController;
+        {
+            ConfigPanel configPanel = new ConfigPanel(mainFrame);
+            configController = new ConfigController(configPanel, controller);
+            configController.addModel(game);
+            configController.addView(configPanel);
+            configPanel.setListener(configController);
+            game.setConfig(new GameConfig());
+        }
 
         ActionManager actionRepo = ActionManager.getInstance();
         {

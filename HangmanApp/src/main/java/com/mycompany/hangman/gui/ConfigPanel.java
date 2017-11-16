@@ -2,21 +2,33 @@ package com.mycompany.hangman.gui;
 
 import com.mycompany.hangman.model.GameConfig;
 import com.mycompany.hangman.model.HangmanGame;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
  * @author cory.bianchi
  */
-public class ConfigPanel extends javax.swing.JPanel implements View
+public class ConfigPanel extends JPanel implements ConfigView
 {
+
+    private final Component parent;
+
+    private ActionListener listener;
 
     /**
      * Creates new form ConfigPanel
+     *
+     * @param parent
      */
-    public ConfigPanel()
+    public ConfigPanel(Component parent)
     {
         initComponents();
+        this.parent = parent;
     }
 
     /**
@@ -87,10 +99,34 @@ public class ConfigPanel extends javax.swing.JPanel implements View
         this.guessLimitSlider.setValue(config.getNumGuessesAllowed());
     }
 
+    @Override
     public GameConfig getUserConfig()
     {
         GameConfig retVal = new GameConfig();
         retVal.setNumGuessesAllowed(guessLimitSlider.getValue());
         return retVal;
+    }
+
+    @Override
+    public void display()
+    {
+        int n = JOptionPane.showOptionDialog(parent,
+                                             this,
+                                             "Config",
+                                             JOptionPane.OK_CANCEL_OPTION,
+                                             JOptionPane.PLAIN_MESSAGE,
+                                             null,
+                                             null,
+                                             null);
+        if (listener != null && n == JOptionPane.OK_OPTION)
+        {
+            listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "submit"));
+        }
+    }
+
+    @Override
+    public void setListener(ActionListener listener)
+    {
+        this.listener = listener;
     }
 }
