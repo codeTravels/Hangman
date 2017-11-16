@@ -22,16 +22,28 @@ public class HangmanGame extends AbstractModel implements Resetable
     public final static String WORD = "WORD";
     public final static String WRONG_GUESS = "WRONG_GUESS";
 
-    private GameConfig config = new GameConfig();
-    private int chancesLeftToGuess;
-    private final List<Character> incorrectLetters = new ArrayList();
-    private Word wordToGuess;
     private final WordGeneratorService wordGenerator;
+    private final List<Character> incorrectLetters = new ArrayList();
+    private int chancesLeftToGuess;
+    private Word wordToGuess;
+    private GameConfig config;
 
     public HangmanGame(WordGeneratorService wordGenerator)
     {
         this.wordGenerator = wordGenerator;
+    }
+
+    public void start(GameConfig config)
+    {
+        setConfig(config);
         reset();
+    }
+
+    private void setConfig(GameConfig config)
+    {
+        GameConfig oldValue = this.config;
+        this.config = config;
+        firePropertyChange(GAME_CONFIG, oldValue, this.config);
     }
 
     @Override
@@ -107,13 +119,6 @@ public class HangmanGame extends AbstractModel implements Resetable
     public boolean isGameOver()
     {
         return wordToGuess.hasGuessedWord() || chancesLeftToGuess <= 0;
-    }
-
-    public void setConfig(GameConfig config)
-    {
-        GameConfig oldValue = this.config;
-        this.config = config;
-        firePropertyChange(GAME_CONFIG, oldValue, this.config);
     }
 
 }

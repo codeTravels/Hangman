@@ -34,6 +34,14 @@ public class HangmanGameTest
     {
     }
 
+    private HangmanGame createDefaultGame(String word)
+    {
+        WordGeneratorService wordGenSvc = createWordService(new Word(word));
+        HangmanGame game = new HangmanGame(wordGenSvc);
+        game.start(new GameConfig());
+        return game;
+    }
+
     private WordGeneratorService createWordService(Word word)
     {
         WordGeneratorService wordGenSvc = mock(WordGeneratorService.class);
@@ -47,8 +55,7 @@ public class HangmanGameTest
     @Test
     public void testReset()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
 
         final Map<String, Object> actual = new HashMap<>();
         game.addPropertyChangeListener((PropertyChangeEvent evt) ->
@@ -71,12 +78,10 @@ public class HangmanGameTest
     @Test
     public void testIsGameOver_NoMoreGuesses()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
         GameConfig config = new GameConfig();
         config.setNumGuessesAllowed(1);
-        game.setConfig(config);
-        game.reset();
+        game.start(config);
         assertFalse(game.isGameOver());
         game.processLetter('z');
         assertTrue(game.isGameOver());
@@ -88,8 +93,7 @@ public class HangmanGameTest
     @Test
     public void testIsGameOver_GuessedWord()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
         assertFalse(game.isGameOver());
         game.processLetter('b');
         assertFalse(game.isGameOver());
@@ -105,8 +109,7 @@ public class HangmanGameTest
     @Test
     public void testProcessLetter_wins()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -137,8 +140,7 @@ public class HangmanGameTest
     @Test
     public void testProcessLetter_Loses()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -176,8 +178,7 @@ public class HangmanGameTest
     @Test
     public void testProcessLetter_repeatGuess()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -224,8 +225,7 @@ public class HangmanGameTest
     @Test
     public void testGetGuessedLetters()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
         String input = "zxtza";
         for (int i = 0; i < input.length(); i++)
         {

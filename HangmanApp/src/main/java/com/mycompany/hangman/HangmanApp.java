@@ -52,7 +52,6 @@ public class HangmanApp
             configController.addModel(game);
             configController.addView(configPanel);
             configPanel.setListener(configController);
-            game.setConfig(new GameConfig());
         }
 
         ActionManager actionRepo = ActionManager.getInstance();
@@ -68,6 +67,8 @@ public class HangmanApp
             mainFrame.setJMenuBar(jMenuBar);
             mainFrame.pack();
         }
+
+        game.start(new GameConfig());
     }
 
 }

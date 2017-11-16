@@ -20,6 +20,7 @@ public class WordController extends AbstractController implements ActionListener
     private final GamePanel view;
     private final HangmanGame model;
 
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public WordController(GamePanel view, HangmanGame model)
     {
         this.view = view;
@@ -27,9 +28,6 @@ public class WordController extends AbstractController implements ActionListener
 
         addModel(model);
         addView(view);
-
-        view.setWordToGuess(model.getDisplayString());
-        view.setIncorrectLetters(model.getIncorrectLetters());
     }
 
     @Override
@@ -69,8 +67,7 @@ public class WordController extends AbstractController implements ActionListener
                                                      JOptionPane.YES_NO_OPTION);
         if (JOptionPane.OK_OPTION == response)
         {
-            model.setConfig(config);
-            model.reset();
+            model.start(config);
         }
     }
 
