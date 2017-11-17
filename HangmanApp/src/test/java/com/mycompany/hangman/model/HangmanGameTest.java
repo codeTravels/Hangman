@@ -79,8 +79,7 @@ public class HangmanGameTest
     public void testIsGameOver_NoMoreGuesses()
     {
         HangmanGame game = createDefaultGame("bat");
-        GameConfig config = new GameConfig();
-        config.setNumGuessesAllowed(1);
+        GameConfig config = new GameConfig(1);
         game.start(config);
         assertFalse(game.isGameOver());
         game.processLetter('z');

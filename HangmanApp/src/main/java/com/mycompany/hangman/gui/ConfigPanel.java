@@ -54,27 +54,26 @@ public class ConfigPanel extends JPanel implements ConfigView
         guessLimitSlider.setPaintTicks(true);
         guessLimitSlider.setSnapToTicks(true);
         guessLimitSlider.setToolTipText("");
-        guessLimitSlider.setValue(GameConfig.DEFAULT_NUM_GUESSES);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addContainerGap()
                 .addComponent(guessLimitLabel)
                 .addGap(18, 18, 18)
                 .addComponent(guessLimitSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(guessLimitSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(guessLimitLabel))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -88,7 +87,6 @@ public class ConfigPanel extends JPanel implements ConfigView
     {
         if (evt.getPropertyName().equals(HangmanGame.GAME_CONFIG))
         {
-            System.out.println("Game Config Event");
             GameConfig config = (GameConfig) evt.getNewValue();
             applyConfig(config);
         }
@@ -102,8 +100,7 @@ public class ConfigPanel extends JPanel implements ConfigView
     @Override
     public GameConfig getUserConfig()
     {
-        GameConfig retVal = new GameConfig();
-        retVal.setNumGuessesAllowed(guessLimitSlider.getValue());
+        GameConfig retVal = new GameConfig(guessLimitSlider.getValue());
         return retVal;
     }
 
