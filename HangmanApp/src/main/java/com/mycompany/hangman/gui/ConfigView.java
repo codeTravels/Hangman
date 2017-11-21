@@ -15,4 +15,6 @@ public interface ConfigView extends View
     public void display();
 
     public void setListener(ActionListener listener);
+
+    public boolean isRestartAllowed();
 }

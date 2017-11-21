@@ -1,12 +1,9 @@
 package com.mycompany.hangman.controller;
 
 import com.mycompany.hangman.gui.ConfigView;
-import com.mycompany.hangman.model.GameConfig;
 import com.mycompany.hangman.model.HangmanGame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 /**
  *
@@ -16,12 +13,12 @@ public class ConfigController extends AbstractController implements ActionListen
 {
 
     private final ConfigView view;
-    private final PropertyChangeListener listener;
+    private final HangmanGame model;
 
-    public ConfigController(ConfigView view, PropertyChangeListener listener)
+    public ConfigController(ConfigView view, HangmanGame model)
     {
         this.view = view;
-        this.listener = listener;
+        this.model = model;
     }
 
     @Override
@@ -33,7 +30,7 @@ public class ConfigController extends AbstractController implements ActionListen
         }
         else if (e.getActionCommand().equalsIgnoreCase("submit"))
         {
-            submit(((ConfigView) e.getSource()).getUserConfig());
+            submit();
         }
 
     }
@@ -43,8 +40,11 @@ public class ConfigController extends AbstractController implements ActionListen
         view.display();
     }
 
-    private void submit(GameConfig config)
+    private void submit()
     {
-        listener.propertyChange(new PropertyChangeEvent(view, HangmanGame.SET_CONFIG, null, config));
+        if (view.isRestartAllowed())
+        {
+            model.start(view.getUserConfig());
+        }
     }
 }

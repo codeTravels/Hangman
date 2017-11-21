@@ -17,7 +17,6 @@ public class ConfigPanel extends JPanel implements ConfigView
 {
 
     private final Component parent;
-
     private ActionListener listener;
 
     /**
@@ -107,15 +106,15 @@ public class ConfigPanel extends JPanel implements ConfigView
     @Override
     public void display()
     {
-        int n = JOptionPane.showOptionDialog(parent,
-                                             this,
-                                             "Config",
-                                             JOptionPane.OK_CANCEL_OPTION,
-                                             JOptionPane.PLAIN_MESSAGE,
-                                             null,
-                                             null,
-                                             null);
-        if (listener != null && n == JOptionPane.OK_OPTION)
+        int userResponse = JOptionPane.showOptionDialog(parent,
+                                                        this,
+                                                        "Config",
+                                                        JOptionPane.OK_CANCEL_OPTION,
+                                                        JOptionPane.PLAIN_MESSAGE,
+                                                        null,
+                                                        null,
+                                                        null);
+        if (listener != null && userResponse == JOptionPane.OK_OPTION)
         {
             listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "submit"));
         }
@@ -125,5 +124,15 @@ public class ConfigPanel extends JPanel implements ConfigView
     public void setListener(ActionListener listener)
     {
         this.listener = listener;
+    }
+
+    @Override
+    public boolean isRestartAllowed()
+    {
+        int userResponse = JOptionPane.showConfirmDialog(parent,
+                                                         "Game will reset. Do you want to continue with changes?",
+                                                         "Game Reset",
+                                                         JOptionPane.YES_NO_OPTION);
+        return userResponse == JOptionPane.OK_OPTION;
     }
 }

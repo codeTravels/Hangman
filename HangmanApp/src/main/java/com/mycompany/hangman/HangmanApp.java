@@ -48,7 +48,7 @@ public class HangmanApp
         ConfigController configController;
         {
             ConfigPanel configPanel = new ConfigPanel(mainFrame);
-            configController = new ConfigController(configPanel, controller);
+            configController = new ConfigController(configPanel, game);
             configController.addModel(game);
             configController.addView(configPanel);
             configPanel.setListener(configController);

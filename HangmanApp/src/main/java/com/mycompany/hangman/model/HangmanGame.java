@@ -1,9 +1,6 @@
 package com.mycompany.hangman.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -18,7 +15,6 @@ public class HangmanGame extends AbstractModel implements Resetable
     public final static String GAME_OVER = "GAME_OVER";
     public final static String INCORRECT_LETTER = "INCORRECT_LETTER";
     public final static String OUT_TEXT = "OUT_TEXT";
-    public final static String SET_CONFIG = "SET_CONFIG";
     public final static String WORD = "WORD";
     public final static String WRONG_GUESS = "WRONG_GUESS";
 
@@ -49,13 +45,24 @@ public class HangmanGame extends AbstractModel implements Resetable
     @Override
     public final void reset()
     {
-        wordToGuess = wordGenerator.generateWord();
-        firePropertyChange(WORD, null, wordToGuess.displayString());
+        createNewWordToGuess();
         chancesLeftToGuess = config.getNumGuessesAllowed();
         firePropertyChange(CLEAR_IMAGE, false, true);
+        clearIncorrectLetters();
+        firePropertyChange(CLEAR_OUT_TEXT, false, true);
+    }
+
+    private void createNewWordToGuess()
+    {
+        Word oldValue = wordToGuess;
+        wordToGuess = wordGenerator.generateWord();
+        firePropertyChange(WORD, oldValue, wordToGuess.displayString());
+    }
+
+    private void clearIncorrectLetters()
+    {
         incorrectLetters.clear();
         firePropertyChange(INCORRECT_LETTER, null, getIncorrectLetters());
-        firePropertyChange(CLEAR_OUT_TEXT, false, true);
     }
 
     public void processLetter(char guessedLetter)
@@ -108,7 +115,7 @@ public class HangmanGame extends AbstractModel implements Resetable
 
     public List<Character> getIncorrectLetters()
     {
-        return new ArrayList<>(incorrectLetters);
+        return Collections.unmodifiableList(new ArrayList<>(incorrectLetters));
     }
 
     public String getDisplayString()
@@ -118,7 +125,12 @@ public class HangmanGame extends AbstractModel implements Resetable
 
     public boolean isGameOver()
     {
-        return wordToGuess.hasGuessedWord() || chancesLeftToGuess <= 0;
+        return wordToGuess.hasGuessedWord() || !hasChancesLeftToGuess();
+    }
+
+    private boolean hasChancesLeftToGuess()
+    {
+        return chancesLeftToGuess > 0;
     }
 
 }
