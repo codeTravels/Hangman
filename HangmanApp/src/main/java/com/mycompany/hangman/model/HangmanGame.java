@@ -18,11 +18,11 @@ public class HangmanGame extends AbstractModel implements Resetable
     public final static String WORD = "WORD";
     public final static String WRONG_GUESS = "WRONG_GUESS";
 
-    private final WordGeneratorService wordGenerator;
-    private final List<Character> incorrectLetters = new ArrayList();
-    private int chancesLeftToGuess;
-    private Word wordToGuess;
     private GameConfig config;
+    private int chancesLeftToGuess;
+    private final List<Character> incorrectLetters = new ArrayList();
+    private Word wordToGuess;
+    private final WordGeneratorService wordGenerator;
 
     public HangmanGame(WordGeneratorService wordGenerator)
     {
@@ -46,7 +46,7 @@ public class HangmanGame extends AbstractModel implements Resetable
     public final void reset()
     {
         createNewWordToGuess();
-        chancesLeftToGuess = config.getNumGuessesAllowed();
+        resetChancesLeftToGuess();
         firePropertyChange(CLEAR_IMAGE, false, true);
         clearIncorrectLetters();
         firePropertyChange(CLEAR_OUT_TEXT, false, true);
@@ -57,6 +57,11 @@ public class HangmanGame extends AbstractModel implements Resetable
         Word oldValue = wordToGuess;
         wordToGuess = wordGenerator.generateWord();
         firePropertyChange(WORD, oldValue, wordToGuess.displayString());
+    }
+
+    private void resetChancesLeftToGuess()
+    {
+        chancesLeftToGuess = config.getNumGuessesAllowed();
     }
 
     private void clearIncorrectLetters()
@@ -91,7 +96,7 @@ public class HangmanGame extends AbstractModel implements Resetable
             firePropertyChange(WRONG_GUESS, false, true);
             outputText.add("Sorry, wrong guess.");
 
-            if (chancesLeftToGuess == 0)
+            if (!hasChancesLeftToGuess())
             {
                 outputText.add("You Lose. The word was " + wordToGuess + ".");
             }

@@ -15,7 +15,7 @@ public final class GameConfig
 
     public GameConfig()
     {
-        numGuessesAllowed = DEFAULT_NUM_GUESSES;
+        this(DEFAULT_NUM_GUESSES);
     }
 
     public GameConfig(int allowedGuesses)
