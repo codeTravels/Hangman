@@ -1,7 +1,7 @@
 package com.mycompany.hangman.controller;
 
 import com.mycompany.hangman.gui.GamePanel;
-import com.mycompany.hangman.model.HangmanGameImpl;
+import com.mycompany.hangman.model.HangmanGame;
 import com.mycompany.hangman.model.Resetable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,9 +14,9 @@ public class WordController extends AbstractController implements ActionListener
 {
 
     private final GamePanel view;
-    private final HangmanGameImpl model;
+    private final HangmanGame model;
 
-    public WordController(GamePanel view, HangmanGameImpl model)
+    public WordController(GamePanel view, HangmanGame model)
     {
         this.view = view;
         this.model = model;

@@ -1,6 +1,6 @@
 package com.mycompany.hangman.drawing;
 
-import com.mycompany.hangman.model.HangmanGameImpl;
+import com.mycompany.hangman.model.HangmanGame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
@@ -9,6 +9,7 @@ import javax.swing.SwingUtilities;
 
 /**
  * Draws a new piece of the Hangman figure on mouse click events
+ *
  * @author Cory Bianchi
  */
 public class DrawDemo extends javax.swing.JFrame
@@ -22,13 +23,14 @@ public class DrawDemo extends javax.swing.JFrame
         initComponents();
 
         drawPanel.addMouseListener(new MouseAdapter()
-                 {
-                    @Override
-                    public void mousePressed(MouseEvent e){
-                        PropertyChangeEvent propertyChangeEvent = new PropertyChangeEvent(this, HangmanGameImpl.WRONG_GUESS, false, true);
-                        drawPanel.modelPropertyChange(propertyChangeEvent);
-                    }
-                });
+        {
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+                PropertyChangeEvent propertyChangeEvent = new PropertyChangeEvent(this, HangmanGame.WRONG_GUESS, false, true);
+                drawPanel.modelPropertyChange(propertyChangeEvent);
+            }
+        });
     }
 
     /**
@@ -79,16 +81,18 @@ public class DrawDemo extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
-        public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         SwingUtilities.invokeLater(() ->
         {
             createAndShowGUI();
         });
     }
 
-    private static void createAndShowGUI() {
-        System.out.println("Created GUI on EDT? "+
-                SwingUtilities.isEventDispatchThread());
+    private static void createAndShowGUI()
+    {
+        System.out.println("Created GUI on EDT? "
+                + SwingUtilities.isEventDispatchThread());
         JFrame f = new DrawDemo();
         f.setTitle("Swing Paint Demo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

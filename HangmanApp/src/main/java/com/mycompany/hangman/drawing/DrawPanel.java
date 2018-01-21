@@ -2,7 +2,7 @@ package com.mycompany.hangman.drawing;
 
 import com.mycompany.hangman.gui.View;
 import com.mycompany.hangman.model.GameConfig;
-import com.mycompany.hangman.model.HangmanGameImpl;
+import com.mycompany.hangman.model.HangmanGame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,6 +15,7 @@ import javax.swing.BorderFactory;
  */
 public class DrawPanel extends javax.swing.JPanel implements View
 {
+
     Picture picture = new Picture(getPreferredSize().width, getPreferredSize().height, 10);
 
     /**
@@ -26,13 +27,13 @@ public class DrawPanel extends javax.swing.JPanel implements View
         setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
-     @Override
+    @Override
     public Dimension getPreferredSize()
     {
-        return new Dimension(200,200);
+        return new Dimension(200, 200);
     }
 
-     @Override
+    @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
@@ -64,19 +65,19 @@ public class DrawPanel extends javax.swing.JPanel implements View
     @Override
     public void modelPropertyChange(PropertyChangeEvent evt)
     {
-        if (evt.getPropertyName().equals(HangmanGameImpl.CLEAR_IMAGE))
+        if (evt.getPropertyName().equals(HangmanGame.CLEAR_IMAGE))
         {
             picture.reset();
             repaint();
         }
-        else if (evt.getPropertyName().equals(HangmanGameImpl.WRONG_GUESS))
+        else if (evt.getPropertyName().equals(HangmanGame.WRONG_GUESS))
         {
             picture.showEnableNext();
             repaint();
         }
-        else if (evt.getPropertyName().equals(HangmanGameImpl.GAME_CONFIG))
+        else if (evt.getPropertyName().equals(HangmanGame.GAME_CONFIG))
         {
-            picture.setChancesToGuess(((GameConfig)evt.getNewValue()).getNumGuessesAllowed());
+            picture.setChancesToGuess(((GameConfig) evt.getNewValue()).getNumGuessesAllowed());
             picture.reset();
             repaint();
         }
@@ -84,5 +85,4 @@ public class DrawPanel extends javax.swing.JPanel implements View
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-
 }
