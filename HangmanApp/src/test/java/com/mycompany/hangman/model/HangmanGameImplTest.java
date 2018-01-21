@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Cory
  */
-public class HangmanGameTest
+public class HangmanGameImplTest
 {
     @Rule
     public final TestRule watcher = new TestWatcher()
@@ -29,7 +29,7 @@ public class HangmanGameTest
         }
     };
 
-    public HangmanGameTest()
+    public HangmanGameImplTest()
     {
     }
 
@@ -47,7 +47,7 @@ public class HangmanGameTest
     public void testReset()
     {
         WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGameImpl game = new HangmanGameImpl(wordGenSvc);
 
         final Map<String, Object> actual = new HashMap<>();
         game.addPropertyChangeListener((PropertyChangeEvent evt) ->
@@ -57,10 +57,10 @@ public class HangmanGameTest
         game.reset();
 
         Map<String, Object> expected = new HashMap<>();
-        expected.put(HangmanGame.WORD, "_ _ _");
-        expected.put(HangmanGame.CLEAR_IMAGE, true);
-        expected.put(HangmanGame.INCORRECT_LETTER, new ArrayList<>());
-        expected.put(HangmanGame.CLEAR_OUT_TEXT, true);
+        expected.put(HangmanGameImpl.WORD, "_ _ _");
+        expected.put(HangmanGameImpl.CLEAR_IMAGE, true);
+        expected.put(HangmanGameImpl.INCORRECT_LETTER, new ArrayList<>());
+        expected.put(HangmanGameImpl.CLEAR_OUT_TEXT, true);
         assertEquals(expected, actual);
     }
 
@@ -71,7 +71,7 @@ public class HangmanGameTest
     public void testIsGameOver_NoMoreGuesses()
     {
         WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGameImpl game = new HangmanGameImpl(wordGenSvc);
         GameConfig config = new GameConfig();
         config.setNumGuessesAllowed(1);
         game.setConfig(config);
@@ -86,7 +86,7 @@ public class HangmanGameTest
     public void testIsGameOver_GuessedWord()
     {
         WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGameImpl game = new HangmanGameImpl(wordGenSvc);
         assertFalse(game.isGameOver());
         game.processLetter('b');
         assertFalse(game.isGameOver());
@@ -103,7 +103,7 @@ public class HangmanGameTest
     public void testProcessLetter_wins()
     {
         WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGameImpl game = new HangmanGameImpl(wordGenSvc);
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -135,7 +135,7 @@ public class HangmanGameTest
     public void testProcessLetter_Loses()
     {
         WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGameImpl game = new HangmanGameImpl(wordGenSvc);
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -173,7 +173,7 @@ public class HangmanGameTest
     public void testProcessLetter_repeatGuess()
     {
         WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGameImpl game = new HangmanGameImpl(wordGenSvc);
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -222,7 +222,7 @@ public class HangmanGameTest
     public void testGetGuessedLetters()
     {
         WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGameImpl game = new HangmanGameImpl(wordGenSvc);
         String input = "zxtza";
         for (int i = 0; i < input.length(); i++)
         {
@@ -252,7 +252,7 @@ public class HangmanGameTest
         @Override
         public void propertyChange(PropertyChangeEvent evt)
         {
-           if (evt.getPropertyName().equals(HangmanGame.OUT_TEXT))
+           if (evt.getPropertyName().equals(HangmanGameImpl.OUT_TEXT))
             {
                 for (Object object : ((Iterable)evt.getNewValue()))
                 {

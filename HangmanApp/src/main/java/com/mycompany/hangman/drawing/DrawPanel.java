@@ -2,7 +2,7 @@ package com.mycompany.hangman.drawing;
 
 import com.mycompany.hangman.gui.View;
 import com.mycompany.hangman.model.GameConfig;
-import com.mycompany.hangman.model.HangmanGame;
+import com.mycompany.hangman.model.HangmanGameImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -64,17 +64,17 @@ public class DrawPanel extends javax.swing.JPanel implements View
     @Override
     public void modelPropertyChange(PropertyChangeEvent evt)
     {
-        if (evt.getPropertyName().equals(HangmanGame.CLEAR_IMAGE))
+        if (evt.getPropertyName().equals(HangmanGameImpl.CLEAR_IMAGE))
         {
             picture.reset();
             repaint();
         }
-        else if (evt.getPropertyName().equals(HangmanGame.WRONG_GUESS))
+        else if (evt.getPropertyName().equals(HangmanGameImpl.WRONG_GUESS))
         {
             picture.showEnableNext();
             repaint();
         }
-        else if (evt.getPropertyName().equals(HangmanGame.GAME_CONFIG))
+        else if (evt.getPropertyName().equals(HangmanGameImpl.GAME_CONFIG))
         {
             picture.setChancesToGuess(((GameConfig)evt.getNewValue()).getNumGuessesAllowed());
             picture.reset();

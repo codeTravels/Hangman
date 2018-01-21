@@ -1,6 +1,6 @@
 package com.mycompany.hangman.drawing;
 
-import com.mycompany.hangman.model.HangmanGame;
+import com.mycompany.hangman.model.HangmanGameImpl;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
@@ -25,7 +25,7 @@ public class DrawDemo extends javax.swing.JFrame
                  {
                     @Override
                     public void mousePressed(MouseEvent e){
-                        PropertyChangeEvent propertyChangeEvent = new PropertyChangeEvent(this, HangmanGame.WRONG_GUESS, false, true);
+                        PropertyChangeEvent propertyChangeEvent = new PropertyChangeEvent(this, HangmanGameImpl.WRONG_GUESS, false, true);
                         drawPanel.modelPropertyChange(propertyChangeEvent);
                     }
                 });

@@ -1,6 +1,6 @@
 package com.mycompany.hangman.gui;
 
-import com.mycompany.hangman.model.HangmanGame;
+import com.mycompany.hangman.model.HangmanGameImpl;
 import com.mycompany.hangman.model.Resetable;
 import java.awt.Component;
 import java.beans.PropertyChangeEvent;
@@ -25,7 +25,7 @@ public class GameOverView implements View
     @Override
     public void modelPropertyChange(PropertyChangeEvent evt)
     {
-        if (evt.getPropertyName().equals(HangmanGame.GAME_OVER))
+        if (evt.getPropertyName().equals(HangmanGameImpl.GAME_OVER))
         {
             handleGameOver();
         }

@@ -2,7 +2,7 @@ package com.mycompany.hangman.gui;
 
 import com.mycompany.hangman.drawing.DrawPanel;
 import com.mycompany.hangman.model.Character;
-import com.mycompany.hangman.model.HangmanGame;
+import com.mycompany.hangman.model.HangmanGameImpl;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.util.List;
@@ -144,22 +144,22 @@ public class GamePanel extends javax.swing.JPanel implements View
     @Override
     public void modelPropertyChange(PropertyChangeEvent evt)
     {
-        if (evt.getPropertyName().equals(HangmanGame.OUT_TEXT))
+        if (evt.getPropertyName().equals(HangmanGameImpl.OUT_TEXT))
         {
             for (Object object : ((Iterable) evt.getNewValue()))
             {
                 printlnToConsole(object.toString());
             }
         }
-        else if (evt.getPropertyName().equals(HangmanGame.CLEAR_OUT_TEXT))
+        else if (evt.getPropertyName().equals(HangmanGameImpl.CLEAR_OUT_TEXT))
         {
             clearOutputConsole();
         }
-        else if (evt.getPropertyName().equals(HangmanGame.INCORRECT_LETTER))
+        else if (evt.getPropertyName().equals(HangmanGameImpl.INCORRECT_LETTER))
         {
             setIncorrectLetters((List<Character>) evt.getNewValue());
         }
-        else if (evt.getPropertyName().equals(HangmanGame.WORD))
+        else if (evt.getPropertyName().equals(HangmanGameImpl.WORD))
         {
             setWordToGuess(evt.getNewValue().toString());
         }
