@@ -21,6 +21,7 @@ public class GameMenu extends JMenu
     private void create(Map<String, Action> map)
     {
         add(map.get(ActionManager.NEW_GAME_ACTION));
+        add(map.get(ActionManager.CONFIG_GAME_ACTION));
 
         addSeparator();
 

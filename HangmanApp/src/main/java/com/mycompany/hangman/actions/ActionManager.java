@@ -13,6 +13,7 @@ public class ActionManager
 
     private static volatile ActionManager instance;
     public static final String NEW_GAME_ACTION = "NEW_GAME";
+    public static final String CONFIG_GAME_ACTION = "CONFIG_GAME";
     public static final String EXIT_GAME_ACTION = "EXIT_GAME";
 
     private final Map<String, Action> actions = new HashMap<>();

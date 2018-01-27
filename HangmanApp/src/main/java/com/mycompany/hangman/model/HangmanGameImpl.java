@@ -1,9 +1,6 @@
 package com.mycompany.hangman.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -12,7 +9,7 @@ import java.util.List;
 public class HangmanGameImpl extends AbstractModel implements HangmanGame
 {
 
-    private GameConfig config = new GameConfig();
+    private GameConfig config;
     private int chancesLeftToGuess;
     private final List<Character> incorrectLetters = new ArrayList();
     private Word wordToGuess;
@@ -24,16 +21,45 @@ public class HangmanGameImpl extends AbstractModel implements HangmanGame
         reset();
     }
 
+    public void start(GameConfig config)
+    {
+        setConfig(config);
+        reset();
+    }
+
+    private void setConfig(GameConfig config)
+    {
+        GameConfig oldValue = this.config;
+        this.config = config;
+        firePropertyChange(GAME_CONFIG, oldValue, this.config);
+    }
+
     @Override
     public final void reset()
     {
-        wordToGuess = wordGenerator.generateWord();
-        firePropertyChange(WORD, null, wordToGuess.displayString());
-        chancesLeftToGuess = config.getNumGuessesAllowed();
+        createNewWordToGuess();
+        resetChancesLeftToGuess();
         firePropertyChange(CLEAR_IMAGE, false, true);
+        clearIncorrectLetters();
+        firePropertyChange(CLEAR_OUT_TEXT, false, true);
+    }
+
+    private void createNewWordToGuess()
+    {
+        Word oldValue = wordToGuess;
+        wordToGuess = wordGenerator.generateWord();
+        firePropertyChange(WORD, oldValue, wordToGuess.displayString());
+    }
+
+    private void resetChancesLeftToGuess()
+    {
+        chancesLeftToGuess = config.getNumGuessesAllowed();
+    }
+
+    private void clearIncorrectLetters()
+    {
         incorrectLetters.clear();
         firePropertyChange(INCORRECT_LETTER, null, getIncorrectLetters());
-        firePropertyChange(CLEAR_OUT_TEXT, false, true);
     }
 
     @Override
@@ -63,7 +89,7 @@ public class HangmanGameImpl extends AbstractModel implements HangmanGame
             firePropertyChange(WRONG_GUESS, false, true);
             outputText.add("Sorry, wrong guess.");
 
-            if (chancesLeftToGuess == 0)
+            if (!hasChancesLeftToGuess())
             {
                 outputText.add("You Lose. The word was " + wordToGuess + ".");
             }
@@ -88,7 +114,7 @@ public class HangmanGameImpl extends AbstractModel implements HangmanGame
     @Override
     public List<Character> getIncorrectLetters()
     {
-        return new ArrayList<>(incorrectLetters);
+        return Collections.unmodifiableList(new ArrayList<>(incorrectLetters));
     }
 
     @Override
@@ -99,15 +125,12 @@ public class HangmanGameImpl extends AbstractModel implements HangmanGame
 
     public boolean isGameOver()
     {
-        return wordToGuess.hasGuessedWord() || chancesLeftToGuess <= 0;
+        return wordToGuess.hasGuessedWord() || !hasChancesLeftToGuess();
     }
 
-    public void setConfig(GameConfig config)
+    private boolean hasChancesLeftToGuess()
     {
-        GameConfig oldValue = this.config;
-        this.config = config;
-        firePropertyChange(GAME_CONFIG, oldValue, this.config);
-        reset();
+        return chancesLeftToGuess > 0;
     }
 
 }
