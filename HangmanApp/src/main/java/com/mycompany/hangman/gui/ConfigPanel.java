@@ -106,6 +106,7 @@ public class ConfigPanel extends JPanel implements ConfigView
     @Override
     public void display()
     {
+        GameConfig originalConfig = getUserConfig();
         int userResponse = JOptionPane.showOptionDialog(parent,
                                                         this,
                                                         "Config",
@@ -117,6 +118,10 @@ public class ConfigPanel extends JPanel implements ConfigView
         if (listener != null && userResponse == JOptionPane.OK_OPTION)
         {
             listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "submit"));
+        }
+        else
+        {
+            applyConfig(originalConfig);
         }
     }
 
