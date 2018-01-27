@@ -111,13 +111,11 @@ public class HangmanGameImpl extends AbstractModel implements HangmanGame
         firePropertyChange(INCORRECT_LETTER, oldValue, getIncorrectLetters());
     }
 
-    @Override
     public List<Character> getIncorrectLetters()
     {
         return Collections.unmodifiableList(new ArrayList<>(incorrectLetters));
     }
 
-    @Override
     public String getDisplayString()
     {
         return wordToGuess.displayString();

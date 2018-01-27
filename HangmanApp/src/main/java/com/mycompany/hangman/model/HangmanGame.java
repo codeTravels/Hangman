@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.hangman.model;
-
-import java.util.List;
 
 /**
  *
@@ -24,12 +17,6 @@ public interface HangmanGame extends Model, Resetable
     public final static String WRONG_GUESS = "WRONG_GUESS";
 
     public void processLetter(char guessedLetter);
-
-    @Deprecated
-    public List<Character> getIncorrectLetters();
-
-    @Deprecated
-    public String getDisplayString();
 
     public void start(GameConfig userConfig);
 }
