@@ -30,4 +30,6 @@ public interface HangmanGame extends Model, Resetable
 
     @Deprecated
     public String getDisplayString();
+
+    public void start(GameConfig userConfig);
 }

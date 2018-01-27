@@ -18,9 +18,9 @@ public class HangmanGameImpl extends AbstractModel implements HangmanGame
     public HangmanGameImpl(WordGeneratorService wordGenerator)
     {
         this.wordGenerator = wordGenerator;
-        reset();
     }
 
+    @Override
     public void start(GameConfig config)
     {
         setConfig(config);
