@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
  */
 public class HangmanGameTest
 {
+
     @Rule
     public final TestRule watcher = new TestWatcher()
     {
@@ -33,7 +34,15 @@ public class HangmanGameTest
     {
     }
 
-        private WordGeneratorService createWordService(Word word)
+    private HangmanGame createDefaultGame(String word)
+    {
+        WordGeneratorService wordGenSvc = createWordService(new Word(word));
+        HangmanGame game = new HangmanGame(wordGenSvc);
+        game.start(new GameConfig());
+        return game;
+    }
+
+    private WordGeneratorService createWordService(Word word)
     {
         WordGeneratorService wordGenSvc = mock(WordGeneratorService.class);
         when(wordGenSvc.generateWord()).thenReturn(word);
@@ -46,8 +55,7 @@ public class HangmanGameTest
     @Test
     public void testReset()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
 
         final Map<String, Object> actual = new HashMap<>();
         game.addPropertyChangeListener((PropertyChangeEvent evt) ->
@@ -70,23 +78,21 @@ public class HangmanGameTest
     @Test
     public void testIsGameOver_NoMoreGuesses()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
-        GameConfig config = new GameConfig();
-        config.setNumGuessesAllowed(1);
-        game.setConfig(config);
+        HangmanGame game = createDefaultGame("bat");
+        GameConfig config = new GameConfig(1);
+        game.start(config);
         assertFalse(game.isGameOver());
         game.processLetter('z');
         assertTrue(game.isGameOver());
     }
+
     /**
      * Test of isGameOver method, of class HangmanGame.
      */
     @Test
     public void testIsGameOver_GuessedWord()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
         assertFalse(game.isGameOver());
         game.processLetter('b');
         assertFalse(game.isGameOver());
@@ -102,8 +108,7 @@ public class HangmanGameTest
     @Test
     public void testProcessLetter_wins()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -134,8 +139,7 @@ public class HangmanGameTest
     @Test
     public void testProcessLetter_Loses()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -169,11 +173,11 @@ public class HangmanGameTest
         assertTrue(game.isGameOver());
 
     }
+
     @Test
     public void testProcessLetter_repeatGuess()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -214,15 +218,13 @@ public class HangmanGameTest
 
     }
 
-
     /**
      * Test of getGuessedLetters method, of class HangmanGame.
      */
     @Test
     public void testGetGuessedLetters()
     {
-        WordGeneratorService wordGenSvc = createWordService(new Word("bat"));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGame game = createDefaultGame("bat");
         String input = "zxtza";
         for (int i = 0; i < input.length(); i++)
         {
@@ -236,6 +238,7 @@ public class HangmanGameTest
 
     protected static class OutputCatcher implements PropertyChangeListener
     {
+
         private final List<String> output = new ArrayList<>();
 
         protected OutputCatcher()
@@ -252,15 +255,13 @@ public class HangmanGameTest
         @Override
         public void propertyChange(PropertyChangeEvent evt)
         {
-           if (evt.getPropertyName().equals(HangmanGame.OUT_TEXT))
+            if (evt.getPropertyName().equals(HangmanGame.OUT_TEXT))
             {
-                for (Object object : ((Iterable)evt.getNewValue()))
+                for (Object object : ((Iterable) evt.getNewValue()))
                 {
                     output.add(object.toString());
                 }
             }
         }
-
     }
 }
-
