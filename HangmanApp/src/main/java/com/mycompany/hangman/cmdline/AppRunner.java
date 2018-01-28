@@ -1,7 +1,7 @@
-package com.mycompany.hangman.cmd_line;
+package com.mycompany.hangman.cmdline;
 
-import java.lang.Character
 import com.mycompany.hangman.model.*;
+import java.lang.Character;
 import java.util.Arrays;
 import java.util.List;
 
