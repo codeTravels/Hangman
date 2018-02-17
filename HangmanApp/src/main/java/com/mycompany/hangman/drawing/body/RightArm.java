@@ -24,8 +24,8 @@ public class RightArm extends DrawablePiece
         double slope = -1;
         int offset = getX();
         int x2 = offset + 25;
-        double y2=slope*(x2 - offset ) + getY();
-        g.drawLine(getX(), getY(), x2, (int)y2);
+        double y2 = slope * (x2 - offset) + getY();
+        g.drawLine(getX(), getY(), x2, (int) y2);
 
     }
 

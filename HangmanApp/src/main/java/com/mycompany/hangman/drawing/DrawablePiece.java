@@ -8,14 +8,14 @@ import java.awt.Graphics;
  */
 public abstract class DrawablePiece implements Drawable
 {
-    private final int x;
-    private final int y;
+    private final int xCoordinate;
+    private final int yCoordinate;
     private boolean show = false;
 
     public DrawablePiece(int x, int y)
     {
-        this.x = x;
-        this.y = y;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
     }
 
     @Override
@@ -26,12 +26,12 @@ public abstract class DrawablePiece implements Drawable
 
     public int getX()
     {
-        return x;
+        return xCoordinate;
     }
 
     public int getY()
     {
-        return y;
+        return yCoordinate;
     }
 
     @Override

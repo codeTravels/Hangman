@@ -1,6 +1,11 @@
 package com.mycompany.hangman.drawing;
 
-import com.mycompany.hangman.drawing.body.*;
+import com.mycompany.hangman.drawing.body.Head;
+import com.mycompany.hangman.drawing.body.LeftArm;
+import com.mycompany.hangman.drawing.body.LeftLeg;
+import com.mycompany.hangman.drawing.body.RightArm;
+import com.mycompany.hangman.drawing.body.RightLeg;
+import com.mycompany.hangman.drawing.body.Torso;
 import com.mycompany.hangman.drawing.gallow.GallowBase;
 import com.mycompany.hangman.drawing.gallow.GallowHead;
 import com.mycompany.hangman.drawing.gallow.GallowPost;
@@ -16,6 +21,7 @@ import java.util.List;
  */
 public class Picture implements Drawable
 {
+
     private int chancesToGuess = GameConfig.DEFAULT_NUM_GUESSES;
     private final List<Drawable> drawables = new ArrayList<>();
     private int cnt;
@@ -27,42 +33,42 @@ public class Picture implements Drawable
 
     public Picture(int width, int height, int offset)
     {
-        GallowBase gallowBase = new GallowBase((width - GallowBase.WIDTH)/2+offset,
-                height - GallowBase.HEIGHT);
+        GallowBase gallowBase = new GallowBase((width - GallowBase.WIDTH) / 2 + offset,
+                                               height - GallowBase.HEIGHT);
 
-         drawables.add(gallowBase);
+        drawables.add(gallowBase);
 
-         GallowPost gallowPost = new GallowPost(gallowBase.getX() + (GallowBase.WIDTH - GallowPost.WIDTH)/2,
-         gallowBase.getY() - GallowPost.HEIGHT);
-         drawables.add(gallowPost);
+        GallowPost gallowPost = new GallowPost(gallowBase.getX() + (GallowBase.WIDTH - GallowPost.WIDTH) / 2,
+                                               gallowBase.getY() - GallowPost.HEIGHT);
+        drawables.add(gallowPost);
 
-         GallowTop gallowTop = new GallowTop(gallowPost.getX() + GallowPost.WIDTH - GallowTop.WIDTH,
-         gallowPost.getY() - GallowTop.HEIGHT);
-         drawables.add(gallowTop);
+        GallowTop gallowTop = new GallowTop(gallowPost.getX() + GallowPost.WIDTH - GallowTop.WIDTH,
+                                            gallowPost.getY() - GallowTop.HEIGHT);
+        drawables.add(gallowTop);
 
-         GallowHead gallowHead = new GallowHead(gallowTop.getX(), gallowTop.getY() + GallowTop.HEIGHT);
-         drawables.add(gallowHead);
+        GallowHead gallowHead = new GallowHead(gallowTop.getX(), gallowTop.getY() + GallowTop.HEIGHT);
+        drawables.add(gallowHead);
 
-         Head head = new Head(gallowHead.getX(), gallowHead.getY() + GallowHead.HEIGHT);
-         drawables.add(head);
+        Head head = new Head(gallowHead.getX(), gallowHead.getY() + GallowHead.HEIGHT);
+        drawables.add(head);
 
-         Torso torso = new Torso(head.getX(), head.getY() + Head.DIAMETER);
-         drawables.add(torso);
+        Torso torso = new Torso(head.getX(), head.getY() + Head.DIAMETER);
+        drawables.add(torso);
 
-         LeftArm leftArm = new LeftArm(torso.getX(), torso.getY() + Torso.HEIGHT/2);
-         drawables.add(leftArm);
+        LeftArm leftArm = new LeftArm(torso.getX(), torso.getY() + Torso.HEIGHT / 2);
+        drawables.add(leftArm);
 
-         RightArm rightArm = new RightArm(torso.getX(), torso.getY() + Torso.HEIGHT/2);
-         drawables.add(rightArm);
+        RightArm rightArm = new RightArm(torso.getX(), torso.getY() + Torso.HEIGHT / 2);
+        drawables.add(rightArm);
 
-         LeftLeg leftLeg = new LeftLeg(torso.getX(), torso.getY() + Torso.HEIGHT);
-         drawables.add(leftLeg);
+        LeftLeg leftLeg = new LeftLeg(torso.getX(), torso.getY() + Torso.HEIGHT);
+        drawables.add(leftLeg);
 
-         RightLeg rightLeg = new RightLeg(torso.getX(), torso.getY() + Torso.HEIGHT);
-         drawables.add(rightLeg);
+        RightLeg rightLeg = new RightLeg(torso.getX(), torso.getY() + Torso.HEIGHT);
+        drawables.add(rightLeg);
 
-         cnt = drawables.size() - chancesToGuess ;
-         for (int i = 0; i < cnt; i++)
+        cnt = drawables.size() - chancesToGuess;
+        for (int i = 0; i < cnt; i++)
         {
             drawables.get(i).show();
         }
@@ -77,15 +83,15 @@ public class Picture implements Drawable
     }
 
     @Override
-     public void draw(Graphics g)
-     {
-         for (Drawable drawable : drawables)
-         {
-             if (drawable.isShowEnabled())
-             {
-                 drawable.draw(g);
-             }
-         }
+    public void draw(Graphics g)
+    {
+        for (Drawable drawable : drawables)
+        {
+            if (drawable.isShowEnabled())
+            {
+                drawable.draw(g);
+            }
+        }
     }
 
     @Override
@@ -96,7 +102,7 @@ public class Picture implements Drawable
             drawable.reset();
         });
         cnt = drawables.size() - chancesToGuess;
-         for (int i = 0; i < cnt; i++)
+        for (int i = 0; i < cnt; i++)
         {
             drawables.get(i).show();
         }

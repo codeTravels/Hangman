@@ -27,7 +27,10 @@ public class DrawDemo extends JFrame
             @Override
             public void mousePressed(MouseEvent e)
             {
-                PropertyChangeEvent propertyChangeEvent = new PropertyChangeEvent(this, HangmanGame.WRONG_GUESS, false, true);
+                PropertyChangeEvent propertyChangeEvent = new PropertyChangeEvent(this,
+                                                                                  HangmanGame.WRONG_GUESS,
+                                                                                  false,
+                                                                                  true);
                 drawPanel.modelPropertyChange(propertyChangeEvent);
             }
         });
@@ -85,11 +88,11 @@ public class DrawDemo extends JFrame
     {
         SwingUtilities.invokeLater(() ->
         {
-            createAndShowGUI();
+            createAndShow();
         });
     }
 
-    private static void createAndShowGUI()
+    private static void createAndShow()
     {
         System.out.println("Created GUI on EDT? "
                 + SwingUtilities.isEventDispatchThread());

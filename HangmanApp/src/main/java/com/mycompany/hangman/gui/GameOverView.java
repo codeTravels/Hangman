@@ -46,7 +46,7 @@ public class GameOverView implements View
     public boolean playAgain()
     {
         boolean retVal = false;
-        Object options[] =
+        Object[] options =
         {
             "Yes please", "No, thanks"
         };

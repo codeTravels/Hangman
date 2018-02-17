@@ -23,8 +23,8 @@ public class LeftArm extends DrawablePiece
         g.setColor(Color.BLACK);
         double slope = -1;
         int x2 = 25;
-        double y2=slope * x2 +getY();
+        double y2 = slope * x2 + getY();
         int offset = getX();
-        g.drawLine(getX(), getY(), offset - x2, (int)y2);
+        g.drawLine(getX(), getY(), offset - x2, (int) y2);
     }
 }

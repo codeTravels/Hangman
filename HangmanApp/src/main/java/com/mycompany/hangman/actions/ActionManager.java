@@ -22,7 +22,7 @@ public class ActionManager
     {
     }
 
-    public synchronized static ActionManager getInstance()
+    public static synchronized ActionManager getInstance()
     {
         if (instance == null)
         {
