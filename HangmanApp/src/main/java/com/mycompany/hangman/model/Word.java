@@ -40,8 +40,8 @@ public class Word
      *
      * @param guessedLetter
      * @return true if the guessed letter is not currently displayed and is part
-     * of the word. false if the letter is already displaying or is not part of
-     * the word
+     *         of the word. false if the letter is already displaying or is not
+     *         part of the word
      *
      */
     public boolean guessedCorrectLetter(char guessedLetter)
@@ -49,7 +49,7 @@ public class Word
         boolean retVal = false;
         for (Character letter : letters)
         {
-            if (guessedLetter == letter.get() && (!letter.ableToDisplay()))
+            if (guessedLetter == letter.get() && !letter.ableToDisplay())
             {
                 retVal = true;
                 letter.displayChar();
@@ -103,9 +103,8 @@ public class Word
                 builder.append(" ");
             }
         }
-         return builder.toString();
+        return builder.toString();
     }
-
 
     public boolean hasGuessedWord()
     {

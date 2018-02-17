@@ -6,5 +6,6 @@ package com.mycompany.hangman.model;
  */
 public interface WordGeneratorService
 {
-    public Word generateWord();
+
+    Word generateWord();
 }

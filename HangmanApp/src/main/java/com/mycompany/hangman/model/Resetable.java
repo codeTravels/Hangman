@@ -6,5 +6,6 @@ package com.mycompany.hangman.model;
  */
 public interface Resetable
 {
-    public void reset();
+
+    void reset();
 }
