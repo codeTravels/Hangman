@@ -4,10 +4,6 @@ import com.mycompany.hangman.model.Resetable;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
-/**
- *
- * @author Cory
- */
 public class NewGameAction extends AbstractAction
 {
 

@@ -8,10 +8,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Cory
- */
 public abstract class AbstractController implements Controller
 {
 
@@ -97,12 +93,15 @@ public abstract class AbstractController implements Controller
             }
             catch (NoSuchMethodException ex)
             {
+                //  Do nothing
             }
             catch (SecurityException ex)
             {
+                //  Handle exception.
             }
             catch (InvocationTargetException ex)
             {
+                //  Handle exception.
             }
         }
     }

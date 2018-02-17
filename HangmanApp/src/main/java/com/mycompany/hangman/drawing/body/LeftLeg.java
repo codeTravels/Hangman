@@ -4,10 +4,6 @@ import com.mycompany.hangman.drawing.DrawablePiece;
 import java.awt.Color;
 import java.awt.Graphics;
 
-/**
- *
- * @author Cory
- */
 public class LeftLeg extends DrawablePiece
 {
 

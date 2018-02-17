@@ -2,12 +2,9 @@ package com.mycompany.hangman.drawing;
 
 import java.awt.Graphics;
 
-/**
- *
- * @author Cory
- */
 public abstract class DrawablePiece implements Drawable
 {
+
     private final int xCoordinate;
     private final int yCoordinate;
     private boolean show = false;

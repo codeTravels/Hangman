@@ -14,6 +14,9 @@ public class AppRunner
     int wrongs;
     HangmanGame game;
 
+    /**
+     * Constructs AppRunner object.
+     */
     public AppRunner()
     {
         WordGeneratorService wordGeneratorService = () -> new Word("raw");

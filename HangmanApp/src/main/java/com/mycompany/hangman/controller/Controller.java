@@ -4,10 +4,6 @@ import com.mycompany.hangman.gui.View;
 import com.mycompany.hangman.model.Model;
 import java.beans.PropertyChangeListener;
 
-/**
- *
- * @author Cory
- */
 public interface Controller extends PropertyChangeListener
 {
 

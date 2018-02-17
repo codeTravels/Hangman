@@ -7,10 +7,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
-/**
- *
- * @author Cory
- */
 public class WordGenerator implements WordGeneratorService
 {
 

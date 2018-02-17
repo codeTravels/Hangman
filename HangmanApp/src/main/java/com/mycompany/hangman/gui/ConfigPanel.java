@@ -20,9 +20,9 @@ public class ConfigPanel extends JPanel implements ConfigView
     private ActionListener listener;
 
     /**
-     * Creates new form ConfigPanel
+     * Creates new form ConfigPanel.
      *
-     * @param parent
+     * @param parent the component this object should appear over
      */
     public ConfigPanel(Component parent)
     {
@@ -134,10 +134,11 @@ public class ConfigPanel extends JPanel implements ConfigView
     @Override
     public boolean isRestartAllowed()
     {
-        int userResponse = JOptionPane.showConfirmDialog(parent,
-                                                         "Game will reset. Do you want to continue with changes?",
-                                                         "Game Reset",
-                                                         JOptionPane.YES_NO_OPTION);
+        int userResponse = JOptionPane
+                .showConfirmDialog(parent,
+                                   "Game will reset. Do you want to continue with changes?",
+                                   "Game Reset",
+                                   JOptionPane.YES_NO_OPTION);
         return userResponse == JOptionPane.OK_OPTION;
     }
 }

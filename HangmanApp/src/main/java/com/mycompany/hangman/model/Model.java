@@ -2,10 +2,6 @@ package com.mycompany.hangman.model;
 
 import java.beans.PropertyChangeListener;
 
-/**
- *
- * @author Cory
- */
 public interface Model
 {
 

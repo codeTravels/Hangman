@@ -28,6 +28,9 @@ public class HangmanApp
 
     }
 
+    /**
+     * This wires up and starts the game.
+     */
     public void start()
     {
 

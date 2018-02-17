@@ -4,14 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.Action;
 
-/**
- *
- * @author Cory
- */
 public class ActionManager
 {
 
-    private static volatile ActionManager instance;
+    private static final ActionManager INSTANCE = new ActionManager();
     public static final String NEW_GAME_ACTION = "NEW_GAME";
     public static final String CONFIG_GAME_ACTION = "CONFIG_GAME";
     public static final String EXIT_GAME_ACTION = "EXIT_GAME";
@@ -24,11 +20,7 @@ public class ActionManager
 
     public static synchronized ActionManager getInstance()
     {
-        if (instance == null)
-        {
-            instance = new ActionManager();
-        }
-        return instance;
+        return INSTANCE;
     }
 
     public Action get(String key)

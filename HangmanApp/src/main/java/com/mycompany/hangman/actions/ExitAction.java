@@ -3,10 +3,6 @@ package com.mycompany.hangman.actions;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
-/**
- *
- * @author Cory
- */
 public class ExitAction extends AbstractAction
 {
 

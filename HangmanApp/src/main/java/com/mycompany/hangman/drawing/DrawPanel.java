@@ -9,17 +9,13 @@ import java.awt.Graphics;
 import java.beans.PropertyChangeEvent;
 import javax.swing.BorderFactory;
 
-/**
- *
- * @author Cory
- */
 public class DrawPanel extends javax.swing.JPanel implements View
 {
 
     Picture picture = new Picture(getPreferredSize().width, getPreferredSize().height, 10);
 
     /**
-     * Creates new form DrawPanel
+     * Creates new form DrawPanel.
      */
     public DrawPanel()
     {

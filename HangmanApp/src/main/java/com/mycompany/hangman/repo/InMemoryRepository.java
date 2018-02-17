@@ -3,11 +3,6 @@ package com.mycompany.hangman.repo;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author Cory
- * @param <T>
- */
 public class InMemoryRepository<T> implements Repository<T>
 {
 

@@ -1,9 +1,5 @@
 package com.mycompany.hangman.model;
 
-/**
- *
- * @author Cory
- */
 public class Character
 {
 
@@ -38,7 +34,7 @@ public class Character
     }
 
     /**
-     * Displays character if it is a space
+     * Displays character if it is a space.
      */
     protected final void displaySpaceChar()
     {
@@ -49,9 +45,9 @@ public class Character
     }
 
     /**
-     * Returns true if it is a space character
+     * Returns true if it is a space character.
      *
-     * @return
+     * @return true if it is a space character
      */
     public boolean isSpace()
     {

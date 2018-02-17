@@ -3,10 +3,6 @@ package com.mycompany.hangman.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-/**
- *
- * @author Cory
- */
 public abstract class AbstractModel implements Model
 {
 

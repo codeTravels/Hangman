@@ -15,10 +15,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Cory
- */
 public class Picture implements Drawable
 {
 
@@ -26,11 +22,13 @@ public class Picture implements Drawable
     private final List<Drawable> drawables = new ArrayList<>();
     private int cnt;
 
-    public Picture(int width, int height)
-    {
-        this(width, height, 0);
-    }
-
+    /**
+     * Constructs a Picture object.
+     *
+     * @param width  the width in pixels of the total image to render
+     * @param height the height in pixels of total image to render
+     * @param offset the offset in pixels to move the base of the gallow
+     */
     public Picture(int width, int height, int offset)
     {
         GallowBase gallowBase = new GallowBase((width - GallowBase.WIDTH) / 2 + offset,
@@ -38,7 +36,8 @@ public class Picture implements Drawable
 
         drawables.add(gallowBase);
 
-        GallowPost gallowPost = new GallowPost(gallowBase.getX() + (GallowBase.WIDTH - GallowPost.WIDTH) / 2,
+        GallowPost gallowPost = new GallowPost(gallowBase.getX()
+                + (GallowBase.WIDTH - GallowPost.WIDTH) / 2,
                                                gallowBase.getY() - GallowPost.HEIGHT);
         drawables.add(gallowPost);
 
@@ -46,7 +45,8 @@ public class Picture implements Drawable
                                             gallowPost.getY() - GallowTop.HEIGHT);
         drawables.add(gallowTop);
 
-        GallowHead gallowHead = new GallowHead(gallowTop.getX(), gallowTop.getY() + GallowTop.HEIGHT);
+        GallowHead gallowHead = new GallowHead(gallowTop.getX(),
+                                               gallowTop.getY() + GallowTop.HEIGHT);
         drawables.add(gallowHead);
 
         Head head = new Head(gallowHead.getX(), gallowHead.getY() + GallowHead.HEIGHT);
@@ -74,6 +74,9 @@ public class Picture implements Drawable
         }
     }
 
+    /**
+     * Tell the next drawable to show itself.
+     */
     public void showEnableNext()
     {
         if (cnt <= drawables.size())
@@ -126,7 +129,7 @@ public class Picture implements Drawable
     @Override
     public void show()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void setChancesToGuess(int chancesToGuess)

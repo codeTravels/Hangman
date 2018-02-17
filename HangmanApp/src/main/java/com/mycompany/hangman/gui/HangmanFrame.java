@@ -4,15 +4,11 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-/**
- *
- * @author Cory
- */
 public class HangmanFrame extends JFrame
 {
 
     /**
-     * Creates new form NewJFrame
+     * Creates new form HangmanFrame.
      */
     public HangmanFrame()
     {
@@ -56,6 +52,8 @@ public class HangmanFrame extends JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * Creates and shows this frame.
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args)
