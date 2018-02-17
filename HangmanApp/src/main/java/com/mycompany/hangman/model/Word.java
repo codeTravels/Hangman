@@ -4,41 +4,29 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- *
- * @author Cory
- */
 public class Word
 {
 
-    private List<Character> letters = new ArrayList();
-
-    public Word(String word)
-    {
-        letters = initialize(word);
-    }
+    private final List<Character> letters = new ArrayList();
 
     /**
-     * Creates a list of characters from the wordToGuess
+     * Creates a Word object from a String.
      *
-     * @param wordToGuess
-     * @return the list of characters from the word to guess
+     * @param word the string to convert
      */
-    protected final List<Character> initialize(String wordToGuess)
+    public Word(String word)
     {
-        List<Character> retVal = new ArrayList();
-        for (int i = 0; i < wordToGuess.length(); i++)
+        for (int i = 0; i < word.length(); i++)
         {
-            retVal.add(new Character(wordToGuess.charAt(i)));
+            letters.add(new Character(word.charAt(i)));
         }
-        return retVal;
     }
 
     /**
      * Check if guessed letter is part of the word and is not currently
      * displayed. If it is then the letter will be able to be displayed.
      *
-     * @param guessedLetter
+     * @param guessedLetter the letter to look for
      * @return true if the guessed letter is not currently displayed and is part
      *         of the word. false if the letter is already displaying or is not
      *         part of the word
@@ -59,10 +47,10 @@ public class Word
     }
 
     /**
-     * Checks if the char is part of the word
+     * Checks if the char is part of the word.
      *
-     * @param guessedLetter
-     * @return
+     * @param guessedLetter the letter to search for
+     * @return true if guessedLetter is in this word
      */
     public boolean hasLetter(char guessedLetter)
     {
@@ -70,11 +58,11 @@ public class Word
     }
 
     /**
-     * Checks if the guessedLetter is part of the list of Characters
+     * Checks if the guessedLetter is part of the list of Characters.
      *
-     * @param guessedLetter
-     * @param letters
-     * @return
+     * @param guessedLetter the letter to search for
+     * @param letters       the list to look in
+     * @return true if guessedLetter is in letters
      */
     public static boolean hasLetter(char guessedLetter, List<Character> letters)
     {
@@ -90,6 +78,11 @@ public class Word
         return retVal;
     }
 
+    /**
+     * The formatted string that is displayed to the user.
+     *
+     * @return the formatted string
+     */
     public String displayString()
     {
         StringBuilder builder = new StringBuilder();
@@ -106,6 +99,11 @@ public class Word
         return builder.toString();
     }
 
+    /**
+     * Checks to see if the whole word has been guessed.
+     *
+     * @return true if the whole word has been guessed
+     */
     public boolean hasGuessedWord()
     {
         boolean retVal = true;
@@ -120,6 +118,12 @@ public class Word
         return retVal;
     }
 
+    /**
+     * Checks if the given char is currently displaying.
+     *
+     * @param letter the letter to check
+     * @return true if the letter is being displayed
+     */
     public boolean isDisplaying(char letter)
     {
         boolean retVal = false;

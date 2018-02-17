@@ -5,10 +5,6 @@ import com.mycompany.hangman.drawing.gallow.GallowHead;
 import java.awt.Color;
 import java.awt.Graphics;
 
-/**
- *
- * @author Cory
- */
 public class Head extends DrawablePiece
 {
 

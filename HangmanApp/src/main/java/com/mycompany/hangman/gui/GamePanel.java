@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.text.AbstractDocument;
 
 /**
+ * This is the main panel where the game is played.
  *
  * @author Cory
  */
@@ -17,7 +18,7 @@ public class GamePanel extends JPanel implements View
 {
 
     /**
-     * Creates new form GamePanel
+     * Creates new form GamePanel.
      */
     public GamePanel()
     {
@@ -166,6 +167,11 @@ public class GamePanel extends JPanel implements View
         }
     }
 
+    /**
+     * Sets the list of incorrect guessed letters to display.
+     *
+     * @param letters the list of incorrect letters
+     */
     public void setIncorrectLetters(List<Character> letters)
     {
         StringBuilder builder = new StringBuilder();
@@ -195,6 +201,11 @@ public class GamePanel extends JPanel implements View
         outputConsole.setText("");
     }
 
+    /**
+     * Gets the letter from the GUI.
+     *
+     * @return the guess from user in uppercase
+     */
     public String consumeGuess()
     {
         String retVal = getGuess();

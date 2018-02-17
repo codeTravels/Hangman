@@ -5,15 +5,12 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
-/**
- *
- * @author Cory
- */
 public class ValidGuessDocFilter extends DocumentFilter
 {
 
     @Override
-    public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException
+    public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
+            throws BadLocationException
     {
         System.out.println("MyDocumentFilter insertString");
         if (isAllowed(offset, 0, string))
@@ -27,8 +24,10 @@ public class ValidGuessDocFilter extends DocumentFilter
     }
 
     @Override
-    public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException
+    public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+            throws BadLocationException
     {
+
         if (isAllowed(offset, length, text))
         {
             super.replace(fb, offset, length, text, attrs);

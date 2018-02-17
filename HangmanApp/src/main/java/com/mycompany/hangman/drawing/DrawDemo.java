@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 /**
- * Draws a new piece of the Hangman figure on mouse click events
+ * Draws a new piece of the Hangman figure on mouse click events.
  *
  * @author Cory Bianchi
  */
@@ -16,7 +16,7 @@ public class DrawDemo extends JFrame
 {
 
     /**
-     * Creates new form Hangman
+     * Default constructor.
      */
     public DrawDemo()
     {
@@ -27,8 +27,11 @@ public class DrawDemo extends JFrame
             @Override
             public void mousePressed(MouseEvent e)
             {
-                PropertyChangeEvent propertyChangeEvent = new PropertyChangeEvent(this, HangmanGame.WRONG_GUESS, false, true);
-                drawPanel.modelPropertyChange(propertyChangeEvent);
+                PropertyChangeEvent event = new PropertyChangeEvent(this,
+                                                                    HangmanGame.WRONG_GUESS,
+                                                                    false,
+                                                                    true);
+                drawPanel.modelPropertyChange(event);
             }
         });
     }
@@ -79,17 +82,19 @@ public class DrawDemo extends JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * Creates and shows this GUI.
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args)
     {
         SwingUtilities.invokeLater(() ->
         {
-            createAndShowGUI();
+            createAndShow();
         });
     }
 
-    private static void createAndShowGUI()
+    private static void createAndShow()
     {
         System.out.println("Created GUI on EDT? "
                 + SwingUtilities.isEventDispatchThread());

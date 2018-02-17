@@ -8,10 +8,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Cory
- */
 public abstract class AbstractController implements Controller
 {
 
@@ -71,8 +67,8 @@ public abstract class AbstractController implements Controller
      * the property in question. If it isn't, a NoSuchMethodException is thrown,
      * which the method ignores.
      *
-     * @param propertyName  The name of the property.
-     * @param newValue      An object that represents the new value of the
+     * @param propertyName The name of the property.
+     * @param newValue     An object that represents the new value of the
      *                     property.
      */
     protected void setModelProperty(String propertyName, Object newValue)
@@ -82,7 +78,8 @@ public abstract class AbstractController implements Controller
         {
             try
             {
-                Method method = model.getClass().getMethod("set" + propertyName, newValue.getClass());
+                Method method = model.getClass()
+                        .getMethod("set" + propertyName, newValue.getClass());
                 method.invoke(model, newValue);
 
             }
@@ -96,12 +93,15 @@ public abstract class AbstractController implements Controller
             }
             catch (NoSuchMethodException ex)
             {
+                //  Do nothing
             }
             catch (SecurityException ex)
             {
+                //  Handle exception.
             }
             catch (InvocationTargetException ex)
             {
+                //  Handle exception.
             }
         }
     }

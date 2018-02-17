@@ -6,16 +6,18 @@ import com.mycompany.hangman.model.Resetable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- *
- * @author Cory
- */
 public class WordController extends AbstractController implements ActionListener, Resetable
 {
 
     private final GamePanel view;
     private final HangmanGame model;
 
+    /**
+     * Constructs a WordController object.
+     *
+     * @param view  GUI that is displayed
+     * @param model contains core game logic
+     */
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public WordController(GamePanel view, HangmanGame model)
     {

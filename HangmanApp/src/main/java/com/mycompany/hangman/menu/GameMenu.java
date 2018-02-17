@@ -5,10 +5,6 @@ import java.util.Map;
 import javax.swing.Action;
 import javax.swing.JMenu;
 
-/**
- *
- * @author Cory
- */
 public class GameMenu extends JMenu
 {
 

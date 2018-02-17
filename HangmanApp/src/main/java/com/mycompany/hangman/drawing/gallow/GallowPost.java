@@ -1,9 +1,5 @@
 package com.mycompany.hangman.drawing.gallow;
 
-/**
- *
- * @author Cory
- */
 public class GallowPost extends GallowPiece
 {
 

@@ -1,9 +1,5 @@
 package com.mycompany.hangman;
 
-/**
- *
- * @author Cory
- */
 public class Hangman
 {
 

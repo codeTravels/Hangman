@@ -6,10 +6,6 @@ import java.awt.Component;
 import java.beans.PropertyChangeEvent;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Cory
- */
 public class GameOverView implements View
 {
 
@@ -43,10 +39,15 @@ public class GameOverView implements View
         }
     }
 
+    /**
+     * Asks the user if he/she would like to play again.
+     *
+     * @return true if user wants to play again
+     */
     public boolean playAgain()
     {
         boolean retVal = false;
-        Object options[] =
+        Object[] options =
         {
             "Yes please", "No, thanks"
         };

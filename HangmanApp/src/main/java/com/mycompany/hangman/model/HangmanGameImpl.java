@@ -1,11 +1,11 @@
 package com.mycompany.hangman.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
-/**
- *
- * @author Cory
- */
 public class HangmanGameImpl extends AbstractModel implements HangmanGame
 {
 
@@ -100,7 +100,7 @@ public class HangmanGameImpl extends AbstractModel implements HangmanGame
     }
 
     /**
-     * Add letter to list of guessed letters
+     * Add letter to list of guessed letters.
      *
      * @param letter letter that was guessed
      */
