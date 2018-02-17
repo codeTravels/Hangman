@@ -6,13 +6,14 @@ import com.mycompany.hangman.model.HangmanGame;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.text.AbstractDocument;
 
 /**
  *
  * @author Cory
  */
-public class GamePanel extends javax.swing.JPanel implements View
+public class GamePanel extends JPanel implements View
 {
 
     /**

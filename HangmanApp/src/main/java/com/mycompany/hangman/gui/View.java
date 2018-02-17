@@ -9,6 +9,6 @@ import java.beans.PropertyChangeEvent;
 public interface View
 {
 
-    public void modelPropertyChange(PropertyChangeEvent evt);
+    void modelPropertyChange(PropertyChangeEvent evt);
 
 }

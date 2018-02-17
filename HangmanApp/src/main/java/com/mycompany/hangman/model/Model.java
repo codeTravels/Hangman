@@ -8,7 +8,8 @@ import java.beans.PropertyChangeListener;
  */
 public interface Model
 {
-    public void addPropertyChangeListener(PropertyChangeListener listener);
 
-    public void removePropertyChangeListener(PropertyChangeListener listener) ;
+    void addPropertyChangeListener(PropertyChangeListener listener);
+
+    void removePropertyChangeListener(PropertyChangeListener listener);
 }

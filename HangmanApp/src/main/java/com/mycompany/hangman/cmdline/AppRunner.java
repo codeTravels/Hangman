@@ -1,7 +1,10 @@
 package com.mycompany.hangman.cmdline;
 
-import com.mycompany.hangman.model.*;
-import java.lang.Character;
+import com.mycompany.hangman.model.GameConfig;
+import com.mycompany.hangman.model.HangmanGame;
+import com.mycompany.hangman.model.HangmanGameImpl;
+import com.mycompany.hangman.model.Word;
+import com.mycompany.hangman.model.WordGeneratorService;
 import java.util.Arrays;
 import java.util.List;
 

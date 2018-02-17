@@ -10,11 +10,11 @@ import java.awt.event.ActionListener;
 public interface ConfigView extends View
 {
 
-    public GameConfig getUserConfig();
+    GameConfig getUserConfig();
 
-    public void display();
+    void display();
 
-    public void setListener(ActionListener listener);
+    void setListener(ActionListener listener);
 
-    public boolean isRestartAllowed();
+    boolean isRestartAllowed();
 }

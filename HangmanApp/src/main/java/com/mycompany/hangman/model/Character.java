@@ -7,7 +7,7 @@ package com.mycompany.hangman.model;
 public class Character
 {
 
-    protected static char PLACE_HOLDER = '_';
+    protected static final char PLACE_HOLDER = '_';
     private final char character;
     private boolean displayChar = false;
 
@@ -36,6 +36,7 @@ public class Character
     {
         return displayChar;
     }
+
     /**
      * Displays character if it is a space
      */
@@ -46,8 +47,10 @@ public class Character
             displayChar();
         }
     }
+
     /**
      * Returns true if it is a space character
+     *
      * @return
      */
     public boolean isSpace()

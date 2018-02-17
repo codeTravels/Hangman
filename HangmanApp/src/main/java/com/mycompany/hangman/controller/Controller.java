@@ -11,11 +11,11 @@ import java.beans.PropertyChangeListener;
 public interface Controller extends PropertyChangeListener
 {
 
-    public void addModel(Model model);
+    void addModel(Model model);
 
-    public void removeModel(Model model);
+    void removeModel(Model model);
 
-    public void addView(View view);
+    void addView(View view);
 
-    public void removeView(View view);
+    void removeView(View view);
 }

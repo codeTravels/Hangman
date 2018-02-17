@@ -9,9 +9,10 @@ import java.awt.Graphics;
  */
 public interface Drawable extends Resetable
 {
-    public void draw(Graphics g);
 
-    public boolean isShowEnabled();
+    void draw(Graphics g);
 
-    public void show();
+    boolean isShowEnabled();
+
+    void show();
 }

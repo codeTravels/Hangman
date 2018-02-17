@@ -12,7 +12,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Cory Bianchi
  */
-public class DrawDemo extends javax.swing.JFrame
+public class DrawDemo extends JFrame
 {
 
     /**
