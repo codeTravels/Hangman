@@ -6,8 +6,9 @@ package com.mycompany.hangman.drawing.gallow;
  */
 public class GallowBase extends GallowPiece
 {
-    public static  int WIDTH = 100;
-    public static  int HEIGHT = 10;
+
+    public static final int WIDTH = 100;
+    public static final int HEIGHT = 10;
 
     public GallowBase(int x, int y)
     {

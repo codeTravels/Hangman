@@ -2,8 +2,9 @@ package com.mycompany.hangman.model;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Random;
 
 /**
@@ -14,6 +15,7 @@ public class WordGenerator implements WordGeneratorService
 {
 
     private static final String WORD_FILE = "src/main/resources/wordLib.txt";
+    private static final String ENCODING = "UTF-8";
     private final File wordFile;
 
     public WordGenerator()
@@ -40,7 +42,8 @@ public class WordGenerator implements WordGeneratorService
         BufferedReader buffer;
         try
         {
-            buffer = new BufferedReader(new FileReader(wordFile));
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(wordFile), ENCODING);
+            buffer = new BufferedReader(isr);
             int randomLine = new Random().nextInt(wordCount());
 
             for (int i = 0; i <= randomLine; i++)
@@ -62,7 +65,8 @@ public class WordGenerator implements WordGeneratorService
         int retVal = 0;
         try
         {
-            buffer = new BufferedReader(new FileReader(wordFile));
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(wordFile), ENCODING);
+            buffer = new BufferedReader(isr);
             while (buffer.readLine() != null)
             {
                 retVal++;

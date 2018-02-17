@@ -10,8 +10,8 @@ import java.awt.Graphics;
  */
 public class Torso extends DrawablePiece
 {
-    protected static int WIDTH = 2;
-    public static int HEIGHT = 60;
+
+    public static final int HEIGHT = 60;
 
     public Torso(int x, int y)
     {
