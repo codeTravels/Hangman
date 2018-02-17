@@ -11,7 +11,7 @@ import com.mycompany.hangman.gui.GameOverView;
 import com.mycompany.hangman.gui.HangmanFrame;
 import com.mycompany.hangman.menu.GameMenu;
 import com.mycompany.hangman.model.GameConfig;
-import com.mycompany.hangman.model.HangmanGame;
+import com.mycompany.hangman.model.HangmanGameImpl;
 import com.mycompany.hangman.model.WordGenerator;
 import javax.swing.JMenuBar;
 
@@ -32,7 +32,7 @@ public class HangmanApp
     {
 
         HangmanFrame mainFrame = new HangmanFrame();
-        HangmanGame game = new HangmanGame(new WordGenerator());
+        HangmanGameImpl game = new HangmanGameImpl(new WordGenerator());
         WordController controller;
         {
             controller = new WordController(mainFrame.getGamePanel(), game);

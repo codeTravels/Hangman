@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Cory
  */
-public class HangmanGameTest
+public class HangmanGameImplTest
 {
 
     @Rule
@@ -30,14 +30,14 @@ public class HangmanGameTest
         }
     };
 
-    public HangmanGameTest()
+    public HangmanGameImplTest()
     {
     }
 
-    private HangmanGame createDefaultGame(String word)
+    private HangmanGameImpl createDefaultGame(String word)
     {
         WordGeneratorService wordGenSvc = createWordService(new Word(word));
-        HangmanGame game = new HangmanGame(wordGenSvc);
+        HangmanGameImpl game = new HangmanGameImpl(wordGenSvc);
         game.start(new GameConfig());
         return game;
     }
@@ -55,7 +55,7 @@ public class HangmanGameTest
     @Test
     public void testReset()
     {
-        HangmanGame game = createDefaultGame("bat");
+        HangmanGameImpl game = createDefaultGame("bat");
 
         final Map<String, Object> actual = new HashMap<>();
         game.addPropertyChangeListener((PropertyChangeEvent evt) ->
@@ -65,10 +65,10 @@ public class HangmanGameTest
         game.reset();
 
         Map<String, Object> expected = new HashMap<>();
-        expected.put(HangmanGame.WORD, "_ _ _");
-        expected.put(HangmanGame.CLEAR_IMAGE, true);
-        expected.put(HangmanGame.INCORRECT_LETTER, new ArrayList<>());
-        expected.put(HangmanGame.CLEAR_OUT_TEXT, true);
+        expected.put(HangmanGameImpl.WORD, "_ _ _");
+        expected.put(HangmanGameImpl.CLEAR_IMAGE, true);
+        expected.put(HangmanGameImpl.INCORRECT_LETTER, new ArrayList<>());
+        expected.put(HangmanGameImpl.CLEAR_OUT_TEXT, true);
         assertEquals(expected, actual);
     }
 
@@ -78,7 +78,7 @@ public class HangmanGameTest
     @Test
     public void testIsGameOver_NoMoreGuesses()
     {
-        HangmanGame game = createDefaultGame("bat");
+        HangmanGameImpl game = createDefaultGame("bat");
         GameConfig config = new GameConfig(1);
         game.start(config);
         assertFalse(game.isGameOver());
@@ -92,7 +92,7 @@ public class HangmanGameTest
     @Test
     public void testIsGameOver_GuessedWord()
     {
-        HangmanGame game = createDefaultGame("bat");
+        HangmanGameImpl game = createDefaultGame("bat");
         assertFalse(game.isGameOver());
         game.processLetter('b');
         assertFalse(game.isGameOver());
@@ -108,7 +108,7 @@ public class HangmanGameTest
     @Test
     public void testProcessLetter_wins()
     {
-        HangmanGame game = createDefaultGame("bat");
+        HangmanGameImpl game = createDefaultGame("bat");
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -139,7 +139,7 @@ public class HangmanGameTest
     @Test
     public void testProcessLetter_Loses()
     {
-        HangmanGame game = createDefaultGame("bat");
+        HangmanGameImpl game = createDefaultGame("bat");
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -177,7 +177,7 @@ public class HangmanGameTest
     @Test
     public void testProcessLetter_repeatGuess()
     {
-        HangmanGame game = createDefaultGame("bat");
+        HangmanGameImpl game = createDefaultGame("bat");
         OutputCatcher outputCatcher = new OutputCatcher();
         game.addPropertyChangeListener(outputCatcher);
 
@@ -224,7 +224,7 @@ public class HangmanGameTest
     @Test
     public void testGetGuessedLetters()
     {
-        HangmanGame game = createDefaultGame("bat");
+        HangmanGameImpl game = createDefaultGame("bat");
         String input = "zxtza";
         for (int i = 0; i < input.length(); i++)
         {

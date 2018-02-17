@@ -15,6 +15,7 @@ import javax.swing.BorderFactory;
  */
 public class DrawPanel extends javax.swing.JPanel implements View
 {
+
     Picture picture = new Picture(getPreferredSize().width, getPreferredSize().height, 10);
 
     /**
@@ -26,13 +27,13 @@ public class DrawPanel extends javax.swing.JPanel implements View
         setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
-     @Override
+    @Override
     public Dimension getPreferredSize()
     {
-        return new Dimension(200,200);
+        return new Dimension(200, 200);
     }
 
-     @Override
+    @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
@@ -76,7 +77,7 @@ public class DrawPanel extends javax.swing.JPanel implements View
         }
         else if (evt.getPropertyName().equals(HangmanGame.GAME_CONFIG))
         {
-            picture.setChancesToGuess(((GameConfig)evt.getNewValue()).getNumGuessesAllowed());
+            picture.setChancesToGuess(((GameConfig) evt.getNewValue()).getNumGuessesAllowed());
             picture.reset();
             repaint();
         }
@@ -84,5 +85,4 @@ public class DrawPanel extends javax.swing.JPanel implements View
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-
 }
