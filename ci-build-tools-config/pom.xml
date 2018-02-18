@@ -45,16 +45,6 @@
 
     <build>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>${jacoco.plugin.version}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <extensions>
             <extension>
                 <groupId>com.mycompany</groupId>
@@ -68,6 +58,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.plugin.version}</version>
                 <configuration>
                     <destFile>${project.build.directory}/coverage-reports/jacoco-unit.exec</destFile>
                     <dataFile>${project.build.directory}/coverage-reports/jacoco-unit.exec</dataFile>
