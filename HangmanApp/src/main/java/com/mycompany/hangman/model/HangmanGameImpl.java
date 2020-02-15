@@ -11,7 +11,7 @@ public class HangmanGameImpl extends AbstractModel implements HangmanGame
 
     private GameConfig config;
     private int chancesLeftToGuess;
-    private final List<Character> incorrectLetters = new ArrayList();
+    private final List<Character> incorrectLetters = new ArrayList<>();
     private Word wordToGuess;
     private final WordGeneratorService wordGenerator;
 

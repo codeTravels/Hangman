@@ -13,7 +13,6 @@ public class HangmanFrame extends JFrame
     public HangmanFrame()
     {
         initComponents();
-        setVisible(true);
         setTitle("Hangman");
     }
 

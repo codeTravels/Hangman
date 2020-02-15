@@ -72,6 +72,7 @@ public class HangmanApp
         }
 
         game.start(new GameConfig());
+        mainFrame.setVisible(true);
     }
 
 }
